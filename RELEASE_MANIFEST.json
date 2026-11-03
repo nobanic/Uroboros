@@ -1,9 +1,9 @@
 {
   "application": "Uroboros",
   "version": "0.5",
-  "sourceRevision": "b9d0752d794bf2763b159e12cad9740e8fdcbdf6",
-  "sourceApplicationTree": "eb0c4a4286e695fc48cdb23307151f1b8eb6f798",
-  "createdAt": "2026-11-03T09:46:01.077Z",
+  "sourceRevision": "d91f5a4092ce1219cde75814abf81241de33bc63",
+  "sourceApplicationTree": "a29a9ef869489444ee6a2a67c6a31ad41e2da753",
+  "createdAt": "2026-11-03T22:55:17.529Z",
   "sourceRepository": "https://github.com/nobanic/Uroboros",
   "gitMetadataIncluded": false,
   "operatorStateIncluded": false,
@@ -24,9 +24,10 @@
     }
   ],
   "screenshots": {
-    "count": 31,
+    "count": 33,
     "index": "screenshots/0.5/CAPTURE.json",
-    "additionalIndex": "screenshots/0.5/STARTUP_CAPTURE.json"
+    "additionalIndex": "screenshots/0.5/STARTUP_CAPTURE.json",
+    "updateIndex": "screenshots/0.5/UPDATE_CAPTURE.json"
   },
   "files": [
     {
@@ -66,13 +67,13 @@
     },
     {
       "path": "README.md",
-      "bytes": 11010,
-      "sha256": "3a5a08f80ecc9a2ebc3f32d9747d0bd2ca02adc3822aaccc0fdb3055ee33718d"
+      "bytes": 11106,
+      "sha256": "d6b77a669236b5cf3409ae2421e90b95ed456ed6a39782ad86fe92c5d123b19c"
     },
     {
       "path": "RELEASE_SOURCE",
       "bytes": 41,
-      "sha256": "676200e477ce1fa601378bdacd57081292b80f0f81174c327afc76582991fe31"
+      "sha256": "a0f3289328c14ea5d402d8044b8602b0732bc08bc4b7cd7bd76d492d8ab96685"
     },
     {
       "path": "THIRD_PARTY_NOTICES.md",
@@ -866,8 +867,8 @@
     },
     {
       "path": "clean/README.md",
-      "bytes": 6310,
-      "sha256": "6324fa6c438146bd979ec8ecfd7ecfcfe904659adbef622962cd8edb220d3d79"
+      "bytes": 6321,
+      "sha256": "cd3391cda33699b97fdccb3d52595bedb39d712173f38e4dad9326b487c44533"
     },
     {
       "path": "clean/api-lab-identities.json",
@@ -881,13 +882,13 @@
     },
     {
       "path": "clean/common.sh",
-      "bytes": 1274,
-      "sha256": "6d6159ab73384ba638b7112fb328f1ab3f4eb0b9be5b2813659e9daffc321562"
+      "bytes": 3514,
+      "sha256": "bb3e99bc091adc262d7c99295b3bafbd1af8ba194fa9ceb4cdddd70db51f0fea"
     },
     {
       "path": "clean/compose.yml",
-      "bytes": 9768,
-      "sha256": "4cd1ba02421447cbac9fdc79d6b946b556d55cbb412383d4d691f2c9817ddfee"
+      "bytes": 12073,
+      "sha256": "8c453c00e22ce690217605ab127219c209a549151522857f64edda7f08087839"
     },
     {
       "path": "clean/runtime-images/.gitignore",
@@ -911,18 +912,18 @@
     },
     {
       "path": "clean/start.ps1",
-      "bytes": 10010,
-      "sha256": "32ddb9ccd77e85a44780826895809ec007ee915faffadbbad1319b0aaab7bd79"
+      "bytes": 11309,
+      "sha256": "3f27bb901169330f7baa0637b1f005a6202f06e90a1dff9f013ceb60c673cc78"
     },
     {
       "path": "clean/start.sh",
-      "bytes": 7609,
-      "sha256": "e5526f7f5f1248853f65e34903e4d3551c7e201426cbeb25db07192b76d3f3fc"
+      "bytes": 8256,
+      "sha256": "b433f8cff3cdeb286801cbfd9714150cd4d1e3ab8cff99cf4e169bed4e8639f8"
     },
     {
       "path": "clean/status.ps1",
-      "bytes": 1873,
-      "sha256": "e59151183d6378739d63e6a8dc554bc7e509f9a39a08ec3de8d779d674195f00"
+      "bytes": 2093,
+      "sha256": "3e8e4da239b9560f80338fb0670217793cb957ddaf1a1ae9d39d5d2b832cb27d"
     },
     {
       "path": "clean/status.sh",
@@ -931,8 +932,8 @@
     },
     {
       "path": "clean/stop.ps1",
-      "bytes": 1375,
-      "sha256": "e7dfd5f5b25d63641e75926f56e3838588aeffcbcadb37352db5ac2db2295703"
+      "bytes": 1595,
+      "sha256": "680f11fda2d2a4e28c6f3f4e96814fb10814668f3477e7ccf409bb00692c367c"
     },
     {
       "path": "clean/stop.sh",
@@ -943,6 +944,21 @@
       "path": "clean/torrc",
       "bytes": 460,
       "sha256": "f7eb612fc06fa3c1a9fd8edfaa64b55219042555922273aae87e24bf6d19c77e"
+    },
+    {
+      "path": "clean/update-runtime.ps1",
+      "bytes": 2223,
+      "sha256": "7cd800b66ef6c56ecdb506153be546c1a6fe6158bab38a199d17be8a3892f5fe"
+    },
+    {
+      "path": "clean/updater/Dockerfile",
+      "bytes": 579,
+      "sha256": "cc89a5e6abfdbfa05f7f2d773228b6dde878c0448d57ecd5d3614a1d24123826"
+    },
+    {
+      "path": "clean/updater/README.md",
+      "bytes": 5655,
+      "sha256": "7c5f182d16c4f0ee9910909ddd6b5f31665bf870a594fd74e8e0665bf613348a"
     },
     {
       "path": "clean/verify-language.ps1",
@@ -978,6 +994,11 @@
       "path": "cmd/uroboros-binary-broker/privilege_unix.go",
       "bytes": 215,
       "sha256": "26cd358148e240f2a72d02ff26866fdcc17eefb53a887744ea8e5435c046843e"
+    },
+    {
+      "path": "cmd/uroboros-updater/main.go",
+      "bytes": 876,
+      "sha256": "f941428e2bdb6a6439cf5c92f2288ab9f137c44e62e3e54b0ec03fb4cb8bcd01"
     },
     {
       "path": "cmd/uroboros/binary_runtime.go",
@@ -1796,13 +1817,13 @@
     },
     {
       "path": "guide/README.md",
-      "bytes": 19615,
-      "sha256": "d3094f0e08d8a76c6da64fc5c7594bee75b100d25d3387487519f7d4e345e70a"
+      "bytes": 20960,
+      "sha256": "f6888846e76a3f40375c0719f06654468f605a1fb84290901fd2dbc4b8123cea"
     },
     {
       "path": "guide/index.html",
-      "bytes": 27415,
-      "sha256": "47e48f6adf8dd437d876ddc32948d4d33dcf66c999ce757c037ae3f73109e437"
+      "bytes": 29178,
+      "sha256": "109b733acb12bb167e212e32a0c71de72d25ecf5a8aec5a4963c824aaaf5a53d"
     },
     {
       "path": "install.sh",
@@ -2300,6 +2321,16 @@
       "sha256": "71d3e18ffe07723a98894d2b36864b84da2e126f1794281ceddeb04f07092942"
     },
     {
+      "path": "screenshots/0.5/34-console-updates-main.png",
+      "bytes": 321368,
+      "sha256": "81ff20f4d6f5cb77ddefe817cab556a05085261c217116569c7ee516b5f07531"
+    },
+    {
+      "path": "screenshots/0.5/35-console-update-progress.png",
+      "bytes": 284211,
+      "sha256": "7204fb07d537e04d7d073bc205bda2450550397bce8db7b7151a443147ea7c85"
+    },
+    {
       "path": "screenshots/0.5/CAPTURE.json",
       "bytes": 8034,
       "sha256": "dac72220563ca6d10aa3a2b8b333ff6080095b8041df9b9424b9b749e80d329a"
@@ -2310,9 +2341,14 @@
       "sha256": "59977bdf5f9be256095e444756cefe03a3679c4618e8cab057649d58737d2768"
     },
     {
+      "path": "screenshots/0.5/UPDATE_CAPTURE.json",
+      "bytes": 1068,
+      "sha256": "6026c64c79cdfe8bf948d0f8ccf71aa064eb27accc5010c49583eaeeab16b9bd"
+    },
+    {
       "path": "screenshots/index.html",
-      "bytes": 7137,
-      "sha256": "4a2739a440d8f7770e69f156bb661498797fafa85a342d8e252213cab1130d5d"
+      "bytes": 7570,
+      "sha256": "76901e99854e5964d330758dc6fddc533ece983fe85725b55f48047011c7c8f4"
     },
     {
       "path": "selfupdate/artifact_stream.go",
@@ -2526,8 +2562,8 @@
     },
     {
       "path": "server/conversation_triggers.go",
-      "bytes": 6909,
-      "sha256": "7203e9611d25deb0bb52f9913930ac7e3f12ba083ce5587e6eb352856f79fab7"
+      "bytes": 6751,
+      "sha256": "31507f78a5023453de1b449469b6e8f89533e07b23df4bb70f22dbc18c175705"
     },
     {
       "path": "server/conversation_turn.go",
@@ -2656,13 +2692,13 @@
     },
     {
       "path": "server/http_application.go",
-      "bytes": 1446,
-      "sha256": "540a4ad02785caedb65d41802d46dbaf886d51ee6bee90b1485f3eb4cb8a144d"
+      "bytes": 1484,
+      "sha256": "5e04e1effc907129bd282247e645c17a3276357ee495899f46ae71af5bdc43c8"
     },
     {
       "path": "server/http_endpoints.go",
-      "bytes": 20020,
-      "sha256": "dcc1c2d0fb87a4e089b500ff7c4b15c9078c12fc697287f744fd5099f1ff1a01"
+      "bytes": 19886,
+      "sha256": "8db93766bf8b0dc9223bcff1b239939faa22b032ae976e0faae2d7716ee02799"
     },
     {
       "path": "server/http_request.go",
@@ -2901,8 +2937,8 @@
     },
     {
       "path": "server/server.go",
-      "bytes": 61802,
-      "sha256": "f0abf6326369c3d3deb0157f448303e99901fbf10d74186b8e56dfe1fb3f857e"
+      "bytes": 61881,
+      "sha256": "eac70997613b9aa794174e330f93014582f061a05ad2772a131c547fa5d0fbdb"
     },
     {
       "path": "server/server_bootstrap.go",
@@ -3196,8 +3232,18 @@
     },
     {
       "path": "server/update.go",
-      "bytes": 13152,
-      "sha256": "4ac8e96020b22fc9bc79d16ebc81454d33926930af3ea0c507463d5670e5f65a"
+      "bytes": 13093,
+      "sha256": "547522adcdff40fc835a8c149a3f9faff60b109dacfc7fb07a38950406873fee"
+    },
+    {
+      "path": "server/update_managed.go",
+      "bytes": 7841,
+      "sha256": "6d55263796a6540832c33ed30c7110de64ff6bc0b3162e8759a7561a7fdea8da"
+    },
+    {
+      "path": "server/update_managed_test.go",
+      "bytes": 4884,
+      "sha256": "edb44f13aa889a59c79874f042358f44f83d1a14914a7861a2372acc8b90de9f"
     },
     {
       "path": "server/vulnerability_provider.go",
@@ -3358,6 +3404,41 @@
       "path": "skills/playwright-cli/references/video-recording.md",
       "bytes": 5530,
       "sha256": "3eeb4634a62101ea5659f084439f48e8131748524d71d0eaf95bc0b2fa758096"
+    },
+    {
+      "path": "stackupdate/controller.go",
+      "bytes": 12327,
+      "sha256": "e20e0cd161b1ee9ece8458e6e193edd0784f717355f1047cc59acb4f58dfab90"
+    },
+    {
+      "path": "stackupdate/controller_test.go",
+      "bytes": 11804,
+      "sha256": "3d9407393093dcaefe9dad1d79f8fa724cbde64df810aa800ed8b04b3e6618d2"
+    },
+    {
+      "path": "stackupdate/credentials.go",
+      "bytes": 1554,
+      "sha256": "2f282e23c23d8e748ae4ef43d8bb97f08a196124c6408d273abe1ba4e2f293c5"
+    },
+    {
+      "path": "stackupdate/docker.go",
+      "bytes": 10545,
+      "sha256": "8ac2fd262600be0b2aa93399118a84f617111dff38cec849e39b470675c1c2c1"
+    },
+    {
+      "path": "stackupdate/installation.go",
+      "bytes": 3272,
+      "sha256": "4babe57fe356ead2adf9edec29195c57d1ad78f339e7111ef4ebe2b6751b1f26"
+    },
+    {
+      "path": "stackupdate/job.go",
+      "bytes": 20556,
+      "sha256": "eac404436d2e38ef7d64213c43aca0dc44f45757ba82f4f09ab06bcf39984f49"
+    },
+    {
+      "path": "stackupdate/snapshot.go",
+      "bytes": 4491,
+      "sha256": "1ebf9dcdabf25b5980b44363c5a9a6ef9076ef4f90b00d1482ed96d71a21cd27"
     },
     {
       "path": "start.bat",
@@ -4151,8 +4232,8 @@
     },
     {
       "path": "web/src/app/(main)/_components/update-badge.tsx",
-      "bytes": 2467,
-      "sha256": "1c74d3bb3cf2d06d47ead613e9b2bb4f245e0716a5fb00dc9dfe5d7abab71a8e"
+      "bytes": 3048,
+      "sha256": "ecab4f43586bc081b9c5733e3ed457c1f95b986baee39bfc4e1bda3764561e7e"
     },
     {
       "path": "web/src/app/(main)/chat/page.tsx",
@@ -4320,9 +4401,14 @@
       "sha256": "437273a1a90df1179679551ef3505f48c9b82bb504a3a4f4f19d5c2ab24cde99"
     },
     {
+      "path": "web/src/app/(main)/system/settings/_components/managed-update-card.tsx",
+      "bytes": 9299,
+      "sha256": "f2d5b2d69ac6139f1c2a79814bf0596e309788cce7fa68fd51f0ece22428aa3a"
+    },
+    {
       "path": "web/src/app/(main)/system/settings/_components/update-card.tsx",
-      "bytes": 13568,
-      "sha256": "4c8d3fc602db523a66c32cba335b08a10cbbad4b56b9ccc694a3348ecf04f761"
+      "bytes": 13925,
+      "sha256": "3dcc3e2100479a59ea9aa836afe725bd68d691d61784b04596dc3c51570cec89"
     },
     {
       "path": "web/src/app/(main)/system/settings/page.tsx",
@@ -4876,8 +4962,8 @@
     },
     {
       "path": "web/src/astra/settings-workspace.tsx",
-      "bytes": 25260,
-      "sha256": "f575c2edc705fad5184de5be9ccafbe450fed275412741f8c01b320f05fd3bf6"
+      "bytes": 25693,
+      "sha256": "282d18cec29bd8423b346c7577ee71b8ca7e1f3e07709801813c2f3665da275b"
     },
     {
       "path": "web/src/astra/settings.css",
@@ -5676,8 +5762,8 @@
     },
     {
       "path": "web/src/lib/http/system-service.ts",
-      "bytes": 3890,
-      "sha256": "f52ac427bf5b0b17b578b491768dfd6c7ae202ee33f1f850cb4220f7071e6a83"
+      "bytes": 4140,
+      "sha256": "8432d69a9146fdb2a7415c9539c759f2ab8b20c0b14b97059bef838d13871b9f"
     },
     {
       "path": "web/src/lib/http/task-policy-service.ts",
@@ -5926,8 +6012,8 @@
     },
     {
       "path": "web/src/lib/types.ts",
-      "bytes": 55504,
-      "sha256": "debf1c61a14b34d251a4560433e571560d13762ed2a3ead39c0ea1e3f9c9c25d"
+      "bytes": 55924,
+      "sha256": "8df1e47290b7dfc481467ce5d51415092deacfe27e3932497e76adc58c9f0330"
     },
     {
       "path": "web/src/lib/utils.ts",
@@ -6005,5 +6091,11 @@
   "sourceKind": "local clean-release source snapshot; Git recovery stored outside the distribution",
   "frontendSourceFilesSHA256": "7842e510490172fd7cb02868e116d1e0353a2b4ad572d1e8d9916902b013c6a1",
   "updatedAt": "2026-11-03T20:54:51.334Z",
-  "previousDeploymentRevision": "cb40a6e617e2e69dc4e124e08312a8f9ddc57505"
+  "previousDeploymentRevision": "cb40a6e617e2e69dc4e124e08312a8f9ddc57505",
+  "updates": {
+    "mode": "docker-source",
+    "repository": "nobanic/Uroboros",
+    "branch": "main",
+    "releasesRequired": false
+  }
 }
