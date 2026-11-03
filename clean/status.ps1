@@ -31,6 +31,9 @@ if (-not (Test-Path -LiteralPath $runtimeEnv)) {
     exit 0
 }
 
+. (Join-Path $cleanDir 'update-runtime.ps1')
+$updatePaths = Get-UpdateRuntimePaths -SourceRoot (Split-Path -Parent $cleanDir) -PrivateRoot $runtimeRoot
+$composeFile = Join-Path $updatePaths.Source 'clean/compose.yml'
 & docker compose --env-file $runtimeEnv -f $composeFile ps
 if ($LASTEXITCODE -ne 0) {
     throw "docker compose ps failed with exit code $LASTEXITCODE"

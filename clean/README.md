@@ -133,15 +133,15 @@ bash ./start.sh --preflight-only
 
 ## Updates
 
-The application release source is `nobanic/UroborOS` on GitHub. Release lookup
-and binary downloads require a published platform archive and `SHA256SUMS`;
-authenticated downloads from a private repository are not implemented.
+Use **System settings → Version & Updates → Update from main**. The clean
+controller fetches an ordinary commit from `nobanic/Uroboros/main`, builds the
+whole application/tool stack, backs up private state and replaces its images
+while preserving the project, port, data volumes and runtime credentials.
+No GitHub Release is required. See [update protocol and recovery](updater/README.md).
 
-This clean stack uses read-only container filesystems. Update it through a
-qualified container-image rebuild/replacement that preserves its project,
-volumes and private runtime credentials. The root `update.sh` targets the old
-root Compose topology and is not a clean-stack updater. A dedicated clean-stack
-update workflow remains to be qualified.
+Existing installations need one normal start from this source to add the
+controller. The root `update.sh` is a legacy topology path and native binary
+swapping is not a managed Docker update.
 
 ## Isolation and persistence
 

@@ -140,6 +140,19 @@ function Ensure-Image([string]$Reference, [string]$ArchiveName, [string]$Archive
     }
 }
 
+. (Join-Path $cleanDir 'update-runtime.ps1')
+$updatePaths = Get-UpdateRuntimePaths -SourceRoot $appDir -PrivateRoot $runtimeRoot
+$appDir = $updatePaths.Source
+$cleanDir = Join-Path $appDir 'clean'
+$composeFile = Join-Path $cleanDir 'compose.yml'
+$imageDir = Join-Path $cleanDir 'runtime-images'
+$languageCheck = Join-Path $cleanDir 'verify-language.ps1'
+$env:UROBOROS_UPDATER_USER = '0:0'
+$env:UROBOROS_DOCKER_GID = '0'
+if (-not $isWindowsHost) {
+    $env:UROBOROS_UPDATER_USER = "$(& id -u):$(& id -g)"
+    $env:UROBOROS_DOCKER_GID = (& stat -c '%g' /var/run/docker.sock).Trim()
+}
 & $languageCheck -Root $appDir
 
 & docker version *> $null
@@ -162,19 +175,22 @@ if ($engine -notmatch '^linux\|(amd64|x86_64)$') {
 }
 
 New-Item -ItemType Directory -Path $runtimeRoot -Force | Out-Null
+New-Item -ItemType Directory -Path $updatePaths.State -Force | Out-Null
+New-Item -ItemType Directory -Path (Join-Path $updatePaths.State 'public') -Force | Out-Null
 if (-not $isWindowsHost) {
     & chmod 700 $runtimeRoot
     if ($LASTEXITCODE -ne 0) {
         throw "Failed to protect runtime directory: $runtimeRoot"
     }
 }
-$sourceRevision = Get-SourceRevision
+$sourceRevision = $updatePaths.Revision
 if (-not (Test-Path -LiteralPath $runtimeEnv)) {
     [IO.File]::WriteAllLines($runtimeEnv, @(
         '# Generated locally. Contains only internal Docker service credentials; no LLM/provider API key.'
         "POSTGRES_PASSWORD=$(New-RandomHex 32)"
         "ARSENAL_TOKEN=$(New-RandomHex 32)"
         "API_LAB_TOKEN=$(New-RandomHex 32)"
+        "UROBOROS_UPDATE_TOKEN=$(New-RandomHex 32)"
         'UROBOROS_PORT=8805'
         "UROBOROS_SOURCE_REVISION=$sourceRevision"
     ), [Text.UTF8Encoding]::new($false))
@@ -182,6 +198,12 @@ if (-not (Test-Path -LiteralPath $runtimeEnv)) {
 }
 else {
     Set-RuntimeSourceRevision -Path $runtimeEnv -Revision $sourceRevision
+}
+$updateToken = [IO.File]::ReadAllLines($runtimeEnv) | Where-Object { $_.StartsWith('UROBOROS_UPDATE_TOKEN=') } | Select-Object -First 1
+if (-not $updateToken) {
+    [IO.File]::AppendAllText($runtimeEnv, "`nUROBOROS_UPDATE_TOKEN=$(New-RandomHex 32)`n", [Text.UTF8Encoding]::new($false))
+} elseif ($updateToken -notmatch '^UROBOROS_UPDATE_TOKEN=[0-9a-f]{64}$') {
+    throw 'Invalid private UROBOROS_UPDATE_TOKEN; preserve the runtime file and repair its updater credential.'
 }
 if (-not $isWindowsHost) {
     & chmod 600 $runtimeEnv

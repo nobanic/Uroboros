@@ -13,6 +13,8 @@ func (s *Server) httpPrelude() []httpEndpoint {
 		{pattern: "GET /api/logs/history", handler: s.getLogsHistory},
 		{pattern: "GET /api/logs/stream", handler: s.streamLogs},
 		{pattern: "GET /api/update/check", handler: s.updateCheck},
+		{pattern: "GET /api/update/status", handler: s.updateStatus},
+		{pattern: "POST /api/update/credentials", handler: s.updateCredentials},
 		{pattern: "POST /api/update/apply", handler: s.updateApply},
 		{pattern: "POST /api/update/rollback", handler: s.updateRollback},
 		{pattern: "GET /api/update/stream", handler: s.updateStream},

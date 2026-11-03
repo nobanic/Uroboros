@@ -419,12 +419,36 @@ Stopping preserves PostgreSQL, settings, operation records, artifacts and the
 signing keystore. Git rollback does not roll back those stores. Back up the
 affected state before a migration, reset or behavior-changing experiment.
 
-For an update, obtain the intended source version from
-[nobanic/Uroboros](https://github.com/nobanic/Uroboros), verify its release files
-and rebuild with the same clean launcher, project and private state. Retain any
-existing custom port or Compose overrides. The legacy root `update.sh` is not
-the clean-stack updater, and native in-place binary swapping is not a persistent
-upgrade of this read-only Docker stack.
+For an update, open **System settings → Version & Updates**. Choose
+**Check for updates**, review the installed and available source commits, then
+**Update from main**. Updates follow ordinary commits pushed to
+[nobanic/Uroboros/main](https://github.com/nobanic/Uroboros/tree/main); no GitHub
+Release is needed. Pause active and queued operations and finish running agent
+conversations first.
+
+![Update directly from main](../screenshots/0.5/34-console-updates-main.png)
+
+For a private repository, expand **GitHub access** and save a repository token
+with Contents: read-only. It is stored locally outside the checkout, and the
+panel only reports whether one is configured. Once the repository is public,
+updates also work without a token; **Clear token** switches to public access.
+
+The progress panel follows source fetching, building, backup, restart and health
+verification. The current console remains available during the build. Before
+replacement, a private recovery snapshot is created; tasks, API profiles,
+settings, artifacts and the signing key remain with the installation. If the
+new stack cannot start, the updater attempts to restore the previous snapshot.
+The console reconnects and reloads after the selected commit is verified.
+
+![Update build progress](../screenshots/0.5/35-console-update-progress.png)
+
+These two update screenshots use synthetic commits and a simulated update
+response in the normal console. They illustrate the controls and progress;
+they do not represent an update of an operator's installation.
+
+An older installation needs one normal `clean/start` invocation from this
+updated source to install the controller. Keep the same private state and
+project. See [the update and recovery guide](../clean/updater/README.md).
 
 ## Troubleshooting
 

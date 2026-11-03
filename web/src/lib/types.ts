@@ -1550,7 +1550,14 @@ export interface UpdateCheck {
   /** the version currently running; for dev builds, "dev" or the suffixed form from git describe. */
   current: string;
   /** runtime form. Under docker, swapping in a new build only affects the container's writable layer; rebuilding the container reverts to the image version. */
-  mode: "docker" | "binary";
+  mode: "docker" | "binary" | "docker-source";
+  current_revision?: string;
+  github_token_configured?: boolean;
+  latest_revision?: string;
+  branch?: string;
+  can_update?: boolean;
+  blocked_reason?: string;
+  status?: UpdateStatus;
   os: string;
   arch: string;
   repo: string;
@@ -1577,6 +1584,16 @@ export interface UpdateCheck {
 }
 
 /** one update-progress event pushed by /api/update/stream. */
+export interface UpdateStatus {
+	 recovery_required?: boolean;
+  phase: string;
+  message: string;
+  error?: string;
+  running: boolean;
+  current_revision: string;
+  target_revision?: string;
+}
+
 export interface UpdateProgress {
   phase: "idle" | "downloading" | "verifying" | "extracting" | "staged" | "failed";
   /** only meaningful during the download phase (0-100); -1 in other phases. */

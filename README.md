@@ -217,20 +217,20 @@ not part of this package.
 
 ## Updates
 
-The configured application release source is
-[nobanic/Uroboros](https://github.com/nobanic/Uroboros). Native binary releases
-require platform ZIPs and `SHA256SUMS`. Automatic access to private GitHub release
-assets is not implemented.
+The clean Docker installation updates from ordinary commits on
+[nobanic/Uroboros → main](https://github.com/nobanic/Uroboros/tree/main).
+Open **System settings → Version & Updates**, check for updates, then choose
+**Update from main**. GitHub Releases and version tags are not required.
 
-The supported clean stack uses read-only container roots. Update that stack by
-backing up persistent state, obtaining the intended source version, verifying
-its manifests and running the appropriate `clean/start` launcher to rebuild and
-replace its images while retaining the same private state and project.
+The installer builds the selected source first, requires idle/paused operations,
+creates a private recovery backup, replaces the stack and verifies the new
+source commit. Existing tasks, API profiles, settings and the signing key stay
+with the installation. Source snapshots and backups remain outside the checkout.
+See [console updater details and recovery](clean/updater/README.md).
 
-The root `update.sh` belongs to the legacy root Compose topology. It is not the
-clean-stack updater. Do not use a native binary swap as a persistent update of a
-read-only application container. A dedicated automated clean-image update flow
-is not claimed by this package.
+An older installation needs one normal start with this updated source to add
+the controller. Subsequent updates use the console. The legacy root `update.sh`
+and native binary replacement are separate from this managed Docker workflow.
 
 ## Validation and boundaries
 

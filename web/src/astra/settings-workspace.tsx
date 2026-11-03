@@ -1,5 +1,5 @@
 "use client";
-import { type KeyboardEvent, type ReactNode, useState } from "react";
+import { type KeyboardEvent, type ReactNode, useEffect, useState } from "react";
 
 import { toast } from "sonner";
 
@@ -506,6 +506,15 @@ export function SettingsWorkspace() {
   const state = useSettings(),
     current = state.effective;
   const [domain, selectDomain] = useState<SettingsDomain>("network");
+  useEffect(() => {
+    const showUpdates = () => selectDomain("lifecycle");
+    window.addEventListener("uroboros:show-updates", showUpdates);
+    if (sessionStorage.getItem("uroboros.update.section") === "lifecycle") {
+      selectDomain("lifecycle");
+      sessionStorage.removeItem("uroboros.update.section");
+    }
+    return () => window.removeEventListener("uroboros:show-updates", showUpdates);
+  }, []);
   function navigate(event: KeyboardEvent<HTMLButtonElement>, index: number) {
     const deltas: Record<string, number> = { ArrowRight: 1, ArrowDown: 1, ArrowLeft: -1, ArrowUp: -1 };
     let next: number | undefined;

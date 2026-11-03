@@ -19,8 +19,9 @@ func (application httpApplication) handler() http.Handler {
 	application.install(mux, s.httpPrelude())
 	s.registerFindingTraffic(mux)
 	application.install(mux, s.httpRemainder())
-	api := cors(s.requireAuth(mux))
+	api := cors(s.requireAuth(s.updateAdmission(mux)))
 	root := http.NewServeMux()
+	root.HandleFunc("/api/update/maintenance", s.updateMaintenance)
 	root.Handle("/api/", api)
 	root.Handle("/", s.webuiHandler())
 	return root

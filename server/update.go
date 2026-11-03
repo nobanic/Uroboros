@@ -208,6 +208,10 @@ func (h *updateHub) subscribe() (<-chan updateProgress, func()) {
 // is common (the server is on an intranet, or the proxy is configured only in the browser); clicking update would then surely fail,
 // so it is better to report the error truthfully at this check step.
 func (s *Server) updateCheck(w http.ResponseWriter, r *http.Request) {
+	if managedUpdatesEnabled() {
+		s.updateProxy(w, r, "check")
+		return
+	}
 	current := BuildVersion
 	mode := "binary"
 	if selfupdate.InDocker() {
@@ -268,6 +272,14 @@ func (s *Server) updateCheck(w http.ResponseWriter, r *http.Request) {
 // returns 202 immediately; the real work runs in a background goroutine: a full-package download may take minutes,
 // and hanging on the request would be cut off by the reverse-proxy timeout. Progress goes via /api/update/stream.
 func (s *Server) updateApply(w http.ResponseWriter, r *http.Request) {
+	if managedUpdatesEnabled() {
+		if reason := s.updateBusyReason(); reason != "" {
+			writeErr(w, 409, reason)
+			return
+		}
+		s.updateProxy(w, r, "apply")
+		return
+	}
 	current := BuildVersion
 
 	// use the cache: ensure what gets installed is exactly the version the user saw and confirmed in the UI.
@@ -313,6 +325,10 @@ func (s *Server) updateApply(w http.ResponseWriter, r *http.Request) {
 
 // updateRollback updateRollback actively reverts to the previous version (uroboros.old, backed up before the swap).
 func (s *Server) updateRollback(w http.ResponseWriter, r *http.Request) {
+	if managedUpdatesEnabled() {
+		managedRollbackUnavailable(w)
+		return
+	}
 	if _, running := updHub.snapshot(); running {
 		writeErr(w, 409, "An update is in progress; cannot roll back")
 		return

@@ -1,0 +1,28 @@
+{
+  "application": "Uroboros",
+  "version": "0.5.0",
+  "capturedAt": "2026-11-03T22:45:34.407Z",
+  "mode": "actual new Go app and embedded production frontend",
+  "updateTransport": "owned HTTP controller mock; real Docker pipeline qualified separately",
+  "operatorDataIncluded": false,
+  "images": [
+    {
+      "file": "34-console-updates-main.png",
+      "title": "Update directly from main",
+      "width": 1600,
+      "height": 1000,
+      "sha256": "81ff20f4d6f5cb77ddefe817cab556a05085261c217116569c7ee516b5f07531",
+      "mode": "normal embedded frontend",
+      "data": "Owned PostgreSQL settings and synthetic update commits; update transport mocked."
+    },
+    {
+      "file": "35-console-update-progress.png",
+      "title": "Build progress and preserved installation state",
+      "width": 1600,
+      "height": 1000,
+      "sha256": "7204fb07d537e04d7d073bc205bda2450550397bce8db7b7151a443147ea7c85",
+      "mode": "normal embedded frontend",
+      "data": "Owned PostgreSQL settings and synthetic update commits; update transport mocked."
+    }
+  ]
+}

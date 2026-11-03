@@ -30,6 +30,9 @@ if (-not (Test-Path -LiteralPath $runtimeEnv)) {
     throw "Runtime environment does not exist: $runtimeEnv"
 }
 
+. (Join-Path $cleanDir 'update-runtime.ps1')
+$updatePaths = Get-UpdateRuntimePaths -SourceRoot (Split-Path -Parent $cleanDir) -PrivateRoot $runtimeRoot
+$composeFile = Join-Path $updatePaths.Source 'clean/compose.yml'
 & docker compose --env-file $runtimeEnv -f $composeFile down
 if ($LASTEXITCODE -ne 0) {
     throw "docker compose down failed with exit code $LASTEXITCODE"

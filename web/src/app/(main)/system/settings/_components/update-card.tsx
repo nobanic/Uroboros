@@ -18,6 +18,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Progress } from "@/components/ui/progress";
 import { api, sseUrl } from "@/lib/api";
 import type { UpdateCheck, UpdateProgress } from "@/lib/types";
+import { ManagedUpdateCard } from "./managed-update-card";
 
 /** Maximum time to wait for the new version to come online. An upgrade goes through three
  *  process starts (stage → swap → new version), each on the order of seconds; three minutes
@@ -55,9 +56,10 @@ export function UpdateCard() {
       .checkUpdate(!quiet)
       .then((r) => {
         setInfo(r);
+        window.dispatchEvent(new CustomEvent("uroboros:updates-changed", { detail: r }));
         if (!quiet) {
           if (r.error) toast.error("Failed to check for updates: " + r.error);
-          else if (r.has_update) toast.success(`New version ${r.latest} available`);
+          else if (r.has_update) toast.success(r.mode === "docker-source" ? `New commit ${r.latest} available on main` : `New version ${r.latest} available`);
           else if (r.comparable) toast.success("You're already on the latest version");
         }
       })
@@ -178,6 +180,8 @@ export function UpdateCard() {
         toast.error("Rollback failed: " + (e as Error).message);
       });
   };
+
+  if (info?.mode === "docker-source") return <ManagedUpdateCard info={info} checking={checking} onCheck={() => check(false)} />;
 
   const phase = progress?.phase;
   const showProgress = busy || restarting;

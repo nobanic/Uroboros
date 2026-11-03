@@ -51,6 +51,9 @@ func (queue agentTriggerQueue) enqueue(fire triggeredRun) {
 // refill and take are called with queueMu held, as their stable server ports
 // were. Active slots are reserved before launching a run.
 func (queue agentTriggerQueue) refill() {
+	if queue.server.updateBlocked() {
+		return
+	}
 	if queue.server.ctx.Err() != nil {
 		return
 	}

@@ -31,9 +31,10 @@ var BuildVersion = "dev"
 // Server exposes the Uroboros backend over a JSON HTTP API for the shadcn/ui
 // frontend.
 type Server struct {
-	m      *Manager
-	engine *Engine
-	ctx    context.Context
+	updateGate managedUpdateGate
+	m          *Manager
+	engine     *Engine
+	ctx        context.Context
 
 	skillDir string // root directory for skill subdirectories
 	jwtKey   []byte // HS256 signing key loaded from / generated into dataDir/jwt.key
@@ -375,7 +376,7 @@ func (s *Server) Handler() http.Handler { return (httpApplication{server: s}).ha
 // --- handlers ---
 
 func (s *Server) health(w http.ResponseWriter, r *http.Request) {
-	writeJSON(w, 200, map[string]any{"ok": true, "service": "uroboros", "version": BuildVersion, "auth_disabled": s.authDisabled})
+	writeJSON(w, 200, map[string]any{"ok": true, "service": "uroboros", "version": BuildVersion, "source_revision": sourceRevision(), "auth_disabled": s.authDisabled})
 }
 
 func (s *Server) stats(w http.ResponseWriter, r *http.Request) {

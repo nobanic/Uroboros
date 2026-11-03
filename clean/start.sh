@@ -38,6 +38,7 @@ random_hex() {
 }
 
 source_revision() {
+    if [[ -n "${UROBOROS_SOURCE_REVISION:-}" ]]; then printf '%s\n' "$UROBOROS_SOURCE_REVISION"; return; fi
     local revision='local-clean-0.5' candidate=''
     if command -v git >/dev/null 2>&1; then
         candidate="$(git -C "$APP_DIR" rev-parse HEAD 2>/dev/null || true)"
@@ -131,6 +132,10 @@ case "$engine" in
 esac
 
 mkdir -p -- "$RUNTIME_ROOT"
+mkdir -p -- "$UROBOROS_UPDATE_STATE_DIR"
+mkdir -p -- "$UROBOROS_UPDATE_STATE_DIR/public"
+chmod 755 "$UROBOROS_UPDATE_STATE_DIR/public"
+chmod 700 "$UROBOROS_UPDATE_STATE_DIR"
 chmod 700 "$RUNTIME_ROOT"
 revision="$(source_revision)"
 if [[ ! -f "$RUNTIME_ENV" ]]; then
@@ -140,6 +145,7 @@ if [[ ! -f "$RUNTIME_ENV" ]]; then
         printf 'POSTGRES_PASSWORD=%s\n' "$(random_hex 32)"
         printf 'ARSENAL_TOKEN=%s\n' "$(random_hex 32)"
         printf 'API_LAB_TOKEN=%s\n' "$(random_hex 32)"
+        printf 'UROBOROS_UPDATE_TOKEN=%s\n' "$(random_hex 32)"
         printf '%s\n' 'UROBOROS_PORT=8805'
         printf 'UROBOROS_SOURCE_REVISION=%s\n' "$revision"
     } >"$RUNTIME_ENV"
@@ -147,6 +153,13 @@ if [[ ! -f "$RUNTIME_ENV" ]]; then
     printf 'Created private runtime state: %s\n' "$RUNTIME_ENV"
 else
     update_source_revision "$revision"
+fi
+
+update_token="$(runtime_value UROBOROS_UPDATE_TOKEN)"
+if [[ -z "$update_token" ]]; then
+    printf '\nUROBOROS_UPDATE_TOKEN=%s\n' "$(random_hex 32)" >>"$RUNTIME_ENV"
+elif [[ ! "$update_token" =~ ^[0-9a-f]{64}$ ]]; then
+    die 'Invalid private updater credential; preserve and repair runtime.env.'
 fi
 
 ensure_image \

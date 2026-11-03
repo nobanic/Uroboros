@@ -1,5 +1,5 @@
 import type { ChatMention } from "@/lib/chat-mentions";
-import type { Audit, ChatAttachment, Settings, Stats, UpdateCheck, UsageStats } from "@/lib/types";
+import type { Audit, ChatAttachment, Settings, Stats, UpdateCheck, UpdateStatus, UsageStats } from "@/lib/types";
 
 import type { ApplicationWire } from "./application-wire";
 import { Resource } from "./resources";
@@ -65,7 +65,9 @@ export function systemService(wire: ApplicationWire, demo: Demo) {
       new Resource(wire, "/gc").query([["ttl", ttl]], "component").send<{ removed: number }>("POST", {}),
     checkUpdate: (force = false) =>
       (force ? update.at("check").query([["force", 1]]) : update.at("check")).read<UpdateCheck>(),
-    applyUpdate: () => update.at("apply").send<{ ok: boolean; target: string }>("POST"),
+    applyUpdate: (target?: string) => update.at("apply").send<{ ok: boolean; target: string }>("POST", target ? { target } : undefined),
+    updateStatus: () => update.at("status").read<UpdateStatus>(),
+    saveUpdateCredential: (token: string) => update.at("credentials").send<{ configured: boolean }>("POST", { token }),
     rollbackUpdate: () => update.at("rollback").send<{ ok: boolean }>("POST"),
   };
 }
