@@ -1,0 +1,52 @@
+# Arsenal sidecar overlay — joins the internet stack's SEALED lab network.
+# Prereq: the internet stack is up (creates network uroboros_net_dbnet).
+# Usage (from application root Uroboros/Uroboros):
+#   docker compose -f arsenal/docker-compose.arsenal.yml --env-file bench/.env up -d --build
+# Then register it:  python arsenal/register.py
+name: uroboros-arsenal
+
+volumes:
+  arsenal_jobs:
+
+networks:
+  dbnet:
+    external: true
+    name: uroboros_net_dbnet          # sealed (internal:true), created by the internet stack
+
+services:
+  arsenal:
+    build:
+      context: .                       # build context = arsenal/
+      dockerfile: Dockerfile
+      args:
+        ARSENAL_SOURCE_REVISION: ${ARSENAL_SOURCE_REVISION:-unknown}
+    # Production can select an already validated immutable image and use
+    # `up --no-build`; local development keeps the historical default.
+    image: ${UROBOROS_ARSENAL_IMAGE:-uroboros-arsenal/sidecar:local}
+    networks: [dbnet]                  # sealed: no egress, reachable only from the lab
+    environment:
+      ARSENAL_TOKEN: ${ARSENAL_TOKEN:?set ARSENAL_TOKEN in bench/.env}
+      ARSENAL_ALLOWLIST: ${ARSENAL_ALLOWLIST:-}   # legacy operator tools only; task runs fail closed
+      ARSENAL_MAX_PARALLEL: ${ARSENAL_MAX_PARALLEL:-2} # one scan per tool, shared resource budget
+      ARSENAL_JOB_DB: /var/lib/arsenal/jobs.sqlite3
+      ARSENAL_NUCLEI_JOB_TIMEOUT: ${ARSENAL_NUCLEI_JOB_TIMEOUT:-3600}
+      ARSENAL_SOURCE_REVISION: ${ARSENAL_SOURCE_REVISION:-unknown}
+      NUCLEI_TEMPLATE_DIR: /opt/nuclei-templates
+    volumes:
+      - arsenal_jobs:/var/lib/arsenal
+    # Scanner homes/caches are task-private under /tmp. The durable job DB is
+    # the only writable volume; source, binaries, templates and wordlists stay
+    # immutable for every run.
+    user: "10001:10001"
+    read_only: true
+    tmpfs:
+      - /tmp:rw,nosuid,nodev,size=256m,uid=10001,gid=10001,mode=1777
+    security_opt:
+      - no-new-privileges:true
+    cap_drop: [ALL]
+    mem_limit: 2g
+    cpus: "1.5"
+    # pids_limit raised from 512: nuclei (-c 25, Go runtime) hit the cap and crashed
+    # with `failed to create new OS thread ... fatal error: newosproc`.
+    pids_limit: 4096
+    restart: unless-stopped

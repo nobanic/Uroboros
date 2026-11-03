@@ -1,0 +1,198 @@
+.astra-finding-stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px 36px;
+}
+.astra-finding-stats dt {
+  text-transform: capitalize;
+  font-size: 12px;
+  opacity: 0.7;
+}
+.astra-finding-stats dd {
+  font-size: 24px;
+  margin: 4px 0;
+  font-weight: 600;
+}
+.astra-finding-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: end;
+  margin: 24px 0;
+}
+.astra-finding-filters label {
+  display: grid;
+  gap: 6px;
+  min-width: 145px;
+}
+.astra-finding-filters label:first-child {
+  flex: 1;
+  min-width: 230px;
+}
+.astra-finding-toolbar,
+.astra-finding-toolbar nav,
+.astra-finding-pager,
+.astra-finding-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}
+.astra-finding-toolbar {
+  justify-content: space-between;
+  margin-bottom: 18px;
+}
+.astra-finding-toolbar button[aria-pressed="true"],
+.astra-finding-asset-layout button[aria-pressed="true"] {
+  background: color-mix(in srgb, var(--a-accent) 20%, transparent);
+  border-color: var(--a-accent);
+}
+.astra-finding-pager {
+  margin: 18px 0;
+  justify-content: flex-end;
+  font-size: 13px;
+}
+.astra-finding-pager label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.astra-finding-records > article,
+.astra-finding-lanes article,
+.astra-finding-groups > article {
+  border: 1px solid var(--a-line);
+  border-radius: 10px;
+  padding: 18px;
+  margin: 12px 0;
+  min-width: 0;
+  overflow-wrap: anywhere;
+  background: color-mix(in srgb, var(--a-accent) 3%, transparent);
+}
+.astra-finding-records article header,
+.astra-finding-lanes article header {
+  display: grid;
+  gap: 10px;
+}
+.astra-finding-records article header > div,
+.astra-finding-lanes article header > div {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.astra-finding-records article header button,
+.astra-finding-lanes article header button {
+  text-align: start;
+  font-weight: 600;
+}
+.astra-finding-assets,
+.astra-finding-context {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+  font-size: 13px;
+  margin: 12px 0;
+}
+.astra-finding-assets span {
+  background: color-mix(in srgb, var(--a-accent) 10%, transparent);
+  border-radius: 4px;
+  padding: 4px 7px;
+}
+.astra-finding-disposition {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+  margin: 8px 0 16px;
+  font-size: 13px;
+}
+.astra-finding-lanes {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(220px, 1fr));
+  gap: 16px;
+  overflow-x: auto;
+}
+.astra-finding-lanes h2 {
+  text-transform: capitalize;
+  font-size: 16px;
+}
+.astra-finding-lanes article {
+  padding: 14px;
+}
+.astra-finding-details {
+  border-top: 1px solid var(--a-line);
+  margin-top: 18px;
+  padding-top: 12px;
+}
+.astra-finding-details pre {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  max-height: 420px;
+  overflow: auto;
+}
+.astra-finding-details h3 {
+  margin-top: 18px;
+}
+.astra-finding-groups > article > header {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+}
+.astra-finding-group-page {
+  margin-top: 18px;
+}
+.astra-finding-asset-layout {
+  display: grid;
+  grid-template-columns: minmax(200px, 280px) minmax(0, 1fr);
+  gap: 24px;
+}
+.astra-finding-asset-layout > aside {
+  border-right: 1px solid var(--a-line);
+  padding-right: 16px;
+  min-width: 0;
+}
+.astra-finding-asset-layout > aside > label {
+  display: grid;
+  gap: 8px;
+}
+.astra-finding-asset-layout > aside > div {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 12px 0;
+}
+.astra-finding-asset-tree {
+  padding: 0;
+  list-style: none;
+  max-height: 75vh;
+  overflow: auto;
+}
+.astra-finding-asset-tree li {
+  display: flex;
+  gap: 4px;
+  align-items: start;
+  margin: 6px 0;
+}
+.astra-finding-asset-tree li button:last-child {
+  min-width: 0;
+  overflow-wrap: anywhere;
+  text-align: start;
+}
+.astra-finding-breadcrumb {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+@media (max-width: 1050px) {
+  .astra-finding-asset-layout {
+    grid-template-columns: 1fr;
+  }
+  .astra-finding-asset-layout > aside {
+    border-right: 0;
+    padding-right: 0;
+  }
+  .astra-finding-lanes {
+    grid-template-columns: repeat(2, minmax(220px, 1fr));
+  }
+}

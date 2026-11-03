@@ -1,0 +1,90 @@
+# B0 binary-triage overlay. This file is a reviewed deployment contract, not
+# activation authorization. The worker image reference is constructed from one
+# repository name and the same digest used by the broker/worker protocol, so
+# configuration cannot claim a different identity from the pulled image.
+services:
+  binary-volume-init:
+    image: alpine:3.20@sha256:d9e853e87e55526f6b2917df91a2115c36dd7c696a35be12163d44e6e2a4b6bc
+    network_mode: none
+    command:
+      - /bin/sh
+      - -ec
+      - |
+        chown -R 65531:65531 /cas /app-socket
+        chown -R 65531:65533 /worker-socket
+        chmod 0700 /cas /app-socket
+        chmod 2710 /worker-socket
+    volumes:
+      - binary_cas:/cas
+      - binary_app_socket:/app-socket
+      - binary_worker_socket:/worker-socket
+    cap_drop: [ALL]
+    cap_add: [CHOWN, FOWNER]
+    security_opt: [no-new-privileges:true]
+    restart: "no"
+
+  binary-broker:
+    platform: linux/amd64
+    image: ${UROBOROS_BINARY_BROKER_IMAGE_REPOSITORY:?set the broker image repository}@${UROBOROS_BINARY_BROKER_IMAGE_DIGEST:?set the audited broker sha256 digest}
+    depends_on:
+      binary-volume-init:
+        condition: service_completed_successfully
+    user: "65531:65531"
+    # The broker owns the directory by UID but needs the worker-only group to
+    # retain setgid and create worker.sock as 65531:65533.
+    group_add: ["65533"]
+    network_mode: none
+    read_only: true
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    pids_limit: 64
+    mem_limit: 256m
+    cpus: 1.0
+    environment:
+      UROBOROS_BINARY_BROKER_ROOT: /var/lib/uroboros-binary
+      UROBOROS_BINARY_BROKER_SOCKET: /run/uroboros-app/broker.sock
+      UROBOROS_BINARY_WORKER_SOCKET: /run/uroboros-worker/worker.sock
+      UROBOROS_BINARY_WORKER_IMAGE_DIGEST: ${UROBOROS_BINARY_WORKER_IMAGE_DIGEST:?set the audited sha256 digest}
+    volumes:
+      - binary_cas:/var/lib/uroboros-binary
+      - binary_app_socket:/run/uroboros-app
+      - binary_worker_socket:/run/uroboros-worker
+    restart: unless-stopped
+
+  binary-worker:
+    platform: linux/amd64
+    image: ${UROBOROS_BINARY_WORKER_IMAGE_REPOSITORY:?set the worker image repository}@${UROBOROS_BINARY_WORKER_IMAGE_DIGEST:?set the audited sha256 digest}
+    depends_on:
+      binary-broker:
+        condition: service_started
+    user: "65532:65533"
+    network_mode: none
+    read_only: true
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    pids_limit: 128
+    mem_limit: 2g
+    cpus: 2.0
+    environment:
+      UROBOROS_BINARY_WORKER_SOCKET: /run/uroboros-worker/worker.sock
+      UROBOROS_BINARY_WORKER_IDENTITY: ${UROBOROS_BINARY_WORKER_IMAGE_DIGEST:?set the audited sha256 digest}
+    volumes:
+      - binary_worker_socket:/run/uroboros-worker
+    tmpfs:
+      - /work:rw,noexec,nosuid,nodev,size=1g,mode=0700,uid=65532,gid=65532
+    restart: always
+
+  uroboros:
+    depends_on:
+      binary-broker:
+        condition: service_started
+    environment:
+      UROBOROS_BINARY_BROKER_SOCKET: /run/uroboros-app/broker.sock
+      UROBOROS_BINARY_WORKER_IMAGE_DIGEST: ${UROBOROS_BINARY_WORKER_IMAGE_DIGEST:?set the audited sha256 digest}
+    volumes:
+      - binary_app_socket:/run/uroboros-app
+
+volumes:
+  binary_cas:
+  binary_app_socket:
+  binary_worker_socket:

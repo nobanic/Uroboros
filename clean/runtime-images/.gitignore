@@ -1,0 +1,7 @@
+*.tar
+*.tar.gz
+*.sha256
+
+# Include only the two accepted runtime image archives in regular Git.
+!/binary-broker-b05.tar
+!/binary-worker-b05.tar

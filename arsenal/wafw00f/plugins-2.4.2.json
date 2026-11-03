@@ -1,0 +1,699 @@
+{
+  "format_version": 1,
+  "plugins": [
+    {
+      "filename": "aesecure.py",
+      "source": "#!/usr/bin/env python3\n'''\nCopyright (C) 2026, WAFW00F Developers.\nSee the LICENSE file for copying permission.\n'''\n\nNAME = 'aeSecure (aeSecure)'\n\n\ndef is_waf(self):\n    if self.matchHeader(('aeSecure-code', '.+?')):\n        return True\n\n    if self.matchContent(r'aesecure_denied\\.png'):\n        return True\n\n    return False\n"
+    },
+    {
+      "filename": "airee.py",
+      "source": "#!/usr/bin/env python3\n'''\nCopyright (C) 2026, WAFW00F Developers.\nSee the LICENSE file for copying permission.\n'''\n\nNAME = 'AireeCDN (Airee)'\n\n\ndef is_waf(self):\n    if self.matchHeader(('Server', 'Airee')):\n        return True\n\n    if self.matchHeader(('X-Cache', r'(\\w+\\.)?airee\\.cloud')):\n        return True\n\n    if self.matchContent(r'airee\\.cloud'):\n        return True\n\n    return False\n"
+    },
+    {
+      "filename": "airlock.py",
+      "source": "#!/usr/bin/env python3\n'''\nCopyright (C) 2026, WAFW00F Developers.\nSee the LICENSE file for copying permission.\n'''\n\nNAME = 'Airlock (Phion/Ergon)'\n\n\ndef is_waf(self):\n    # This method of detection is old (though most reliable), so we check it first\n    if self.matchCookie(r'^al[_-]?(sess|lb)='):\n        return True\n\n    if self.matchContent(r'server detected a syntax error in your request'):\n        return True\n\n    return False\n"
+    },
+    {
+      "filename": "alertlogic.py",
+      "source": "#!/usr/bin/env python3\n'''\nCopyright (C) 2026, WAFW00F Developers.\nSee the LICENSE file for copying permission.\n'''\n\nNAME = 'Alert Logic (Alert Logic)'\n\n\ndef is_waf(self):\n    if not self.matchContent(r'<(title|h\\d{1})>requested url cannot be found'):\n        return False\n\n    if not self.matchContent(r'we are sorry.{0,10}?but the page you are looking for cannot be found'):\n        return False\n\n    if not self.matchContent(r'back to previous page'):\n        return False\n\n    if not self.matchContent(r'proceed to homepage'):\n        return False\n\n    if not self.matchContent(r'reference id'):\n        return False\n\n    return True\n"
+    },
+    {
+      "filename": "aliyundun.py",
+      "source": "#!/usr/bin/env python3\n'''\nCopyright (C) 2026, WAFW00F Developers.\nSee the LICENSE file for copying permission.\n'''\n\nNAME = 'AliYunDun (Alibaba Cloud Computing)'\n\n\ndef is_waf(self):\n    if not self.matchContent(r'error(s)?\\.aliyun(dun)?\\.(com|net)?'):\n        return False\n\n    if not self.matchContent(r'alicdn\\.com\\/sd\\-base\\/static\\/\\d{1,2}\\.\\d{1,2}\\.\\d{1,2}\\/image\\/405\\.png'):\n        return False\n\n    if not self.matchContent(r'Sorry, your request has been blocked as it may cause potential threats to the server\\'s security.'):\n        return False\n\n    if not self.matchStatus(405):\n        return False\n\n    return True\n"
+    },
+    {
+      "filename": "anquanbao.py",
+      "source": "#!/usr/bin/env python3\n'''\nCopyright (C) 2026, WAFW00F Developers.\nSee the LICENSE file for copying permission.\n'''\n\nNAME = 'Anquanbao (Anquanbao)'\n\n\ndef is_waf(self):\n    if self.matchHeader(('X-Powered-By-Anquanbao', '.+?')):\n        return True\n\n    if self.matchContent(r'aqb_cc/error/'):\n        return True\n\n    return False\n"
+    },
+    {
+      "filename": "anubis.py",
+      "source": "#!/usr/bin/env python3\n'''\nCopyright (C) 2026, WAFW00F Developers.\nSee the LICENSE file for copying permission.\n'''\n\nNAME = 'Anubis (Techaro)'\n\n\ndef is_waf(self) -> bool:\n    if self.matchCookie(r'-anubis-auth='):\n        return True\n\n    if self.matchContent(r'/\\.within\\.website/x/cmd/anubis/'):\n        return True\n\n    if self.matchContent(r'<script id=\"anubis_version\"'):\n        return True\n\n    if self.matchContent(r'<script id=\"anubis_challenge\"'):\n        return True\n\n    if self.matchContent(r'Protected by.*Anubis.*From.*Techaro'):\n        return True\n\n    if self.matchContent(r'github\\.com/TecharoHQ/anubis'):\n        return True\n\n    return False\n"
+    },
+    {
+      "filename": "anyu.py",
+      "source": "#!/usr/bin/env python3\n'''\nCopyright (C) 2026, WAFW00F Developers.\nSee the LICENSE file for copying permission.\n'''\n\nNAME = 'AnYu (AnYu Technologies)'\n\n\ndef is_waf(self):\n    if self.matchContent(r'anyu.{0,10}?the green channel'):\n        return True\n\n    if self.matchContent(r'your access has been intercepted by anyu'):\n        return True\n\n    return False\n"
+    },
+    {
+      "filename": "applicationgateway.py",
+      "source": "#!/usr/bin/env python\n'''\nCopyright (C) 2026, WAFW00F Developers.\nSee the LICENSE file for copying permission.\n'''\n\nNAME = 'Azure Application Gateway (Microsoft)'\n\n\ndef is_waf(self):\n    if self.matchContent(r'<center>Microsoft-Azure-Application-Gateway/v2</center>') and \\\n        self.matchContent(r'<h1>403 Forbidden</h1>'):\n        return True\n\n    return False\n"
+    },
+    {
+      "filename": "approach.py",
+      "source": "#!/usr/bin/env python3\n'''\nCopyright (C) 2026, WAFW00F Developers.\nSee the LICENSE file for copying permission.\n'''\n\nNAME = 'Approach (Approach)'\n\n\ndef is_waf(self):\n    # This method of detection is old (though most reliable), so we check it first\n    if self.matchContent(r'approach.{0,10}?web application (firewall|filtering)'):\n        return True\n\n    if self.matchContent(r'approach.{0,10}?infrastructure team'):\n        return True\n\n    return False\n"
+    },
+    {
+      "filename": "armor.py",
+      "source": "#!/usr/bin/env python3\n'''\nCopyright (C) 2026, WAFW00F Developers.\nSee the LICENSE file for copying permission.\n'''\n\nNAME = 'Armor Defense (Armor)'\n\n\ndef is_waf(self):\n    if self.matchContent(r'blocked by website protection from armor'):\n        return True\n\n    if self.matchContent(r'please create an armor support ticket'):\n        return True\n\n    return False\n"
+    },
+    {
+      "filename": "arvancloud.py",
+      "source": "#!/usr/bin/env python3\n'''\nCopyright (C) 2026, WAFW00F Developers.\nSee the LICENSE file for copying permission.\n'''\n\nNAME = 'ArvanCloud (ArvanCloud)'\n\n\ndef is_waf(self):\n    if self.matchHeader(('Server', 'ArvanCloud')):\n        return True\n\n    return False\n"
+    },
+    {
+      "filename": "aspa.py",
+      "source": "#!/usr/bin/env python3\n'''\nCopyright (C) 2026, WAFW00F Developers.\nSee the LICENSE file for copying permission.\n'''\n\nNAME = 'ASPA Firewall (ASPA Engineering Co.)'\n\n\ndef is_waf(self):\n    if self.matchHeader(('Server', r'ASPA[\\-_]?WAF')):\n        return True\n\n    if self.matchHeader(('ASPA-Cache-Status', r'.+?')):\n        return True\n\n    return False\n"
+    },
+    {
+      "filename": "aspnetgen.py",
+      "source": "#!/usr/bin/env python3\n'''\nCopyright (C) 2026, WAFW00F Developers.\nSee the LICENSE file for copying permission.\n'''\n\nNAME = 'ASP.NET Generic (Microsoft)'\n\n\ndef is_waf(self):\n    if self.matchContent(r'iis (\\d+.)+?detailed error'):\n        return True\n\n    if self.matchContent(r'potentially dangerous request querystring'):\n        return True\n\n    if self.matchContent(r'application error from being viewed remotely (for security reasons)?'):\n        return True\n\n    if self.matchContent(r'An application error occurred on the server'):\n        return True\n\n    return False\n"
+    },
+    {
+      "filename": "astra.py",
+      "source": "#!/usr/bin/env python3\n'''\nCopyright (C) 2026, WAFW00F Developers.\nSee the LICENSE file for copying permission.\n'''\n\nNAME = 'Astra (Czar Securities)'\n\n\ndef is_waf(self):\n    if self.matchCookie(r'^cz_astra_csrf_cookie'):\n        return True\n\n    if self.matchContent(r'astrawebsecurity\\.freshdesk\\.com'):\n        return True\n\n    if self.matchContent(r'www\\.getastra\\.com/assets/images'):\n        return True\n\n    return False\n"
+    },
+    {
+      "filename": "awswaf.py",
+      "source": "#!/usr/bin/env python3\n'''\nCopyright (C) 2026, WAFW00F Developers.\nSee the LICENSE file for copying permission.\n'''\n\nNAME = 'AWS Elastic Load Balancer (Amazon)'\n\n\ndef is_waf(self):\n    if self.matchHeader(('X-AMZ-ID', '.+?')):\n        return True\n\n    if self.matchHeader(('X-AMZ-Request-ID', '.+?')):\n        return True\n\n    if self.matchCookie(r'^aws.?alb='):\n        return True\n\n    if self.matchHeader(('Server', r'aws.?elb'), attack=True):\n        return True\n\n    if self.matchHeader(('X-Blocked-By-WAF', 'Blocked_by_custom_response_for_AWSManagedRules.*')):\n        return True\n\n    return False\n"
+    },
+    {
+      "filename": "azion.py",
+      "source": "#!/usr/bin/env python3\n'''\nCopyright (C) 2026, WAFW00F Developers.\nSee the LICENSE file for copying permission.\n'''\n\nNAME = 'Azion Edge Firewall (Azion)'\n\n\ndef is_waf(self):\n    if self.matchHeader(('x-azion-edge-pop', r'.+?')):\n        return True\n\n    if self.matchHeader(('x-azion-request-id', r'.+?')):\n        return True\n\n    return False\n"
+    },
+    {
+      "filename": "baffinbay.py",
+      "source": "#!/usr/bin/env python3\n'''\nCopyright (C) 2026, WAFW00F Developers.\nSee the LICENSE file for copying permission.\n'''\n\nNAME = 'Baffin Bay (Mastercard)'\n\n\ndef is_waf(self):\n    if self.matchHeader(('server', 'baffin-bay-inlet')):\n        return True\n\n    return False\n"
+    },
+    {
+      "filename": "baidu.py",
+      "source": "#!/usr/bin/env python3\n'''\nCopyright (C) 2026, WAFW00F Developers.\nSee the LICENSE file for copying permission.\n'''\n\nNAME = 'Yunjiasu (Baidu Cloud Computing)'\n\n\ndef is_waf(self):\n    if self.matchHeader(('Server', r'yunjiasu.*')):\n        return True\n\n    if self.matchContent(r'href=\"/.well-known/yunjiasu-cgi/'):\n        return True\n\n    if self.matchContent(r\"document.cookie='yjs_use_ob=0\"):\n        return True\n\n    return False\n"
+    },
+    {
+      "filename": "barikode.py",
+      "source": "#!/usr/bin/env python3\n'''\nCopyright (C) 2026, WAFW00F Developers.\nSee the LICENSE file for copying permission.\n'''\n\nNAME = 'Barikode (Ethic Ninja)'\n\n\ndef is_waf(self):\n    if self.matchContent(r'<strong>barikode<.strong>'):\n        return True\n\n    return False\n"
+    },
+    {
+      "filename": "barracuda.py",
+      "source": "#!/usr/bin/env python3\n'''\nCopyright (C) 2026, WAFW00F Developers.\nSee the LICENSE file for copying permission.\n'''\n\nNAME = 'Barracuda (Barracuda Networks)'\n\n\ndef is_waf(self):\n    if self.matchCookie(r'^barra_counter_session='):\n        return True\n\n    if self.matchCookie(r'^BNI__BARRACUDA_LB_COOKIE='):\n        return True\n\n    if self.matchCookie(r'^BNI_persistence='):\n        return True\n\n    if self.matchCookie(r'^BN[IE]S_.*?='):\n        return True\n\n    if self.matchContent(r'Barracuda.Networks'):\n        return True\n\n    return False\n"
+    },
+    {
+      "filename": "bekchy.py",
+      "source": "#!/usr/bin/env python3\n'''\nCopyright (C) 2026, WAFW00F Developers.\nSee the LICENSE file for copying permission.\n'''\n\nNAME = 'Bekchy (Faydata Technologies Inc.)'\n\n\ndef is_waf(self):\n    # Both signatures are contained within response, so checking for any one of them\n    # Sometimes I observed that there is an XHR request being being made to submit the\n    # report data automatically upon page load. In those cases a missing https is causing\n    # false negatives.\n    if self.matchContent(r'Bekchy.{0,10}?Access Denied'):\n        return True\n\n    if self.matchContent(r'bekchy\\.com/report'):\n        return True\n\n    return False\n"
+    },
+    {
+      "filename": "beluga.py",
+      "source": "#!/usr/bin/env python3\n'''\nCopyright (C) 2026, WAFW00F Developers.\nSee the LICENSE file for copying permission.\n'''\n\nNAME = 'Beluga CDN (Beluga)'\n\n\ndef is_waf(self):\n    if self.matchHeader(('Server', r'Beluga')):\n        return True\n\n    if self.matchCookie(r'^beluga_request_trail='):\n        return True\n\n    return False\n"
+    },
+    {
+      "filename": "binarysec.py",
+      "source": "#!/usr/bin/env python3\n'''\nCopyright (C) 2026, WAFW00F Developers.\nSee the LICENSE file for copying permission.\n'''\n\nNAME = 'BinarySec (BinarySec)'\n\n\ndef is_waf(self):\n    if self.matchHeader(('Server', 'BinarySec')):\n        return True\n\n    if self.matchHeader(('x-binarysec-via', '.+')):\n        return True\n\n    if self.matchHeader(('x-binarysec-nocache', '.+')):\n        return True\n\n    return False\n"
+    },
+    {
+      "filename": "bitninja.py",
+      "source": "#!/usr/bin/env python3\n'''\nCopyright (C) 2026, WAFW00F Developers.\nSee the LICENSE file for copying permission.\n'''\n\nNAME = 'BitNinja (BitNinja)'\n\n\ndef is_waf(self):\n    if self.matchContent(r'Security check by BitNinja'):\n        return True\n\n    if self.matchContent(r'Visitor anti-robot validation'):\n        return True\n\n    return False\n"
+    },
+    {
+      "filename": "blockdos.py",
+      "source": "#!/usr/bin/env python3\n'''\nCopyright (C) 2026, WAFW00F Developers.\nSee the LICENSE file for copying permission.\n'''\n\nNAME = 'BlockDoS (BlockDoS)'\n\n\ndef is_waf(self):\n    if self.matchHeader(('Server', r'blockdos\\.net')):\n        return True\n\n    return False\n"
+    },
+    {
+      "filename": "bluedon.py",
+      "source": "#!/usr/bin/env python3\n'''\nCopyright (C) 2026, WAFW00F Developers.\nSee the LICENSE file for copying permission.\n'''\n\nNAME = 'Bluedon (Bluedon IST)'\n\n\ndef is_waf(self):\n    # Found sample servers returning 'Server: BDWAF/2.0'\n    if self.matchHeader(('Server', r'BDWAF')):\n        return True\n\n    if self.matchContent(r'bluedon web application firewall'):\n        return True\n\n    return False\n"
+    },
+    {
+      "filename": "bulletproof.py",
+      "source": "#!/usr/bin/env python3\n'''\nCopyright (C) 2026, WAFW00F Developers.\nSee the LICENSE file for copying permission.\n'''\n\nNAME = 'BulletProof Security Pro (AITpro Security)'\n\n\ndef is_waf(self):\n    if not self.matchContent(r'\\+?bpsMessage'):\n        return False\n\n    if not self.matchContent(r'403 Forbidden Error Page'):\n        return False\n\n    if not self.matchContent(r'If you arrived here due to a search'):\n        return False\n\n    return True\n"
+    },
+    {
+      "filename": "cachefly.py",
+      "source": "#!/usr/bin/env python3\n'''\nCopyright (C) 2026, WAFW00F Developers.\nSee the LICENSE file for copying permission.\n'''\n\nNAME = 'CacheFly CDN (CacheFly)'\n\n\ndef is_waf(self):\n    if self.matchHeader(('BestCDN', r'Cachefly')):\n        return True\n\n    if self.matchCookie(r'^cfly_req.*='):\n        return True\n\n    return False\n"
+    },
+    {
+      "filename": "cachewall.py",
+      "source": "#!/usr/bin/env python3\n'''\nCopyright (C) 2026, WAFW00F Developers.\nSee the LICENSE file for copying permission.\n'''\n\nNAME = 'CacheWall (Varnish)'\n\n\ndef is_waf(self):\n    if self.matchHeader(('Server', 'Varnish')):\n        return True\n\n    if self.matchHeader(('X-Varnish', '.+')):\n        return True\n\n    if self.matchHeader(('X-Cachewall-Action', '.+?')):\n        return True\n\n    if self.matchHeader(('X-Cachewall-Reason', '.+?')):\n        return True\n\n    if self.matchContent(r'security by cachewall'):\n        return True\n\n    if self.matchContent(r'403 naughty.{0,10}?not nice!'):\n        return True\n\n    if self.matchContent(r'varnish cache server'):\n        return True\n\n    return False\n"
+    },
+    {
+      "filename": "cdnns.py",
+      "source": "#!/usr/bin/env python3\n'''\nCopyright (C) 2026, WAFW00F Developers.\nSee the LICENSE file for copying permission.\n'''\n\nNAME = 'CdnNS Application Gateway (CdnNs/WdidcNet)'\n\n\ndef is_waf(self):\n    if self.matchContent(r'cdnnswaf application gateway'):\n        return True\n\n    return False\n"
+    },
+    {
+      "filename": "cerber.py",
+      "source": "#!/usr/bin/env python3\n'''\nCopyright (C) 2026, WAFW00F Developers.\nSee the LICENSE file for copying permission.\n'''\n\nNAME = 'WP Cerber Security (Cerber Tech)'\n\n\ndef is_waf(self):\n    if not self.matchContent(r'your request looks suspicious or similar to automated'):\n        return False\n\n    if not self.matchContent(r'our server stopped processing your request'):\n        return False\n\n    if not self.matchContent(r'We.re sorry.{0,10}?you are not allowed to proceed'):\n        return False\n\n    if not self.matchContent(r'requests from spam posting software'):\n        return False\n\n    if not self.matchContent(r'<title>403 Access Forbidden'):\n        return False\n\n    return True\n"
+    },
+    {
+      "filename": "chinacache.py",
+      "source": "#!/usr/bin/env python3\n'''\nCopyright (C) 2026, WAFW00F Developers.\nSee the LICENSE file for copying permission.\n'''\n\nNAME = 'ChinaCache Load Balancer (ChinaCache)'\n\n\ndef is_waf(self):\n    if self.matchHeader(('Powered-By-ChinaCache', '.+')):\n        return True\n\n    return False\n"
+    },
+    {
+      "filename": "chuangyu.py",
+      "source": "#!/usr/bin/env python3\n'''\nCopyright (C) 2026, WAFW00F Developers.\nSee the LICENSE file for copying permission.\n'''\n\nNAME = 'Chuang Yu Shield (Yunaq)'\n\n\ndef is_waf(self):\n    if self.matchContent(r'www\\.365cyd\\.com'):\n        return True\n\n    if self.matchContent(r'help\\.365cyd\\.com/cyd\\-error\\-help.html\\?code=403'):\n        return True\n\n    return False\n"
+    },
+    {
+      "filename": "ciscoacexml.py",
+      "source": "#!/usr/bin/env python3\n'''\nCopyright (C) 2026, WAFW00F Developers.\nSee the LICENSE file for copying permission.\n'''\n\nNAME = 'ACE XML Gateway (Cisco)'\n\n\ndef is_waf(self):\n    if self.matchHeader(('Server', 'ACE XML Gateway')):\n        return True\n\n    return False\n"
+    },
+    {
+      "filename": "cloudbric.py",
+      "source": "#!/usr/bin/env python3\n'''\nCopyright (C) 2026, WAFW00F Developers.\nSee the LICENSE file for copying permission.\n'''\n\nNAME = 'Cloudbric (Penta Security)'\n\n\ndef is_waf(self):\n    if self.matchContent(r'<title>Cloudbric.{0,5}?ERROR!'):\n        return True\n\n    if self.matchContent(r'Your request was blocked by Cloudbric'):\n        return True\n\n    if self.matchContent(r'please contact Cloudbric Support'):\n        return True\n\n    if self.matchContent(r'cloudbric\\.zendesk\\.com'):\n        return True\n\n    if self.matchContent(r'Cloudbric Help Center'):\n        return True\n\n    if self.matchContent(r'malformed request syntax.{0,4}?invalid request message framing.{0,4}?or deceptive request routing'):\n        return True\n\n    return False\n"
+    },
+    {
+      "filename": "cloudflare.py",
+      "source": "#!/usr/bin/env python3\n'''\nCopyright (C) 2026, WAFW00F Developers.\nSee the LICENSE file for copying permission.\n'''\n\nNAME = 'Cloudflare (Cloudflare Inc.)'\n\n\ndef is_waf(self):\n    if self.matchHeader(('server', 'cloudflare')):\n        return True\n\n    if self.matchHeader(('server', r'cloudflare[-_]nginx')):\n        return True\n\n    if self.matchHeader(('cf-ray', r'.+?')):\n        return True\n\n    if self.matchCookie('__cfduid'):\n        return True\n\n    return False\n"
+    },
+    {
+      "filename": "cloudfloordns.py",
+      "source": "#!/usr/bin/env python3\n'''\nCopyright (C) 2026, WAFW00F Developers.\nSee the LICENSE file for copying permission.\n'''\n\nNAME = 'Cloudfloor (Cloudfloor DNS)'\n\n\ndef is_waf(self):\n    if self.matchHeader(('Server', r'CloudfloorDNS(.WAF)?')):\n        return True\n\n    if self.matchContent(r'<(title|h\\d{1})>CloudfloorDNS.{0,6}?Web Application Firewall Error'):\n        return True\n\n    if self.matchContent(r'www\\.cloudfloordns\\.com/contact'):\n        return True\n\n    return False\n"
+    },
+    {
+      "filename": "cloudfront.py",
+      "source": "#!/usr/bin/env python3\n'''\nCopyright (C) 2026, WAFW00F Developers.\nSee the LICENSE file for copying permission.\n'''\n\nNAME = 'Cloudfront (Amazon)'\n\n\ndef is_waf(self):\n    # This is standard detection schema, checking the server header\n    if self.matchHeader(('Server', 'Cloudfront')):\n        return True\n\n    # Found samples returning 'Via: 1.1 58bfg7h6fg76h8fg7jhdf2.cloudfront.net (CloudFront)'\n    if self.matchHeader(('Via', r'([0-9\\.]+?)? \\w+?\\.cloudfront\\.net \\(Cloudfront\\)')):\n        return True\n\n    # The request token is sent along with this header, eg:\n    # X-Amz-Cf-Id: sX5QSkbAzSwd-xx3RbJmxYHL3iVNNyXa1UIebDNCshQbHxCjVcWDww==\n    if self.matchHeader(('X-Amz-Cf-Id', '.+?'), attack=True):\n        return True\n\n    # This is another reliable fingerprint found on headers\n    if self.matchHeader(('X-Cache', 'Error from Cloudfront'), attack=True):\n        return True\n\n    # These fingerprints are found on the blockpage itself\n    if self.matchContent(r'Generated by cloudfront \\(CloudFront\\)'):\n        return True\n\n    return False\n"
+    },
+    {
+      "filename": "cloudprotector.py",
+      "source": "#!/usr/bin/env python3\n'''\nCopyright (C) 2026, WAFW00F Developers.\nSee the LICENSE file for copying permission.\n'''\n\nNAME = 'Cloud Protector (Rohde & Schwarz CyberSecurity)'\n\ndef is_waf(self):\n    if self.matchContent(r'Cloud Protector.*?by Rohde.{3,8}?Schwarz Cybersecurity'):\n        return True\n\n    if self.matchContent(r\"<a href='https?:\\/\\/(?:www\\.)?cloudprotector\\.com\\/'>R.{1,6}?S.Cloud Protector\"):\n        return True\n\n    return False\n"
+    },
+    {
+      "filename": "comodo.py",
+      "source": "#!/usr/bin/env python3\n'''\nCopyright (C) 2026, WAFW00F Developers.\nSee the LICENSE file for copying permission.\n'''\n\nNAME = 'Comodo cWatch (Comodo CyberSecurity)'\n\n\ndef is_waf(self):\n    if self.matchHeader(('Server', r'Protected by COMODO WAF(.+)?')):\n        return True\n\n    return False\n"
+    },
+    {
+      "filename": "crawlprotect.py",
+      "source": "#!/usr/bin/env python3\n'''\nCopyright (C) 2026, WAFW00F Developers.\nSee the LICENSE file for copying permission.\n'''\n\nNAME = 'CrawlProtect (Jean-Denis Brun)'\n\n\ndef is_waf(self):\n    if self.matchCookie(r'^crawlprotecttag='):\n        return True\n\n    if self.matchContent(r'<title>crawlprotect'):\n        return True\n\n    if self.matchContent(r'this site is protected by crawlprotect'):\n        return True\n\n    return False\n"
+    },
+    {
+      "filename": "ddosguard.py",
+      "source": "#!/usr/bin/env python3\n'''\nCopyright (C) 2026, WAFW00F Developers.\nSee the LICENSE file for copying permission.\n'''\n\nNAME = 'DDoS-GUARD (DDOS-GUARD CORP.)'\n\n\ndef is_waf(self):\n    if self.matchCookie(r'^__ddg1.*?='):\n        return True\n\n    if self.matchCookie(r'^__ddg2.*?='):\n        return True\n\n    if self.matchCookie(r'^__ddgid.*?='):\n        return True\n\n    if self.matchCookie(r'^__ddgmark.*?='):\n        return True\n\n    if self.matchHeader(('Server', 'ddos-guard')):\n        return True\n\n    return False\n"
+    },
+    {
+      "filename": "denyall.py",
+      "source": "#!/usr/bin/env python3\n'''\nCopyright (C) 2026, WAFW00F Developers.\nSee the LICENSE file for copying permission.\n'''\n\nNAME = 'DenyALL (Rohde & Schwarz CyberSecurity)'\n\n\ndef is_waf(self):\n    if not self.matchStatus(200):\n        return False\n\n    if not self.matchReason('Condition Intercepted'):\n        return False\n\n    return True\n"
+    },
+    {
+      "filename": "distil.py",
+      "source": "#!/usr/bin/env python3\n'''\nCopyright (C) 2026, WAFW00F Developers.\nSee the LICENSE file for copying permission.\n'''\n\nNAME = 'Distil (Distil Networks)'\n\n\ndef is_waf(self):\n    if self.matchContent(r'cdn\\.distilnetworks\\.com/images/anomaly\\.detected\\.png'):\n        return True\n\n    if self.matchContent(r'distilCaptchaForm'):\n        return True\n\n    if self.matchContent(r'distilCallbackGuard'):\n        return True\n\n    return False\n"
+    },
+    {
+      "filename": "dosarrest.py",
+      "source": "#!/usr/bin/env python3\n'''\nCopyright (C) 2026, WAFW00F Developers.\nSee the LICENSE file for copying permission.\n'''\n\nNAME = 'DOSarrest (DOSarrest Internet Security)'\n\n\ndef is_waf(self):\n    if self.matchHeader(('X-DIS-Request-ID', '.+')):\n        return True\n\n    # Found samples of DOSArrest returning 'Server: DoSArrest/3.5'\n    if self.matchHeader(('Server', r'DOSarrest(.*)?')):\n        return True\n\n    return False\n"
+    },
+    {
+      "filename": "dotdefender.py",
+      "source": "#!/usr/bin/env python3\n'''\nCopyright (C) 2026, WAFW00F Developers.\nSee the LICENSE file for copying permission.\n'''\n\nNAME = 'DotDefender (Applicure Technologies)'\n\n\ndef is_waf(self):\n    if self.matchHeader(('X-dotDefender-denied', r'.+?'), attack=True):\n        return True\n\n    if self.matchContent(r'dotdefender blocked your request'):\n        return True\n\n    if self.matchContent(r'Applicure is the leading provider of web application security'):\n        return True\n\n    return False\n"
+    },
+    {
+      "filename": "dynamicweb.py",
+      "source": "#!/usr/bin/env python3\n'''\nCopyright (C) 2026, WAFW00F Developers.\nSee the LICENSE file for copying permission.\n'''\n\nNAME = 'DynamicWeb Injection Check (DynamicWeb)'\n\n\ndef is_waf(self):\n    if self.matchHeader(('X-403-Status-By', r'dw.inj.check'), attack=True):\n        return True\n\n    if self.matchContent(r'by dynamic check(.{0,10}?module)?'):\n        return True\n\n    return False\n"
+    },
+    {
+      "filename": "edgecast.py",
+      "source": "#!/usr/bin/env python3\n'''\nCopyright (C) 2026, WAFW00F Developers.\nSee the LICENSE file for copying permission.\n'''\n\nNAME = 'Edgecast (Verizon Digital Media)'\n\n\ndef is_waf(self):\n    if self.matchHeader(('Server', r'^ECD(.+)?')):\n        return True\n\n    if self.matchHeader(('Server', r'^ECS(.*)?')):\n        return True\n\n    return False\n"
+    },
+    {
+      "filename": "eisoo.py",
+      "source": "#!/usr/bin/env python3\n'''\nCopyright (C) 2026, WAFW00F Developers.\nSee the LICENSE file for copying permission.\n'''\n\nNAME = 'Eisoo Cloud Firewall (Eisoo)'\n\n\ndef is_waf(self):\n    if self.matchHeader(('Server', r'EisooWAF(\\-AZURE)?/?')):\n        return True\n\n    if self.matchContent(r'<link.{0,10}?href=\\\"/eisoo\\-firewall\\-block\\.css'):\n        return True\n\n    if self.matchContent(r'www\\.eisoo\\.com'):\n        return True\n\n    if self.matchContent(r'&copy; \\d{4} Eisoo Inc'):\n        return True\n\n    return False\n"
+    },
+    {
+      "filename": "envoy.py",
+      "source": "#!/usr/bin/env python\n'''\nCopyright (C) 2026, WAFW00F Developers.\nSee the LICENSE file for copying permission.\n'''\n\nNAME = 'Envoy (EnvoyProxy)'\n\n\ndef is_waf(self):\n    if self.matchHeader(('server', 'envoy')):\n        return True\n\n    if self.matchHeader(('x-envoy-upstream-service-time', '.+')):\n        return True\n\n    if self.matchHeader(('x-envoy-downstream-service-cluster', '.+')):\n        return True\n\n    if self.matchHeader(('x-envoy-downstream-service-node', '.+')):\n        return True\n\n    if self.matchHeader(('x-envoy-external-address', '.+')):\n        return True\n\n    if self.matchHeader(('x-envoy-force-trace', '.+')):\n        return True\n\n    if self.matchHeader(('x-envoy-internal', '.+')):\n        return True\n\n    if self.matchHeader(('x-envoy-original-dst-host', '.+')):\n        return True\n\n    if self.matchHeader(('x-envoy-original-path', '.+')):\n        return True\n\n    if self.matchHeader(('x-envoy-local-overloaded', '.+')):\n        return True\n\n    return False\n"
+    },
+    {
+      "filename": "expressionengine.py",
+      "source": "#!/usr/bin/env python3\n'''\nCopyright (C) 2026, WAFW00F Developers.\nSee the LICENSE file for copying permission.\n'''\n\nNAME = 'Expression Engine (EllisLab)'\n\n\ndef is_waf(self):\n    # I have seen some sites use a tracking header and sets a cookie upon authentication\n    # 'Set-Cookie: _exp_tracking=rufyhweiuitefgcxyniercyft5-6dctuxeygfr'\n    if self.matchCookie(r'^exp_track.+?='):\n        return True\n\n    # There are traces found where cookie is returning values like:\n    # Set-Cookie: exp_last_query=834y8d73y94d8g983u4shn8u4shr3uh3\n    # Set-Cookie: exp_last_id=b342b432b1a876r8\n    if self.matchCookie(r'^exp_last_.+?=', attack=True):\n        return True\n\n    # In-page fingerprints vary a lot in different sites. Hence these are not quite reliable.\n    if self.matchContent(r'invalid get data'):\n        return True\n\n    return False\n"
+    },
+    {
+      "filename": "f5bigipapm.py",
+      "source": "#!/usr/bin/env python3\n'''\nCopyright (C) 2026, WAFW00F Developers.\nSee the LICENSE file for copying permission.\n'''\n\nNAME = 'BIG-IP AP Manager (F5 Networks)'\n\n\ndef is_waf(self):\n    if check_schema_01(self):\n        return True\n\n    if check_schema_02(self):\n        return True\n\n    if check_schema_03(self):\n        return True\n\n    return False\n\n\ndef check_schema_01(self):\n    if not self.matchCookie('^LastMRH_Session'):\n        return False\n\n    if not self.matchCookie('^MRHSession'):\n        return False\n\n    return True\n\n\ndef check_schema_02(self):\n    if not self.matchCookie('^MRHSession'):\n        return False\n\n    if not self.matchHeader(('Server', r'Big([-_])?IP'), attack=True):\n        return False\n\n    return True\n\n\ndef check_schema_03(self):\n    if self.matchCookie('^F5_fullWT'):\n        return True\n\n    if self.matchCookie('^F5_fullWT'):\n        return True\n\n    if self.matchCookie('^F5_HT_shrinked'):\n        return True\n\n    return False\n"
+    },
+    {
+      "filename": "f5bigipasm.py",
+      "source": "#!/usr/bin/env python3\n'''\nCopyright (C) 2026, WAFW00F Developers.\nSee the LICENSE file for copying permission.\n'''\n\nNAME = 'BIG-IP AppSec Manager (F5 Networks)'\n\n\ndef is_waf(self):\n    if check_schema_01(self):\n        return True\n\n    # ASM ≥ 11.4.0 → eight hex digits after “TS” - https://my.f5.com/manage/s/article/K6850\n    if self.matchCookie(r'TS[a-fA-F0-9]{8}=.+'):\n        return True\n    \n    # ASM 10.0.0 – 11.3.0 → six hex digits after “TS” - https://my.f5.com/manage/s/article/K6850\n    if self.matchCookie(r'TS[a-fA-F0-9]{6}=.+'):\n        return True\n\n    return False\n\n\ndef check_schema_01(self):\n    if not self.matchContent('the requested url was rejected'):\n        return False\n\n    if not self.matchContent('please consult with your administrator'):\n        return False\n\n    return True\n"
+    },
+    {
+      "filename": "f5bigipltm.py",
+      "source": "#!/usr/bin/env python3\n'''\nCopyright (C) 2026, WAFW00F Developers.\nSee the LICENSE file for copying permission.\n'''\n\nNAME = 'BIG-IP Local Traffic Manager (F5 Networks)'\n\n\ndef is_waf(self):\n    if self.matchCookie('^bigipserver'):\n        return True\n\n    if self.matchHeader(('X-Cnection', 'close'), attack=True):\n        return True\n\n    return False\n"
+    },
+    {
+      "filename": "f5firepass.py",
+      "source": "#!/usr/bin/env python3\n'''\nCopyright (C) 2026, WAFW00F Developers.\nSee the LICENSE file for copying permission.\n'''\n\nNAME = 'FirePass (F5 Networks)'\n\n\ndef is_waf(self):\n    if check_schema_01(self):\n        return True\n\n    if check_schema_02(self):\n        return True\n\n    return False\n\n\ndef check_schema_01(self):\n    if not self.matchCookie('^VHOST'):\n        return False\n\n    if not self.matchHeader(('Location', r'\\/my\\.logon\\.php3')):\n        return False\n\n    return True\n\n\ndef check_schema_02(self):\n    if not self.matchCookie(r'^F5_fire.+?'):\n        return False\n\n    if not self.matchCookie('^F5_passid_shrinked'):\n        return False\n\n    return True\n"
+    },
+    {
+      "filename": "f5trafficshield.py",
+      "source": "#!/usr/bin/env python3\n'''\nCopyright (C) 2026, WAFW00F Developers.\nSee the LICENSE file for copying permission.\n'''\n\nNAME = 'Trafficshield (F5 Networks)'\n\n\ndef is_waf(self):\n    if self.matchCookie('^ASINFO='):\n        return True\n\n    if self.matchHeader(('Server', 'F5-TrafficShield')):\n        return True\n\n    return False\n"
+    },
+    {
+      "filename": "fastly.py",
+      "source": "#!/usr/bin/env python3\n'''\nCopyright (C) 2026, WAFW00F Developers.\nSee the LICENSE file for copying permission.\n'''\n\nNAME = 'Fastly (Fastly CDN)'\n\n\ndef is_waf(self):\n    if self.matchHeader(('X-Fastly-Request-ID', r'\\w+')):\n        return True\n\n    if self.matchHeader(('X-Served-By', r'^cache-[a-z]{3}\\d+-[A-Z]{3}')):\n        return True\n\n    return False\n"
+    },
+    {
+      "filename": "fortigate.py",
+      "source": "#!/usr/bin/env python3\n'''\nCopyright (C) 2026, WAFW00F Developers.\nSee the LICENSE file for copying permission.\n'''\n\nNAME = 'FortiGate (Fortinet)'\n\ndef is_waf(self):\n    if check_schema_01(self):\n        return True\n\n    if check_schema_02(self):\n        return True\n\n    return False\n\ndef check_schema_01(self):\n    if not self.matchContent('//globalurl.fortinet.net'):\n        return False\n\n    if not self.matchContent('FortiGate Application Control'):\n        return False\n\n    return True\n\ndef check_schema_02(self):\n    if not self.matchContent('Web Application Firewall'):\n        return False\n\n    if not self.matchContent('Event ID'):\n        return False\n\n    if not self.matchContent('//globalurl.fortinet.net'):\n        return False\n\n    return True\n"
+    },
+    {
+      "filename": "fortiguard.py",
+      "source": "#!/usr/bin/env python3\n'''\nCopyright (C) 2026, WAFW00F Developers.\nSee the LICENSE file for copying permission.\n'''\n\nNAME = 'FortiGuard (Fortinet)'\n\ndef is_waf(self):\n    if check_schema(self):\n        return True\n\n    return False\n\ndef check_schema(self):\n    # Use OR logic with strong signatures containing explicit FortiGuard/Fortinet branding\n    # Generic \"Web Filter\" strings are avoided to prevent false positives\n    if self.matchContent('FortiGuard Intrusion Prevention'):\n        return True\n\n    if self.matchContent('//globalurl.fortinet.net'):\n        return True\n\n    return False\n"
+    },
+    {
+      "filename": "fortiweb.py",
+      "source": "#!/usr/bin/env python3\n'''\nCopyright (C) 2026, WAFW00F Developers.\nSee the LICENSE file for copying permission.\n'''\n\nNAME = 'FortiWeb (Fortinet)'\n\n\ndef is_waf(self):\n    if check_schema_01(self):\n        return True\n\n    if check_schema_02(self):\n        return True\n\n    return False\n\n\ndef check_schema_01(self):\n    if self.matchCookie(r'^FORTIWAFSID='):\n        return True\n\n    if self.matchContent('.fgd_icon'):\n        return True\n\n    return False\n\n\ndef check_schema_02(self):\n    if not self.matchContent('fgd_icon'):\n        return False\n\n    if not self.matchContent('web.page.blocked'):\n        return False\n\n    if not self.matchContent('url'):\n        return False\n\n    if not self.matchContent('attack.id'):\n        return False\n\n    if not self.matchContent('message.id'):\n        return False\n\n    if not self.matchContent('client.ip'):\n        return False\n\n    return True\n"
+    },
+    {
+      "filename": "frontdoor.py",
+      "source": "#!/usr/bin/env python3\n'''\nCopyright (C) 2026, WAFW00F Developers.\nSee the LICENSE file for copying permission.\n'''\n\nNAME = 'Azure Front Door (Microsoft)'\n\n\ndef is_waf(self):\n    if self.matchHeader(('X-Azure-Ref', '.+?')):\n        return True\n\n    return False\n"
+    },
+    {
+      "filename": "gcparmor.py",
+      "source": "#!/usr/bin/env python3\n'''\nCopyright (C) 2026, WAFW00F Developers.\nSee the LICENSE file for copying permission.\n'''\n\nNAME = 'Google Cloud App Armor (Google Cloud)'\n\n\ndef is_waf(self):\n    if self.matchHeader(('Via', '1.1 google')):\n        return True\n\n    return False\n"
+    },
+    {
+      "filename": "godaddy.py",
+      "source": "#!/usr/bin/env python3\n'''\nCopyright (C) 2026, WAFW00F Developers.\nSee the LICENSE file for copying permission.\n'''\n\nNAME = 'GoDaddy Website Protection (GoDaddy)'\n\n\ndef is_waf(self):\n    if self.matchContent(r'GoDaddy (security|website firewall)'):\n        return True\n\n    return False\n"
+    },
+    {
+      "filename": "greywizard.py",
+      "source": "#!/usr/bin/env python3\n'''\nCopyright (C) 2026, WAFW00F Developers.\nSee the LICENSE file for copying permission.\n'''\n\nNAME = 'Greywizard (Grey Wizard)'\n\n\ndef is_waf(self):\n    if self.matchHeader(('Server', 'greywizard')):\n        return True\n\n    if self.matchContent(r'<(title|h\\d{1})>Grey Wizard'):\n        return True\n\n    if self.matchContent(r'contact the website owner or Grey Wizard'):\n        return True\n\n    if self.matchContent(r'We.ve detected attempted attack or non standard traffic from your ip address'):\n        return True\n\n    return False\n"
+    },
+    {
+      "filename": "huaweicloud.py",
+      "source": "#!/usr/bin/env python3\n'''\nCopyright (C) 2026, WAFW00F Developers.\nSee the LICENSE file for copying permission.\n'''\n\nNAME = 'Huawei Cloud Firewall (Huawei)'\n\n\ndef is_waf(self):\n    if self.matchCookie(r'^HWWAFSESID='):\n        return True\n\n    if self.matchHeader(('Server', r'HuaweiCloudWAF')):\n        return True\n\n    if self.matchContent(r'hwclouds\\.com'):\n        return True\n\n    if self.matchContent(r'hws_security@'):\n        return True\n\n    return False\n"
+    },
+    {
+      "filename": "hyperguard.py",
+      "source": "#!/usr/bin/env python3\n'''\nCopyright (C) 2026, WAFW00F Developers.\nSee the LICENSE file for copying permission.\n'''\n\nNAME = 'HyperGuard (Art of Defense)'\n\n\ndef is_waf(self):\n    if self.matchCookie('^WODSESSION='):\n        return True\n\n    return False\n"
+    },
+    {
+      "filename": "ibmdatapower.py",
+      "source": "#!/usr/bin/env python3\n'''\nCopyright (C) 2026, WAFW00F Developers.\nSee the LICENSE file for copying permission.\n'''\n\nNAME = 'DataPower (IBM)'\n\n\ndef is_waf(self):\n    if self.matchHeader(('X-Backside-Transport', r'(OK|FAIL)')):\n        return True\n\n    return False\n"
+    },
+    {
+      "filename": "imunify360.py",
+      "source": "#!/usr/bin/env python3\n'''\nCopyright (C) 2026, WAFW00F Developers.\nSee the LICENSE file for copying permission.\n'''\n\nNAME = 'Imunify360 (CloudLinux)'\n\n\ndef is_waf(self):\n    if self.matchHeader(('Server', r'imunify360.{0,10}?')):\n        return True\n\n    if self.matchContent(r'protected.by.{0,10}?imunify360'):\n        return True\n\n    if self.matchContent(r'powered.by.{0,10}?imunify360'):\n        return True\n\n    if self.matchContent(r'imunify360.preloader'):\n        return True\n\n    return False\n"
+    },
+    {
+      "filename": "incapsula.py",
+      "source": "#!/usr/bin/env python3\n'''\nCopyright (C) 2026, WAFW00F Developers.\nSee the LICENSE file for copying permission.\n'''\n\nNAME = 'Incapsula (Imperva Inc.)'\n\n\ndef is_waf(self):\n    if self.matchCookie(r'^incap_ses.*?='):\n        return True\n\n    if self.matchCookie(r'^visid_incap.*?='):\n        return True\n\n    if self.matchContent(r'incapsula incident id'):\n        return True\n\n    if self.matchContent(r'powered by incapsula'):\n        return True\n\n    if self.matchContent(r'/_Incapsula_Resource'):\n        return True\n\n    return False\n"
+    },
+    {
+      "filename": "indusguard.py",
+      "source": "#!/usr/bin/env python3\n'''\nCopyright (C) 2026, WAFW00F Developers.\nSee the LICENSE file for copying permission.\n'''\n\nNAME = 'IndusGuard (Indusface)'\n\n\ndef is_waf(self):\n    if self.matchHeader(('Server', r'IF_WAF')):\n        return True\n\n    if self.matchContent(r'This website is secured against online attacks. Your request was blocked'):\n        return True\n\n    return False\n"
+    },
+    {
+      "filename": "instartdx.py",
+      "source": "#!/usr/bin/env python3\n'''\nCopyright (C) 2026, WAFW00F Developers.\nSee the LICENSE file for copying permission.\n'''\n\nNAME = 'Instart DX (Instart Logic)'\n\n\ndef is_waf(self):\n    if check_schema_01(self):\n        return True\n\n    if check_schema_02(self):\n        return True\n\n    return False\n\n\ndef check_schema_01(self):\n    if self.matchHeader(('X-Instart-Request-ID', '.+')):\n        return True\n\n    if self.matchHeader(('X-Instart-Cache', '.+')):\n        return True\n\n    if self.matchHeader(('X-Instart-WL', '.+')):\n        return True\n\n    return False\n\n\ndef check_schema_02(self):\n    if not self.matchContent(r'the requested url was rejected'):\n        return False\n\n    if not self.matchContent(r'please consult with your administrator'):\n        return False\n\n    if not self.matchContent(r'your support id is'):\n        return False\n\n    return True\n"
+    },
+    {
+      "filename": "isaserver.py",
+      "source": "#!/usr/bin/env python3\n'''\nCopyright (C) 2026, WAFW00F Developers.\nSee the LICENSE file for copying permission.\n'''\n\nNAME = 'ISA Server (Microsoft)'\n\n\ndef is_waf(self):\n    if self.matchContent(r'The.{0,10}?(isa.)?server.{0,10}?denied the specified uniform resource locator \\(url\\)'):\n        return True\n\n    return False\n"
+    },
+    {
+      "filename": "janusec.py",
+      "source": "#!/usr/bin/env python3\n'''\nCopyright (C) 2026, WAFW00F Developers.\nSee the LICENSE file for copying permission.\n'''\n\nNAME = 'Janusec Application Gateway (Janusec)'\n\n\ndef is_waf(self):\n    if self.matchContent(r'janusec application gateway'):\n        return True\n\n    return False\n"
+    },
+    {
+      "filename": "jiasule.py",
+      "source": "#!/usr/bin/env python3\n'''\nCopyright (C) 2026, WAFW00F Developers.\nSee the LICENSE file for copying permission.\n'''\n\nNAME = 'Jiasule (Jiasule)'\n\n\ndef is_waf(self):\n    if self.matchHeader(('Server', r'jiasule\\-waf')):\n        return True\n\n    if self.matchCookie(r'^jsl_tracking(.+)?='):\n        return True\n\n    if self.matchCookie(r'__jsluid='):\n        return True\n\n    if self.matchContent(r'notice\\-jiasule'):\n        return True\n\n    if self.matchContent(r'static\\.jiasule\\.com'):\n        return True\n\n    return False\n"
+    },
+    {
+      "filename": "kemp.py",
+      "source": "#!/usr/bin/env python3\n'''\nCopyright (C) 2026, WAFW00F Developers.\nSee the LICENSE file for copying permission.\n'''\n\nNAME = 'Kemp LoadMaster (Progress Software)'\n\n\ndef is_waf(self):\n    if self.matchHeader(('X-ServedBy', 'KEMP-LM')) and \\\n        self.matchStatus(403) and \\\n        self.matchContent(r'<title>403 Forbidden</title>'):\n        return True\n\n    return False\n"
+    },
+    {
+      "filename": "keycdn.py",
+      "source": "#!/usr/bin/env python3\n'''\nCopyright (C) 2026, WAFW00F Developers.\nSee the LICENSE file for copying permission.\n'''\n\nNAME = 'KeyCDN (KeyCDN)'\n\n\ndef is_waf(self):\n    if self.matchHeader(('Server', 'KeyCDN')):\n        return True\n\n    return False\n"
+    },
+    {
+      "filename": "knownsec.py",
+      "source": "#!/usr/bin/env python3\n'''\nCopyright (C) 2026, WAFW00F Developers.\nSee the LICENSE file for copying permission.\n'''\n\nNAME = 'KS-WAF (KnownSec)'\n\n\ndef is_waf(self):\n    if self.matchContent(r'/ks[-_]waf[-_]error\\.png'):\n        return True\n\n    return False\n"
+    },
+    {
+      "filename": "kona.py",
+      "source": "#!/usr/bin/env python3\n\n\n#!/usr/bin/env python3\n'''\nCopyright (C) 2026, WAFW00F Developers.\nSee the LICENSE file for copying permission.\n'''\n\nNAME = 'Kona SiteDefender (Akamai)'\n\n\ndef is_waf(self):\n    if self.matchHeader(('Server', 'AkamaiGHost')):\n        return True\n\n    if self.matchHeader(('Server', 'AkamaiGHost'), attack=True)        :\n        return True\n\n    return False\n"
+    },
+    {
+      "filename": "limelight.py",
+      "source": "#!/usr/bin/env python3\n'''\nCopyright (C) 2026, WAFW00F Developers.\nSee the LICENSE file for copying permission.\n'''\n\nNAME = 'LimeLight CDN (LimeLight)'\n\n\ndef is_waf(self):\n    if self.matchCookie(r'^limelight'):\n        return True\n\n    if self.matchCookie(r'^l[mg]_sessid='):\n        return True\n\n    return False\n"
+    },
+    {
+      "filename": "link11.py",
+      "source": "#!/usr/bin/env python3\n'''\nCopyright (C) 2026, WAFW00F Developers.\nSee the LICENSE file for copying permission.\n'''\n\nNAME = 'Link11 WAAP (Link11)'\n\ndef is_waf(self):\n    if check_schema_01(self):\n        return True\n\n    return False\n\n\ndef check_schema_01(self):\n    if self.matchHeader(('server', 'rhino-core-shield')):\n        return True\n\n    return False\n  \n"
+    },
+    {
+      "filename": "litespeed.py",
+      "source": "#!/usr/bin/env python3\n'''\nCopyright (C) 2026, WAFW00F Developers.\nSee the LICENSE file for copying permission.\n'''\n\nNAME = 'LiteSpeed (LiteSpeed Technologies)'\n\n\ndef is_waf(self):\n    if check_schema_01(self):\n        return True\n\n    if check_schema_02(self):\n        return True\n\n    return False\n\n\ndef check_schema_01(self):\n    if not self.matchHeader(('Server', 'LiteSpeed')):\n        return False\n\n    if not self.matchStatus(403):\n        return False\n\n    return True\n\n\ndef check_schema_02(self):\n    if self.matchContent(r'Proudly powered by litespeed web server'):\n        return True\n\n    if self.matchContent(r'www\\.litespeedtech\\.com/error\\-page'):\n        return True\n\n    return False\n"
+    },
+    {
+      "filename": "malcare.py",
+      "source": "#!/usr/bin/env python3\n'''\nCopyright (C) 2026, WAFW00F Developers.\nSee the LICENSE file for copying permission.\n'''\n\nNAME = 'Malcare (Inactiv)'\n\n\ndef is_waf(self):\n    if self.matchContent(r'firewall.{0,15}?powered.by.{0,15}?malcare.{0,15}?pro'):\n        return True\n\n    if self.matchContent('blocked because of malicious activities'):\n        return True\n\n    return False\n"
+    },
+    {
+      "filename": "maxcdn.py",
+      "source": "#!/usr/bin/env python3\n'''\nCopyright (C) 2026, WAFW00F Developers.\nSee the LICENSE file for copying permission.\n'''\n\nNAME = 'MaxCDN (MaxCDN)'\n\n\ndef is_waf(self):\n    if self.matchHeader(('X-CDN', r'maxcdn')):\n        return True\n\n    return False\n"
+    },
+    {
+      "filename": "missioncontrol.py",
+      "source": "#!/usr/bin/env python3\n'''\nCopyright (C) 2026, WAFW00F Developers.\nSee the LICENSE file for copying permission.\n'''\n\nNAME = 'Mission Control Shield (Mission Control)'\n\n\ndef is_waf(self):\n    if self.matchHeader(('Server', 'Mission Control Application Shield')):\n        return True\n\n    return False\n"
+    },
+    {
+      "filename": "modsecurity.py",
+      "source": "#!/usr/bin/env python3\n'''\nCopyright (C) 2026, WAFW00F Developers.\nSee the LICENSE file for copying permission.\n'''\n\nNAME = 'ModSecurity (SpiderLabs)'\n\n\ndef is_waf(self):\n    if check_schema_01(self):\n        return True\n\n    if check_schema_02(self):\n        return True\n\n    if check_schema_03(self):\n        return True\n\n    return False\n\n\ndef check_schema_01(self):\n    if self.matchHeader(('Server', r'(mod_security|Mod_Security|NOYB)')):\n        return True\n\n    if self.matchContent(r'This error was generated by Mod.?Security'):\n        return True\n\n    if self.matchContent(r'rules of the mod.security.module'):\n        return True\n\n    if self.matchContent(r'mod.security.rules triggered'):\n        return True\n\n    if self.matchContent(r'Protected by Mod.?Security'):\n        return True\n\n    if self.matchContent(r'/modsecurity[\\-_]errorpage/'):\n        return True\n\n    if self.matchContent(r'modsecurity iis'):\n        return True\n\n    return False\n\n\ndef check_schema_02(self):\n    if not self.matchReason('ModSecurity Action'):\n        return False\n\n    if not self.matchStatus(403):\n        return False\n\n    return True\n\n\ndef check_schema_03(self):\n    if not self.matchReason('ModSecurity Action'):\n        return False\n\n    if not self.matchStatus(406):\n        return False\n\n    return True\n"
+    },
+    {
+      "filename": "naxsi.py",
+      "source": "#!/usr/bin/env python3\n'''\nCopyright (C) 2026, WAFW00F Developers.\nSee the LICENSE file for copying permission.\n'''\n\nNAME = 'NAXSI (NBS Systems)'\n\n\ndef is_waf(self):\n    if self.matchHeader(('X-Data-Origin', r'^naxsi(.+)?')):\n        return True\n\n    if self.matchHeader(('Server', r'naxsi(.+)?')):\n        return True\n\n    if self.matchContent(r'blocked by naxsi'):\n        return True\n\n    if self.matchContent(r'naxsi blocked information'):\n        return True\n\n    return False\n"
+    },
+    {
+      "filename": "nemesida.py",
+      "source": "#!/usr/bin/env python3\n'''\nCopyright (C) 2026, WAFW00F Developers.\nSee the LICENSE file for copying permission.\n'''\n\nNAME = 'Nemesida (PentestIt)'\n\n\ndef is_waf(self):\n    if self.matchContent(r'@?nemesida(\\-security)?\\.com'):\n        return True\n\n    if self.matchContent(r'Suspicious activity detected.{0,10}?Access to the site is blocked'):\n        return True\n\n    if self.matchContent(r'nwaf@'):\n        return True\n\n    if self.matchStatus(222):\n        return True\n\n    return False\n"
+    },
+    {
+      "filename": "netcontinuum.py",
+      "source": "#!/usr/bin/env python3\n'''\nCopyright (C) 2026, WAFW00F Developers.\nSee the LICENSE file for copying permission.\n'''\n\nNAME = 'NetContinuum (Barracuda Networks)'\n\n\ndef is_waf(self):\n    if self.matchCookie(r'^NCI__SessionId='):\n        return True\n\n    return False\n"
+    },
+    {
+      "filename": "netscaler.py",
+      "source": "#!/usr/bin/env python3\n'''\nCopyright (C) 2026, WAFW00F Developers.\nSee the LICENSE file for copying permission.\n'''\n\nNAME = 'NetScaler AppFirewall (Citrix Systems)'\n\n\ndef is_waf(self):\n    # This header can be obtained without attack mode\n    if self.matchHeader(('Via', r'NS\\-CACHE')):\n        return True\n\n    # Cookies are set only when someone is authenticated.\n    # Not much reliable since wafw00f isn't authenticating.\n    if self.matchCookie(r'^(ns_af=|citrix_ns_id|NSC_)'):\n        return True\n\n    if self.matchContent(r'(NS Transaction|AppFW Session) id'):\n        return True\n\n    if self.matchContent(r'Violation Category.{0,5}?APPFW_'):\n        return True\n\n    if self.matchContent(r'Citrix\\|NetScaler'):\n        return True\n\n    # Reliable but not all servers return this header\n    if self.matchHeader(('Cneonction', r'^(keep alive|close)'), attack=True):\n        return True\n\n    if self.matchHeader(('nnCoection', r'^(keep alive|close)'), attack=True):\n        return True\n\n    return False\n"
+    },
+    {
+      "filename": "nevisproxy.py",
+      "source": "#!/usr/bin/env python3\n'''\nCopyright (C) 2026, WAFW00F Developers.\nSee the LICENSE file for copying permission.\n'''\n\nNAME = 'NevisProxy (AdNovum)'\n\n\ndef is_waf(self):\n    if self.matchCookie(r'^Navajo'):\n        return True\n\n    if self.matchCookie(r'^NP_ID'):\n        return True\n\n    return False\n"
+    },
+    {
+      "filename": "newdefend.py",
+      "source": "#!/usr/bin/env python3\n'''\nCopyright (C) 2026, WAFW00F Developers.\nSee the LICENSE file for copying permission.\n'''\n\nNAME = 'Newdefend (NewDefend)'\n\n\ndef is_waf(self):\n    # This header can be obtained without attack mode\n    # Most reliable fingerprint\n    if self.matchHeader(('Server', 'Newdefend')):\n        return True\n\n    # Reliable ones within blockpage\n    if self.matchContent(r'www\\.newdefend\\.com/feedback'):\n        return True\n\n    if self.matchContent(r'/nd\\-block/'):\n        return True\n\n    return False\n"
+    },
+    {
+      "filename": "nexusguard.py",
+      "source": "#!/usr/bin/env python3\n'''\nCopyright (C) 2026, WAFW00F Developers.\nSee the LICENSE file for copying permission.\n'''\n\nNAME = 'NexusGuard Firewall (NexusGuard)'\n\n\ndef is_waf(self):\n    if self.matchContent(r'Powered by Nexusguard'):\n        return True\n\n    if self.matchContent(r'nexusguard\\.com/wafpage/.+#\\d{3};'):\n        return True\n\n    return False\n"
+    },
+    {
+      "filename": "ninja.py",
+      "source": "#!/usr/bin/env python3\n'''\nCopyright (C) 2026, WAFW00F Developers.\nSee the LICENSE file for copying permission.\n'''\n\nNAME = 'NinjaFirewall (NinTechNet)'\n\n\ndef is_waf(self):\n    if not self.matchContent(r'<title>NinjaFirewall.{0,10}?\\d{3}.forbidden'):\n        return False\n\n    if not self.matchContent(r'For security reasons?.{0,10}?it was blocked and logged'):\n        return False\n\n    return True\n"
+    },
+    {
+      "filename": "nsfocus.py",
+      "source": "#!/usr/bin/env python3\n'''\nCopyright (C) 2026, WAFW00F Developers.\nSee the LICENSE file for copying permission.\n'''\n\nNAME = 'NSFocus (NSFocus Global Inc.)'\n\n\ndef is_waf(self):\n    if self.matchHeader(('Server', 'NSFocus')):\n        return True\n\n    return False\n"
+    },
+    {
+      "filename": "nullddos.py",
+      "source": "#!/usr/bin/env python3\n'''\nCopyright (C) 2026, WAFW00F Developers.\nSee the LICENSE file for copying permission.\n'''\n\nNAME = 'NullDDoS Protection (NullDDoS)'\n\n\ndef is_waf(self):\n    if self.matchHeader(('Server', r'NullDDoS(.System)?')):\n        return True\n\n    return False\n"
+    },
+    {
+      "filename": "onmessage.py",
+      "source": "#!/usr/bin/env python3\n'''\nCopyright (C) 2026, WAFW00F Developers.\nSee the LICENSE file for copying permission.\n'''\n\nNAME = 'OnMessage Shield (BlackBaud)'\n\n\ndef is_waf(self):\n    if self.matchHeader(('X-Engine', 'onMessage Shield')):\n        return True\n\n    if self.matchContent(r'Blackbaud K\\-12 conducts routine maintenance'):\n        return True\n\n    if self.matchContent(r'onMessage SHEILD'):\n        return True\n\n    if self.matchContent(r'maintenance\\.blackbaud\\.com'):\n        return True\n\n    if self.matchContent(r'status\\.blackbaud\\.com'):\n        return True\n\n    return False\n"
+    },
+    {
+      "filename": "openresty.py",
+      "source": "#!/usr/bin/env python3\n'''\nCopyright (C) 2026, WAFW00F Developers.\nSee the LICENSE file for copying permission.\n'''\n\nNAME = 'Open-Resty Lua Nginx (FLOSS)'\n\n\ndef is_waf(self):\n    if check_schema_01(self):\n        return True\n\n    if check_schema_02(self):\n        return True\n\n    return False\n\n\ndef check_schema_01(self):\n    if not self.matchHeader(('Server', r'^openresty/[0-9\\.]+?')):\n        return False\n\n    if not self.matchStatus(403):\n        return False\n\n    return True\n\n\ndef check_schema_02(self):\n    if not self.matchContent(r'openresty/[0-9\\.]+?'):\n        return False\n\n    if not self.matchStatus(406):\n        return False\n\n    return True\n"
+    },
+    {
+      "filename": "oraclecloud.py",
+      "source": "#!/usr/bin/env python3\n'''\nCopyright (C) 2026, WAFW00F Developers.\nSee the LICENSE file for copying permission.\n'''\n\nNAME = 'Oracle Cloud (Oracle)'\n\n\ndef is_waf(self):\n    if self.matchContent(r'<title>fw_error_www'):\n        return True\n\n    if self.matchContent(r'src=\\\"/oralogo_small\\.gif\\\"'):\n        return True\n\n    if self.matchContent(r'www\\.oracleimg\\.com/us/assets/metrics/ora_ocom\\.js'):\n        return True\n\n    return False\n"
+    },
+    {
+      "filename": "paloalto.py",
+      "source": "#!/usr/bin/env python3\n'''\nCopyright (C) 2026, WAFW00F Developers.\nSee the LICENSE file for copying permission.\n'''\n\nNAME = 'Palo Alto Next Gen Firewall (Palo Alto Networks)'\n\n\ndef is_waf(self):\n    if self.matchContent(r'Download of virus.spyware blocked'):\n        return True\n\n    if self.matchContent(r'Palo Alto Next Generation Security Platform'):\n        return True\n\n    return False\n"
+    },
+    {
+      "filename": "panyun360.py",
+      "source": "#!/usr/bin/env python3\n'''\nCopyright (C) 2026, WAFW00F Developers.\nSee the LICENSE file for copying permission.\n'''\n\nNAME = '360PanYun (360 Technologies)'\n\n\ndef is_waf(self):\n    if self.matchHeader(('Server', r'panyun')):\n        return True\n    if self.matchHeader(('X-Panyun-Request-ID', r'.+?'), attack=True):\n        return True\n    if self.matchHeader(('X-Panyun-Error-Reason', r'.+?'), attack=True):\n        return True\n    if self.matchHeader(('X-Panyun-Error-Step', r'.+?'), attack=True):\n        return True\n    return False\n"
+    },
+    {
+      "filename": "pentawaf.py",
+      "source": "#!/usr/bin/env python3\n'''\nCopyright (C) 2026, WAFW00F Developers.\nSee the LICENSE file for copying permission.\n'''\n\nNAME = 'PentaWAF (Global Network Services)'\n\n\ndef is_waf(self):\n    if self.matchHeader(('Server', r'PentaWaf(/[0-9\\.]+)?')):\n        return True\n\n    if self.matchContent(r'Penta.?Waf/[0-9\\.]+?.server'):\n        return True\n\n    return False\n"
+    },
+    {
+      "filename": "perimeterx.py",
+      "source": "#!/usr/bin/env python3\n'''\nCopyright (C) 2026, WAFW00F Developers.\nSee the LICENSE file for copying permission.\n'''\n\nNAME = 'PerimeterX (PerimeterX)'\n\n\ndef is_waf(self):\n    if self.matchContent(r'www\\.perimeterx\\.(com|net)/whywasiblocked'):\n        return True\n\n    if self.matchContent(r'client\\.perimeterx\\.(net|com)'):\n        return True\n\n    if self.matchContent(r'denied because we believe you are using automation tools'):\n        return True\n\n    return False\n"
+    },
+    {
+      "filename": "pksec.py",
+      "source": "#!/usr/bin/env python3\n'''\nCopyright (C) 2026, WAFW00F Developers.\nSee the LICENSE file for copying permission.\n'''\n\nNAME = 'pkSecurity IDS (pkSec)'\n\n\ndef is_waf(self):\n    if check_schema_01(self):\n        return True\n\n    if check_schema_02(self):\n        return True\n\n    return False\n\n\ndef check_schema_01(self):\n    if self.matchContent(r'pk.?Security.?Module'):\n        return True\n\n    if self.matchContent(r'Security.Alert'):\n        return True\n\n    return False\n\n\ndef check_schema_02(self):\n    if not self.matchContent(r'As this could be a potential hack attack'):\n        return False\n\n    if not self.matchContent(r'A safety critical (call|request) was (detected|discovered) and blocked'):\n        return False\n\n    if not self.matchContent(r'maximum number of reloads per minute and prevented access'):\n        return False\n\n    return True\n"
+    },
+    {
+      "filename": "powercdn.py",
+      "source": "#!/usr/bin/env python3\n'''\nCopyright (C) 2026, WAFW00F Developers.\nSee the LICENSE file for copying permission.\n'''\n\nNAME = 'PowerCDN (PowerCDN)'\n\n\ndef is_waf(self):\n    if self.matchHeader(('Via', r'(.*)?powercdn.com(.*)?')):\n        return True\n\n    if self.matchHeader(('X-Cache', r'(.*)?powercdn.com(.*)?')):\n        return True\n\n    if self.matchHeader(('X-CDN', r'PowerCDN')):\n        return True\n\n    return False\n"
+    },
+    {
+      "filename": "profense.py",
+      "source": "#!/usr/bin/env python3\n'''\nCopyright (C) 2026, WAFW00F Developers.\nSee the LICENSE file for copying permission.\n'''\n\nNAME = 'Profense (ArmorLogic)'\n\n\ndef is_waf(self):\n    if self.matchHeader(('Server', 'Profense')):\n        return True\n\n    if self.matchCookie(r'^PLBSID='):\n        return True\n\n    return False\n"
+    },
+    {
+      "filename": "ptaf.py",
+      "source": "#!/usr/bin/env python3\n'''\nCopyright (C) 2026, WAFW00F Developers.\nSee the LICENSE file for copying permission.\n'''\n\nNAME = 'PT Application Firewall (Positive Technologies)'\n\n\ndef is_waf(self):\n    if not self.matchContent(r'<h1.{0,10}?Forbidden'):\n        return False\n\n    if not self.matchContent(r'<pre>Request.ID:.{0,10}?\\d{4}\\-(\\d{2})+.{0,35}?pre>'):\n        return False\n\n    return True\n"
+    },
+    {
+      "filename": "puhui.py",
+      "source": "#!/usr/bin/env python3\n'''\nCopyright (C) 2026, WAFW00F Developers.\nSee the LICENSE file for copying permission.\n'''\n\nNAME = 'Puhui (Puhui)'\n\n\ndef is_waf(self):\n    if self.matchHeader(('Server', r'Puhui[\\-_]?WAF')):\n        return True\n\n    return False\n"
+    },
+    {
+      "filename": "qcloud.py",
+      "source": "#!/usr/bin/env python3\n'''\nCopyright (C) 2026, WAFW00F Developers.\nSee the LICENSE file for copying permission.\n'''\n\nNAME = 'Qcloud (Tencent Cloud)'\n\n\ndef is_waf(self):\n    if not self.matchContent(r'\u817e\u8baf\u4e91Web\u5e94\u7528\u9632\u706b\u5899'):\n        return False\n\n    if not self.matchStatus(403):\n        return False\n\n    return True\n"
+    },
+    {
+      "filename": "qiniu.py",
+      "source": "#!/usr/bin/env python3\n'''\nCopyright (C) 2026, WAFW00F Developers.\nSee the LICENSE file for copying permission.\n'''\n\nNAME = 'Qiniu (Qiniu CDN)'\n\n\ndef is_waf(self):\n    if self.matchHeader(('X-Qiniu-CDN', r'\\d+?')):\n        return True\n\n    return False\n"
+    },
+    {
+      "filename": "qrator.py",
+      "source": "#!/usr/bin/env python3\n'''\nCopyright (C) 2026, WAFW00F Developers.\nSee the LICENSE file for copying permission.\n'''\n\nNAME = 'Qrator (Qrator)'\n\n\ndef is_waf(self):\n    if self.matchHeader(('Server', r'QRATOR')):\n        return True\n\n    return False\n"
+    },
+    {
+      "filename": "radware.py",
+      "source": "#!/usr/bin/env python3\n'''\nCopyright (C) 2026, WAFW00F Developers.\nSee the LICENSE file for copying permission.\n'''\n\nNAME = 'AppWall (Radware)'\n\n\ndef is_waf(self):\n    if check_schema_01(self):\n        return True\n\n    if check_schema_02(self):\n        return True\n\n    return False\n\n\ndef check_schema_01(self):\n    if self.matchContent(r'CloudWebSec\\.radware\\.com'):\n        return True\n\n    if self.matchHeader(('X-SL-CompState', '.+')):\n        return True\n\n    return False\n\n\ndef check_schema_02(self):\n    if not self.matchContent(r'because we have detected unauthorized activity'):\n        return False\n\n    if not self.matchContent(r'<title>Unauthorized Request Blocked'):\n        return False\n\n    if not self.matchContent(r'if you believe that there has been some mistake'):\n        return False\n\n    if not self.matchContent(r'\\?Subject=Security Page.{0,10}?Case Number'):\n        return False\n\n    return True\n"
+    },
+    {
+      "filename": "reblaze.py",
+      "source": "#!/usr/bin/env python3\n'''\nCopyright (C) 2026, WAFW00F Developers.\nSee the LICENSE file for copying permission.\n'''\n\nNAME = 'Reblaze (Reblaze)'\n\n\ndef is_waf(self):\n    if check_schema_01(self):\n        return True\n\n    if check_schema_02(self):\n        return True\n\n    return False\n\n\ndef check_schema_01(self):\n    if self.matchCookie(r'^rbzid'):\n        return True\n\n    if self.matchHeader(('Server', 'Reblaze Secure Web Gateway')):\n        return True\n\n    return False\n\n\ndef check_schema_02(self):\n    if not self.matchContent(r'current session has been terminated'):\n        return False\n\n    if not self.matchContent(r'do not hesitate to contact us'):\n        return False\n\n    if not self.matchContent(r'access denied \\(\\d{3}\\)'):\n        return False\n\n    return True\n"
+    },
+    {
+      "filename": "reflected.py",
+      "source": "#!/usr/bin/env python3\n'''\nCopyright (C) 2026, WAFW00F Developers.\nSee the LICENSE file for copying permission.\n'''\n\nNAME = 'Reflected Networks (Reflected Networks)'\n\n\ndef is_waf(self):\n    if self.matchContent(r'<b>Request ID</b>') and \\\n        self.matchContent(r'[0-9A-F]{8}-[0-9A-F]{18}-[0-9A-F]{6}') and \\\n        self.matchStatus(403) and \\\n        self.matchContent(r'content=\"Request is denied\"') and \\\n        self.matchContent(r'<title>Forbidden</title>'):\n        return True\n\n    return False\n"
+    },
+    {
+      "filename": "rsfirewall.py",
+      "source": "#!/usr/bin/env python3\n'''\nCopyright (C) 2026, WAFW00F Developers.\nSee the LICENSE file for copying permission.\n'''\n\nNAME = 'RSFirewall (RSJoomla!)'\n\n\ndef is_waf(self):\n    if self.matchContent(r'com_rsfirewall_(\\d{3}_forbidden|event)?'):\n        return True\n\n    return False\n"
+    },
+    {
+      "filename": "rvmode.py",
+      "source": "#!/usr/bin/env python3\n'''\nCopyright (C) 2026, WAFW00F Developers.\nSee the LICENSE file for copying permission.\n'''\n\nNAME = 'RequestValidationMode (Microsoft)'\n\n\ndef is_waf(self):\n    if self.matchContent(r'Request Validation has detected a potentially dangerous client input'):\n        return True\n\n    if self.matchContent(r'ASP\\.NET has detected data in the request'):\n        return True\n\n    if self.matchContent(r'HttpRequestValidationException'):\n        return True\n\n    return False\n"
+    },
+    {
+      "filename": "sabre.py",
+      "source": "#!/usr/bin/env python3\n'''\nCopyright (C) 2026, WAFW00F Developers.\nSee the LICENSE file for copying permission.\n'''\n\nNAME = 'Sabre Firewall (Sabre)'\n\n\ndef is_waf(self):\n    if self.matchContent(r'dxsupport\\.sabre\\.com'):\n        return True\n\n    if check_schema_01(self):\n        return True\n\n    return False\n\n\ndef check_schema_01(self):\n    if not self.matchContent(r'<title>Application Firewall Error'):\n        return False\n\n    if not self.matchContent(r'add some important details to the email for us to investigate'):\n        return False\n\n    return True\n"
+    },
+    {
+      "filename": "safe3.py",
+      "source": "#!/usr/bin/env python3\n'''\nCopyright (C) 2026, WAFW00F Developers.\nSee the LICENSE file for copying permission.\n'''\n\nNAME = 'Safe3 Web Firewall (Safe3)'\n\n\ndef is_waf(self):\n    if self.matchHeader(('Server', 'Safe3 Web Firewall')):\n        return True\n\n    if self.matchHeader(('X-Powered-By', r'Safe3WAF/[\\.0-9]+?')):\n        return True\n\n    if self.matchContent(r'Safe3waf/[0-9\\.]+?'):\n        return True\n\n    return False\n"
+    },
+    {
+      "filename": "safedog.py",
+      "source": "#!/usr/bin/env python3\n'''\nCopyright (C) 2026, WAFW00F Developers.\nSee the LICENSE file for copying permission.\n'''\n\nNAME = 'Safedog (SafeDog)'\n\n\ndef is_waf(self):\n    if self.matchCookie(r'^safedog\\-flow\\-item='):\n        return True\n\n    if self.matchHeader(('Server', 'Safedog')):\n        return True\n\n    if self.matchContent(r'safedogsite/broswer_logo\\.jpg'):\n        return True\n\n    if self.matchContent(r'404\\.safedog\\.cn/sitedog_stat.html'):\n        return True\n\n    if self.matchContent(r'404\\.safedog\\.cn/images/safedogsite/head\\.png'):\n        return True\n\n    return False\n"
+    },
+    {
+      "filename": "safeline.py",
+      "source": "#!/usr/bin/env python3\n'''\nCopyright (C) 2026, WAFW00F Developers.\nSee the LICENSE file for copying permission.\n'''\n\nNAME = 'Safeline (Chaitin Tech.)'\n\n\ndef is_waf(self):\n    if self.matchContent(r'safeline|<!\\-\\-\\sevent id:'):\n        return True\n\n    return False\n"
+    },
+    {
+      "filename": "scutum.py",
+      "source": "#!/usr/bin/env python3\n\"\"\"\nCopyright (C) 2026, WAFW00F Developers.\nSee the LICENSE file for copying permission.\n\"\"\"\n\nNAME = \"Scutum (Secure Sky Technology Inc.)\"\n\n\ndef is_waf(self):\n    if self.matchHeader((\"Server\", \"Scutum\")):\n        return True\n\n    return False\n"
+    },
+    {
+      "filename": "secking.py",
+      "source": "#!/usr/bin/env python3\n'''\nCopyright (C) 2026, WAFW00F Developers.\nSee the LICENSE file for copying permission.\n'''\n\nNAME = 'SecKing (SecKing)'\n\n\ndef is_waf(self):\n    if self.matchHeader(('Server', r'secking(.?waf)?')):\n        return True\n\n    return False\n"
+    },
+    {
+      "filename": "secupress.py",
+      "source": "#!/usr/bin/env python3\n'''\nCopyright (C) 2026, WAFW00F Developers.\nSee the LICENSE file for copying permission.\n'''\n\nNAME = 'SecuPress WP Security (SecuPress)'\n\n\ndef is_waf(self):\n    if self.matchContent(r'<(title|h\\d{1})>SecuPress'):\n        return True\n\n    return False\n"
+    },
+    {
+      "filename": "secureentry.py",
+      "source": "#!/usr/bin/env python3\n'''\nCopyright (C) 2026, WAFW00F Developers.\nSee the LICENSE file for copying permission.\n'''\n\nNAME = 'Secure Entry (United Security Providers)'\n\n\ndef is_waf(self):\n    if self.matchHeader(('Server', 'Secure Entry Server')):\n        return True\n\n    return False\n"
+    },
+    {
+      "filename": "secureiis.py",
+      "source": "#!/usr/bin/env python3\n'''\nCopyright (C) 2026, WAFW00F Developers.\nSee the LICENSE file for copying permission.\n'''\n\nNAME = 'eEye SecureIIS (BeyondTrust)'\n\n\ndef is_waf(self):\n    if self.matchContent(r'SecureIIS is an internet security application'):\n        return True\n\n    if self.matchContent(r'Download SecureIIS Personal Edition'):\n        return True\n\n    if self.matchContent(r'https?://www\\.eeye\\.com/Secure\\-?IIS'):\n        return True\n\n    return False\n"
+    },
+    {
+      "filename": "securesphere.py",
+      "source": "#!/usr/bin/env python3\n'''\nCopyright (C) 2026, WAFW00F Developers.\nSee the LICENSE file for copying permission.\n'''\n\nNAME = 'SecureSphere (Imperva Inc.)'\n\n\ndef is_waf(self):\n    if not self.matchContent(r'<(title|h2)>Error'):\n        return False\n\n    if not self.matchContent(r'The incident ID is'):\n        return False\n\n    if not self.matchContent(r\"This page can't be displayed\"):\n        return False\n\n    if not self.matchContent(r'Contact support for additional information'):\n        return False\n\n    return True\n"
+    },
+    {
+      "filename": "senginx.py",
+      "source": "#!/usr/bin/env python3\n'''\nCopyright (C) 2026, WAFW00F Developers.\nSee the LICENSE file for copying permission.\n'''\n\nNAME = 'SEnginx (Neusoft)'\n\n\ndef is_waf(self):\n    if self.matchContent(r'SENGINX\\-ROBOT\\-MITIGATION'):\n        return True\n\n    return False\n"
+    },
+    {
+      "filename": "serverdefender.py",
+      "source": "#!/usr/bin/env python3\n'''\nCopyright (C) 2026, WAFW00F Developers.\nSee the LICENSE file for copying permission.\n'''\n\nNAME = 'ServerDefender VP (Port80 Software)'\n\n\ndef is_waf(self):\n    if self.matchHeader(('X-Pint', r'p(ort\\-)?80')):\n        return True\n\n    return False\n"
+    },
+    {
+      "filename": "shadowd.py",
+      "source": "#!/usr/bin/env python3\n'''\nCopyright (C) 2026, WAFW00F Developers.\nSee the LICENSE file for copying permission.\n'''\n\nNAME = 'Shadow Daemon (Zecure)'\n\n\ndef is_waf(self):\n    if not self.matchContent(r\"<h\\d{1}>\\d{3}.forbidden<.h\\d{1}>\"):\n        return False\n\n    if not self.matchContent(r\"request forbidden by administrative rules\"):\n        return False\n\n    return True\n"
+    },
+    {
+      "filename": "shieldon.py",
+      "source": "#!/usr/bin/env python3\n'''\nCopyright (C) 2026, WAFW00F Developers.\nSee the LICENSE file for copying permission.\n'''\n\nNAME = 'Shieldon Firewall (Shieldon.io)'\n\n\ndef is_waf(self):\n    if check_schema_01(self):\n        return True\n\n    if check_schema_02(self):\n        return True\n\n    if check_schema_03(self):\n        return True\n\n    if self.matchHeader((r'[Xx]-[Pp]rotected-[Bb]y', 'shieldon.io')):\n        return True\n\n    return False\n\n\ndef check_schema_01(self):\n    if not self.matchContent('Please solve CAPTCHA'):\n        return False\n\n    if not self.matchContent('shieldon_captcha'):\n        return False\n\n    if not self.matchContent('Unusual behavior detected'):\n        return False\n\n    if not self.matchContent('status-user-info'):\n        return False\n\n    return True\n\n\ndef check_schema_02(self):\n    if not self.matchContent('Access denied'):\n        return False\n\n    if not self.matchContent('The IP address you are using has been blocked.'):\n        return False\n\n    if not self.matchContent('status-user-info'):\n        return False\n\n    return True\n\n\ndef check_schema_03(self):\n    if not self.matchContent('Please line up'):\n        return False\n\n    if not self.matchContent('This page is limiting the number of people online. Please wait a moment.'):\n        return False\n\n    return True\n"
+    },
+    {
+      "filename": "shieldsecurity.py",
+      "source": "#!/usr/bin/env python3\n'''\nCopyright (C) 2026, WAFW00F Developers.\nSee the LICENSE file for copying permission.\n'''\n\nNAME = 'Shield Security (One Dollar Plugin)'\n\n\ndef is_waf(self):\n    if self.matchContent(r\"You were blocked by the Shield\"):\n        return True\n\n    if self.matchContent(r\"remaining transgression\\(s\\) against this site\"):\n        return True\n\n    if self.matchContent(r\"Something in the URL.{0,5}?Form or Cookie data wasn\\'t appropriate\"):\n        return True\n\n    return False\n"
+    },
+    {
+      "filename": "siteground.py",
+      "source": "#!/usr/bin/env python3\n'''\nCopyright (C) 2026, WAFW00F Developers.\nSee the LICENSE file for copying permission.\n'''\n\nNAME = 'SiteGround (SiteGround)'\n\n\ndef is_waf(self):\n    if self.matchContent(r\"Our system thinks you might be a robot!\"):\n        return True\n\n    if self.matchContent(r'access is restricted due to a security rule'):\n        return True\n\n    return False\n"
+    },
+    {
+      "filename": "siteguard.py",
+      "source": "#!/usr/bin/env python3\n'''\nCopyright (C) 2026, WAFW00F Developers.\nSee the LICENSE file for copying permission.\n'''\n\nNAME = 'SiteGuard (EG Secure Solutions Inc.)'\n\n\ndef is_waf(self):\n    if self.matchContent(r\"Powered by SiteGuard\"):\n        return True\n\n    if self.matchContent(r'The server refuse to browse the page'):\n        return True\n\n    return False\n"
+    },
+    {
+      "filename": "sitelock.py",
+      "source": "#!/usr/bin/env python3\n'''\nCopyright (C) 2026, WAFW00F Developers.\nSee the LICENSE file for copying permission.\n'''\n\nNAME = 'Sitelock (TrueShield)'\n\n# Well this is confusing, Sitelock itself uses Incapsula from Imperva\n# So the fingerprints obtained on blockpage are similar to those of Incapsula.\n\ndef is_waf(self):\n    if self.matchContent(r\"SiteLock will remember you\"):\n        return True\n\n    if self.matchContent(r\"Sitelock is leader in Business Website Security Services\"):\n        return True\n\n    if self.matchContent(r\"sitelock[_\\-]shield([_\\-]logo|[\\-_]badge)?\"):\n        return True\n\n    if self.matchContent(r'SiteLock incident ID'):\n        return True\n\n    return False\n"
+    },
+    {
+      "filename": "sonicwall.py",
+      "source": "#!/usr/bin/env python3\n'''\nCopyright (C) 2026, WAFW00F Developers.\nSee the LICENSE file for copying permission.\n'''\n\nNAME = 'SonicWall (Dell)'\n\n\ndef is_waf(self):\n    if self.matchHeader(('Server', 'SonicWALL')):\n        return True\n\n    if self.matchContent(r\"<(title|h\\d{1})>Web Site Blocked\"):\n        return True\n\n    if self.matchContent(r'\\+?nsa_banner'):\n        return True\n\n    return False\n"
+    },
+    {
+      "filename": "sophos.py",
+      "source": "#!/usr/bin/env python3\n'''\nCopyright (C) 2026, WAFW00F Developers.\nSee the LICENSE file for copying permission.\n'''\n\nNAME = 'UTM Web Protection (Sophos)'\n\n\ndef is_waf(self):\n    if check_schema_01(self):\n        return True\n\n    if check_schema_02(self):\n        return True\n\n    return False\n\n\ndef check_schema_01(self):\n    if self.matchContent(r'www\\.sophos\\.com'):\n        return True\n\n    if self.matchContent(r'Powered by.?(Sophos)? UTM Web Protection'):\n        return True\n\n    return False\n\n\ndef check_schema_02(self):\n    if not self.matchContent(r'<title>Access to the requested URL was blocked'):\n        return False\n\n    if not self.matchContent(r'Access to the requested URL was blocked'):\n        return False\n\n    if not self.matchContent(r'incident was logged with the following log identifier'):\n        return False\n\n    if not self.matchContent(r'Inbound Anomaly Score exceeded'):\n        return False\n\n    if not self.matchContent(r'Your cache administrator is'):\n        return False\n\n    return True\n"
+    },
+    {
+      "filename": "squarespace.py",
+      "source": "#!/usr/bin/env python3\n'''\nCopyright (C) 2026, WAFW00F Developers.\nSee the LICENSE file for copying permission.\n'''\n\nNAME = 'Squarespace (Squarespace)'\n\n\ndef is_waf(self):\n    if self.matchHeader(('Server', 'Squarespace')):\n        return True\n\n    if self.matchCookie(r'^SS_ANALYTICS_ID='):\n        return True\n\n    if self.matchCookie(r'^SS_MATTR='):\n        return True\n\n    if self.matchCookie(r'^SS_MID='):\n        return True\n\n    if self.matchCookie(r'SS_CVT='):\n        return True\n\n    if self.matchContent(r'status\\.squarespace\\.com'):\n        return True\n\n    if self.matchContent(r'BRICK\\-\\d{2}'):\n        return True\n\n    return False\n"
+    },
+    {
+      "filename": "squidproxy.py",
+      "source": "#!/usr/bin/env python3\n'''\nCopyright (C) 2026, WAFW00F Developers.\nSee the LICENSE file for copying permission.\n'''\n\nNAME = 'SquidProxy IDS (SquidProxy)'\n\n\ndef is_waf(self):\n    if not self.matchHeader(('Server', r'squid(/[0-9\\.]+)?')):\n        return False\n\n    if not self.matchContent(r'Access control configuration prevents your request'):\n        return False\n\n    return True\n"
+    },
+    {
+      "filename": "stackpath.py",
+      "source": "#!/usr/bin/env python3\n'''\nCopyright (C) 2026, WAFW00F Developers.\nSee the LICENSE file for copying permission.\n'''\n\nNAME = 'StackPath (StackPath)'\n\n\ndef is_waf(self):\n    if check_schema_01(self):\n        return True\n\n    if check_schema_02(self):\n        return True\n\n    return False\n\n\ndef check_schema_01(self):\n    if self.matchContent(r'<title>StackPath[^<]+</title>'):\n        return True\n\n    if self.matchContent(r'Protected by <a href=\"https?:\\/\\/(?:www\\.)?stackpath\\.com\\/\"[^>]+>StackPath'):\n        return True\n\n    return False\n\n\ndef check_schema_02(self):\n    if not self.matchContent(r\"is using a security service for protection against online attacks\"):\n        return False\n\n    if not self.matchContent(r'An action has triggered the service and blocked your request'):\n        return False\n\n    return True\n"
+    },
+    {
+      "filename": "sucuri.py",
+      "source": "#!/usr/bin/env python3\n'''\nCopyright (C) 2026, WAFW00F Developers.\nSee the LICENSE file for copying permission.\n'''\n\nNAME = 'Sucuri CloudProxy (Sucuri Inc.)'\n\n\ndef is_waf(self):\n    if self.matchHeader(('X-Sucuri-ID', r'.+?')):\n        return True\n\n    if self.matchHeader(('X-Sucuri-Cache', r'.+?')):\n        return True\n\n    if self.matchHeader(('Server', r'Sucuri(\\-Cloudproxy)?')):\n        return True\n\n    if self.matchHeader(('X-Sucuri-Block', r'.+?'), attack=True):\n        return True\n\n    if self.matchContent(r\"Access Denied.{0,6}?Sucuri Website Firewall\"):\n        return True\n\n    if self.matchContent(r\"<title>Sucuri WebSite Firewall.{0,6}?(CloudProxy)?.{0,6}?Access Denied\"):\n        return True\n\n    if self.matchContent(r\"sucuri\\.net/privacy\\-policy\"):\n        return True\n\n    if self.matchContent(r\"cdn\\.sucuri\\.net/sucuri[-_]firewall[-_]block\\.css\"):\n        return True\n\n    if self.matchContent(r'cloudproxy@sucuri\\.net'):\n        return True\n\n    return False\n"
+    },
+    {
+      "filename": "tencent.py",
+      "source": "#!/usr/bin/env python3\n'''\nCopyright (C) 2026, WAFW00F Developers.\nSee the LICENSE file for copying permission.\n'''\n\nNAME = 'Tencent Cloud Firewall (Tencent Technologies)'\n\n\ndef is_waf(self):\n    if self.matchContent(r'waf\\.tencent\\-?cloud\\.com/'):\n        return True\n\n    if self.matchContent(r'window\\.location\\.href.{1,3}?https?://waf.tencent(?:-?cloud)?.com/(?:403|501)page\\.html'):\n        return True\n\n    return False\n"
+    },
+    {
+      "filename": "teros.py",
+      "source": "#!/usr/bin/env python3\n'''\nCopyright (C) 2026, WAFW00F Developers.\nSee the LICENSE file for copying permission.\n'''\n\nNAME = 'Teros (Citrix Systems)'\n\n\ndef is_waf(self):\n    if self.matchCookie(r'^st8id='):\n        return True\n\n    return False\n"
+    },
+    {
+      "filename": "threatx.py",
+      "source": "#!/usr/bin/env python3\n'''\nCopyright (C) 2026, WAFW00F Developers.\nSee the LICENSE file for copying permission.\n'''\n\nNAME = 'ThreatX (A10 Networks)'\n\n\ndef is_waf(self):\n    if self.matchHeader(('X-Request-Id', r'.*')) and \\\n       self.matchContent(r\"^Forbidden - ID: ([a-fA-F0-9]{32})$\") and \\\n       self.matchStatus(403):\n        return True\n\n    return False\n"
+    },
+    {
+      "filename": "transip.py",
+      "source": "#!/usr/bin/env python3\n'''\nCopyright (C) 2026, WAFW00F Developers.\nSee the LICENSE file for copying permission.\n'''\n\nNAME = 'TransIP Web Firewall (TransIP)'\n\n\ndef is_waf(self):\n    if self.matchHeader(('X-TransIP-Backend', '.+')):\n        return True\n\n    if self.matchHeader(('X-TransIP-Balancer', '.+')):\n        return True\n\n    return False\n"
+    },
+    {
+      "filename": "uewaf.py",
+      "source": "#!/usr/bin/env python3\n'''\nCopyright (C) 2026, WAFW00F Developers.\nSee the LICENSE file for copying permission.\n'''\n\nNAME = 'UEWaf (UCloud)'\n\n\ndef is_waf(self):\n    if self.matchHeader(('Server', r'uewaf(/[0-9\\.]+)?')):\n        return True\n\n    if self.matchContent(r'/uewaf_deny_pages/default/img/'):\n        return True\n\n    if self.matchContent(r'ucloud\\.cn'):\n        return True\n\n    return False\n"
+    },
+    {
+      "filename": "urlmaster.py",
+      "source": "#!/usr/bin/env python3\n'''\nCopyright (C) 2026, WAFW00F Developers.\nSee the LICENSE file for copying permission.\n'''\n\nNAME = 'URLMaster SecurityCheck (iFinity/DotNetNuke)'\n\n\ndef is_waf(self):\n    if check_schema_01(self):\n        return True\n\n    if check_schema_02(self):\n        return True\n\n    return False\n\n\ndef check_schema_01(self):\n    if self.matchHeader(('X-UrlMaster-Debug', '.+')):\n        return True\n\n    if self.matchHeader(('X-UrlMaster-Ex', '.+')):\n        return True\n\n    return False\n\n\ndef check_schema_02(self):\n    if not self.matchContent(r\"Ur[li]RewriteModule\"):\n        return False\n\n    if not self.matchContent(r'SecurityCheck'):\n        return False\n\n    return True\n"
+    },
+    {
+      "filename": "urlscan.py",
+      "source": "#!/usr/bin/env python3\n'''\nCopyright (C) 2026, WAFW00F Developers.\nSee the LICENSE file for copying permission.\n'''\n\nNAME = 'URLScan (Microsoft)'\n\n\ndef is_waf(self):\n    if self.matchContent(r\"Rejected[-_]By[_-]UrlScan\"):\n        return True\n\n    if self.matchContent(r'A custom filter or module.{0,4}?such as URLScan'):\n        return True\n\n    return False\n"
+    },
+    {
+      "filename": "variti.py",
+      "source": "#!/usr/bin/env python3\n'''\nCopyright (C) 2026, WAFW00F Developers.\nSee the LICENSE file for copying permission.\n'''\n\nNAME = 'Variti (Variti)'\n\ndef is_waf(self):\n    if self.matchHeader(('Server', r'Variti(?:\\/[a-z0-9\\.\\-]+)?')):\n        return True\n\n    return False\n"
+    },
+    {
+      "filename": "varnish.py",
+      "source": "#!/usr/bin/env python3\n'''\nCopyright (C) 2026, WAFW00F Developers.\nSee the LICENSE file for copying permission.\n'''\n\nNAME = 'Varnish (OWASP)'\n\n\ndef is_waf(self):\n    if self.matchContent(r'Request rejected by xVarnish\\-WAF'):\n        return True\n\n    return False\n"
+    },
+    {
+      "filename": "vercel.py",
+      "source": "#!/usr/bin/env python3\n'''\nCopyright (C) 2026, WAFW00F Developers.\nSee the LICENSE file for copying permission.\n'''\n\nNAME = 'Vercel WAF (Vercel)'\n\n\ndef is_waf(self):\n    if self.matchContent(r'<title>Vercel Security Checkpoint</title>'):\n        return True\n    if self.matchContent(r'/vercel/security/'):\n        return True\n\n    return False\n"
+    },
+    {
+      "filename": "viettel.py",
+      "source": "#!/usr/bin/env python3\n'''\nCopyright (C) 2026, WAFW00F Developers.\nSee the LICENSE file for copying permission.\n'''\n\nNAME = 'Viettel (Cloudrity)'\n\n\ndef is_waf(self):\n    if self.matchContent(r\"Access Denied.{0,10}?Viettel WAF\"):\n        return True\n\n    if self.matchContent(r\"cloudrity\\.com\\.(vn)?/\"):\n        return True\n\n    if self.matchContent(r\"Viettel WAF System\"):\n        return True\n\n    return False\n"
+    },
+    {
+      "filename": "virusdie.py",
+      "source": "#!/usr/bin/env python3\n'''\nCopyright (C) 2026, WAFW00F Developers.\nSee the LICENSE file for copying permission.\n'''\n\nNAME = 'VirusDie (VirusDie LLC)'\n\n\ndef is_waf(self):\n    if self.matchContent(r\"cdn\\.virusdie\\.ru/splash/firewallstop\\.png\"):\n        return True\n\n    if self.matchContent(r'copy.{0,10}?Virusdie\\.ru'):\n        return True\n\n    return False\n"
+    },
+    {
+      "filename": "wallarm.py",
+      "source": "#!/usr/bin/env python3\n'''\nCopyright (C) 2026, WAFW00F Developers.\nSee the LICENSE file for copying permission.\n'''\n\nNAME = 'Wallarm (Wallarm Inc.)'\n\n\ndef is_waf(self):\n    if self.matchHeader(('Server', r'nginx[\\-_]wallarm')):\n        return True\n\n    return False\n"
+    },
+    {
+      "filename": "watchguard.py",
+      "source": "#!/usr/bin/env python3\n'''\nCopyright (C) 2026, WAFW00F Developers.\nSee the LICENSE file for copying permission.\n'''\n\nNAME = 'WatchGuard (WatchGuard Technologies)'\n\n\ndef is_waf(self):\n    if self.matchHeader(('Server', 'WatchGuard')):\n        return True\n\n    if self.matchContent(r\"Request denied by WatchGuard Firewall\"):\n        return True\n\n    if self.matchContent(r'WatchGuard Technologies Inc\\.'):\n        return True\n\n    return False\n"
+    },
+    {
+      "filename": "webarx.py",
+      "source": "#!/usr/bin/env python3\n'''\nCopyright (C) 2026, WAFW00F Developers.\nSee the LICENSE file for copying permission.\n'''\n\nNAME = 'WebARX (WebARX Security Solutions)'\n\n\ndef is_waf(self):\n    if self.matchContent(r\"WebARX.{0,10}?Web Application Firewall\"):\n        return True\n\n    if self.matchContent(r\"www\\.webarxsecurity\\.com\"):\n        return True\n\n    if self.matchContent(r'/wp\\-content/plugins/webarx/includes/'):\n        return True\n\n    return False\n"
+    },
+    {
+      "filename": "webknight.py",
+      "source": "#!/usr/bin/env python3\n'''\nCopyright (C) 2026, WAFW00F Developers.\nSee the LICENSE file for copying permission.\n'''\n\nNAME = 'WebKnight (AQTRONIX)'\n\n\ndef is_waf(self):\n    if check_schema_01(self):\n        return True\n\n    if check_schema_02(self):\n        return True\n\n    if check_schema_03(self):\n        return True\n\n    return False\n\n\ndef check_schema_01(self):\n    if not self.matchStatus(999):\n        return False\n\n    if not self.matchReason('No Hacking'):\n        return False\n\n    return True\n\n\ndef check_schema_02(self):\n    if not self.matchStatus(404):\n        return False\n\n    if not self.matchReason('Hack Not Found'):\n        return False\n\n    return True\n\n\ndef check_schema_03(self):\n    if self.matchContent(r'WebKnight Application Firewall Alert'):\n        return True\n\n    if self.matchContent(r'What is webknight\\?'):\n        return True\n\n    if self.matchContent(r'AQTRONIX WebKnight is an application firewall'):\n        return True\n\n    if self.matchContent(r'WebKnight will take over and protect'):\n        return True\n\n    if self.matchContent(r'aqtronix\\.com/WebKnight'):\n        return True\n\n    if self.matchContent(r'AQTRONIX.{0,10}?WebKnight'):\n        return True\n\n    return False\n"
+    },
+    {
+      "filename": "webland.py",
+      "source": "#!/usr/bin/env python3\n'''\nCopyright (C) 2026, WAFW00F Developers.\nSee the LICENSE file for copying permission.\n'''\n\nNAME = 'WebLand (WebLand)'\n\n\ndef is_waf(self):\n    if self.matchHeader(('Server', r'protected by webland')):\n        return True\n\n    return False\n"
+    },
+    {
+      "filename": "webray.py",
+      "source": "#!/usr/bin/env python3\n'''\nCopyright (C) 2026, WAFW00F Developers.\nSee the LICENSE file for copying permission.\n'''\n\nNAME = 'RayWAF (WebRay Solutions)'\n\n\ndef is_waf(self):\n    if self.matchHeader(('Server', r'WebRay\\-WAF')):\n        return True\n\n    if self.matchHeader(('DrivedBy', r'RaySrv.RayEng/[0-9\\.]+?')):\n        return True\n\n    return False\n"
+    },
+    {
+      "filename": "webseal.py",
+      "source": "#!/usr/bin/env python3\n'''\nCopyright (C) 2026, WAFW00F Developers.\nSee the LICENSE file for copying permission.\n'''\n\nNAME = 'WebSEAL (IBM)'\n\n\ndef is_waf(self):\n    if self.matchHeader(('Server', 'WebSEAL')):\n        return True\n\n    if self.matchContent(r\"This is a WebSEAL error message template file\"):\n        return True\n\n    if self.matchContent(r\"WebSEAL server received an invalid HTTP request\"):\n        return True\n\n    return False\n"
+    },
+    {
+      "filename": "webtotem.py",
+      "source": "#!/usr/bin/env python3\n'''\nCopyright (C) 2026, WAFW00F Developers.\nSee the LICENSE file for copying permission.\n'''\n\nNAME = 'WebTotem (WebTotem)'\n\n\ndef is_waf(self):\n    if self.matchContent(r\"The current request was blocked.{0,8}?>WebTotem\"):\n        return True\n\n    return False\n"
+    },
+    {
+      "filename": "west263cdn.py",
+      "source": "#!/usr/bin/env python3\n'''\nCopyright (C) 2026, WAFW00F Developers.\nSee the LICENSE file for copying permission.\n'''\n\nNAME = 'West263 CDN (West263CDN)'\n\n\ndef is_waf(self):\n    if self.matchHeader(('X-Cache', r'WS?T263CDN')):\n        return True\n\n    return False\n"
+    },
+    {
+      "filename": "wordfence.py",
+      "source": "#!/usr/bin/env python3\n'''\nCopyright (C) 2026, WAFW00F Developers.\nSee the LICENSE file for copying permission.\n'''\n\nNAME = 'Wordfence (Defiant)'\n\n\ndef is_waf(self):\n    if self.matchHeader(('Server', r'wf[_\\-]?WAF')):\n        return True\n\n    if self.matchContent(r\"Generated by Wordfence\"):\n        return True\n\n    if self.matchContent(r'broke one of (the )?Wordfence (advanced )?blocking rules'):\n        return True\n\n    if self.matchContent(r\"/plugins/wordfence\"):\n        return True\n\n    return False\n"
+    },
+    {
+      "filename": "wpmudev.py",
+      "source": "#!/usr/bin/env python3\n'''\nCopyright (C) 2026, WAFW00F Developers.\nSee the LICENSE file for copying permission.\n'''\n\nNAME = 'wpmudev WAF (Incsub)'\n\n\ndef is_waf(self):\n    if check_schema_01(self):\n        return True\n\n    if check_schema_02(self):\n        return True\n\n    return False\n\n\ndef check_schema_01(self):\n    if not self.matchContent(r'href=\"http(s)?.\\/\\/wpmudev.com\\/.{0,15}?'):\n        return False\n\n    if not self.matchContent(r'Click on the Logs tab, then the WAF Log.'):\n        return False\n\n    if not self.matchContent(r'Choose your site from the list'):\n        return False\n\n    if not self.matchStatus(403):\n        return False\n\n    return True\n\n\ndef check_schema_02(self):\n    if not self.matchContent(r'<h1>Whoops, this request has been blocked!'):\n        return False\n\n    if not self.matchContent(r'This request has been deemed suspicious'):\n        return False\n\n    if not self.matchContent(r'possible attack on our servers.'):\n        return False\n\n    if not self.matchStatus(403):\n        return False\n\n    return True\n"
+    },
+    {
+      "filename": "wts.py",
+      "source": "#!/usr/bin/env python3\n'''\nCopyright (C) 2026, WAFW00F Developers.\nSee the LICENSE file for copying permission.\n'''\n\nNAME = 'WTS-WAF (WTS)'\n\n\ndef is_waf(self):\n    if self.matchHeader(('Server', r'wts/[0-9\\.]+?')):\n        return True\n\n    if self.matchContent(r\"<(title|h\\d{1})>WTS\\-WAF\"):\n        return True\n\n    return False\n"
+    },
+    {
+      "filename": "wzb360.py",
+      "source": "#!/usr/bin/env python3\n'''\nCopyright (C) 2026, WAFW00F Developers.\nSee the LICENSE file for copying permission.\n'''\n\nNAME = '360WangZhanBao (360 Technologies)'\n\n\ndef is_waf(self):\n    if self.matchHeader(('Server', r'qianxin\\-waf')):\n        return True\n\n    if self.matchHeader(('WZWS-Ray', r'.+?')):\n        return True\n\n    if self.matchHeader(('X-Powered-By-360WZB', r'.+?')):\n        return True\n\n    if self.matchContent(r'wzws\\-waf\\-cgi/'):\n        return True\n\n    if self.matchContent(r'wangshan\\.360\\.cn'):\n        return True\n\n    if self.matchStatus(493):\n        return True\n\n    return False\n"
+    },
+    {
+      "filename": "xlabssecuritywaf.py",
+      "source": "#!/usr/bin/env python3\n'''\nCopyright (C) 2026, WAFW00F Developers.\nSee the LICENSE file for copying permission.\n'''\n\nNAME = 'XLabs Security WAF (XLabs)'\n\n\ndef is_waf(self):\n    if self.matchHeader(('X-CDN', r'XLabs Security')):\n        return True\n\n    if self.matchHeader(('Secured', r'^By XLabs Security')):\n        return True\n\n    if self.matchHeader(('Server', r'XLabs[-_]?.?WAF'), attack=True):\n        return True\n\n    return False\n"
+    },
+    {
+      "filename": "xuanwudun.py",
+      "source": "#!/usr/bin/env python3\n'''\nCopyright (C) 2026, WAFW00F Developers.\nSee the LICENSE file for copying permission.\n'''\n\nNAME = 'Xuanwudun (Xuanwudun)'\n\n\ndef is_waf(self):\n    if self.matchContent(r\"admin\\.dbappwaf\\.cn/(index\\.php/Admin/ClientMisinform/)?\"):\n        return True\n\n    if self.matchContent(r'class=.(db[\\-_]?)?waf(.)?([\\-_]?row)?>'):\n        return True\n\n    return False\n"
+    },
+    {
+      "filename": "yundun.py",
+      "source": "#!/usr/bin/env python3\n'''\nCopyright (C) 2026, WAFW00F Developers.\nSee the LICENSE file for copying permission.\n'''\n\nNAME = 'Yundun (Yundun)'\n\n\ndef is_waf(self):\n    if self.matchHeader(('Server', 'YUNDUN')):\n        return True\n\n    if self.matchHeader(('X-Cache', 'YUNDUN')):\n        return True\n\n    if self.matchCookie(r'^yd_cookie='):\n        return True\n\n    if self.matchContent(r'Blocked by YUNDUN Cloud WAF'):\n        return True\n\n    if self.matchContent(r'yundun\\.com/yd[-_]http[_-]error/'):\n        return True\n\n    if self.matchContent(r'www\\.yundun\\.com/(static/js/fingerprint\\d{1}?\\.js)?'):\n        return True\n\n    return False\n"
+    },
+    {
+      "filename": "yunsuo.py",
+      "source": "#!/usr/bin/env python3\n'''\nCopyright (C) 2026, WAFW00F Developers.\nSee the LICENSE file for copying permission.\n'''\n\nNAME = 'Yunsuo (Yunsuo)'\n\n\ndef is_waf(self):\n    if self.matchCookie(r'^yunsuo_session='):\n        return True\n\n    if self.matchContent(r'class=\\\"yunsuologo\\\"'):\n        return True\n\n    return False\n"
+    },
+    {
+      "filename": "yxlink.py",
+      "source": "#!/usr/bin/env python3\n'''\nCopyright (C) 2026, WAFW00F Developers.\nSee the LICENSE file for copying permission.\n'''\n\nNAME = 'YXLink (YxLink Technologies)'\n\n\ndef is_waf(self):\n    if self.matchCookie(r'^yx_ci_session='):\n        return True\n\n    if self.matchCookie(r'^yx_language='):\n        return True\n\n    if self.matchHeader(('Server', r'Yxlink([\\-_]?WAF)?')):\n        return True\n\n    return False\n"
+    },
+    {
+      "filename": "zenedge.py",
+      "source": "#!/usr/bin/env python3\n'''\nCopyright (C) 2026, WAFW00F Developers.\nSee the LICENSE file for copying permission.\n'''\n\nNAME = 'Zenedge (Zenedge)'\n\n\ndef is_waf(self):\n    if self.matchHeader(('Server', 'ZENEDGE')):\n        return True\n\n    if self.matchHeader(('X-Zen-Fury', r'.+?')):\n        return True\n\n    if self.matchContent(r'/__zenedge/'):\n        return True\n\n    return False\n"
+    },
+    {
+      "filename": "zscaler.py",
+      "source": "#!/usr/bin/env python3\n'''\nCopyright (C) 2026, WAFW00F Developers.\nSee the LICENSE file for copying permission.\n'''\n\nNAME = 'ZScaler (Accenture)'\n\n\ndef is_waf(self):\n    if self.matchHeader(('Server', r'ZScaler')):\n        return True\n\n    if self.matchContent(r\"Access Denied.{0,10}?Accenture Policy\"):\n        return True\n\n    if self.matchContent(r'policies\\.accenture\\.com'):\n        return True\n\n    if self.matchContent(r'login\\.zscloud\\.net/img_logo_new1\\.png'):\n        return True\n\n    if self.matchContent(r'Zscaler to protect you from internet threats'):\n        return True\n\n    if self.matchContent(r\"Internet Security by ZScaler\"):\n        return True\n\n    if self.matchContent(r\"Accenture.{0,10}?webfilters indicate that the site likely contains\"):\n        return True\n\n    return False\n"
+    }
+  ],
+  "source": {
+    "version": "2.4.2",
+    "tag_commit": "e81d38748109a805872ee92fd2377612bd639b3b",
+    "sdist_sha256": "05e4a49f6de433793ad506e37ae2c6f537c832959ee6e2bbdf573900f22194ae",
+    "corpus_sha256": "fb296e4c6368b668b8c2ae31fecc19c311ddce0644a933becabf79a9a4ce5b9c"
+  }
+}

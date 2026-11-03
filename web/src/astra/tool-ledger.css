@@ -1,0 +1,561 @@
+.astra-tool-ledger {
+  padding: clamp(14px, 2vw, 28px);
+}
+.astra-tool-ledger button,
+.astra-tool-statistics button {
+  font: inherit;
+  cursor: pointer;
+}
+.astra-tool-ledger button:disabled {
+  opacity: 0.45;
+  cursor: default;
+}
+.astra-tool-ledger :is(button, pre):focus-visible {
+  outline: 2px solid var(--a-focus);
+  outline-offset: 3px;
+}
+.astra-tool-heading {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 24px;
+  border: 1px solid var(--a-line);
+  border-radius: 12px;
+  background: linear-gradient(120deg, var(--a-paper), var(--a-soft));
+}
+.astra-tool-heading > div > span {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  color: var(--a-accent);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.astra-tool-heading h1 {
+  font-size: clamp(24px, 2.5vw, 32px);
+  letter-spacing: -0.04em;
+  font-weight: 650;
+  margin: 4px 0;
+}
+.astra-tool-heading p {
+  color: var(--a-muted);
+  font-size: 12px;
+  margin: 0;
+}
+.astra-tool-heading > div:last-child {
+  flex-shrink: 0;
+  text-align: right;
+}
+.astra-tool-heading strong {
+  display: block;
+  font-size: 28px;
+  font-weight: 550;
+}
+.astra-tool-heading small {
+  color: var(--a-muted);
+  display: block;
+  font-size: 10px;
+  font-weight: 400;
+}
+.astra-tool-controls {
+  display: flex;
+  align-items: end;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin: 20px 0 12px;
+}
+.astra-tool-controls label {
+  display: grid;
+  gap: 5px;
+  font-size: 10px;
+  color: var(--a-muted);
+  width: 105px;
+}
+.astra-tool-controls label.astra-tool-search {
+  display: flex;
+  align-items: center;
+  position: relative;
+  flex: 1 1 260px;
+}
+.astra-tool-search > svg {
+  position: absolute;
+  left: 10px;
+}
+.astra-tool-ledger .astra-tool-controls label.astra-tool-search input {
+  padding-left: 34px;
+  padding-right: 32px;
+}
+.astra-tool-search kbd {
+  position: absolute;
+  right: 10px;
+  border: 1px solid var(--a-line);
+  padding: 0 5px;
+  border-radius: 3px;
+}
+.astra-tool-controls button,
+.astra-tool-payload button,
+.astra-tool-error button,
+.astra-tool-ledger-list footer button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  border: 1px solid var(--a-line);
+  color: var(--a-ink);
+  background: var(--a-paper);
+  border-radius: 6px;
+  padding: 8px 10px;
+  font-size: 11px;
+  min-height: 34px;
+}
+.astra-tool-ledger button:hover:not(:disabled) {
+  border-color: var(--a-accent);
+}
+.astra-tool-read-state {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  font-size: 10px;
+  color: var(--a-muted);
+  margin: 10px 0;
+  min-height: 20px;
+}
+.astra-tool-read-state span:last-child {
+  margin-left: auto;
+  font-variant-numeric: tabular-nums;
+}
+.astra-tool-grid {
+  display: grid;
+  grid-template-columns: minmax(290px, 0.88fr) minmax(0, 1.2fr);
+  align-items: start;
+  gap: 16px;
+}
+.astra-tool-ledger-list,
+.astra-tool-inspector {
+  min-width: 0;
+  border: 1px solid var(--a-line);
+  border-radius: 10px;
+  background: var(--a-paper);
+  overflow: hidden;
+  box-shadow: var(--a-shadow);
+}
+.astra-tool-ledger-list > header {
+  padding: 16px 18px;
+  background: var(--a-soft);
+  border-bottom: 1px solid var(--a-line);
+}
+.astra-tool-ledger-list > header > div {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+}
+.astra-tool-ledger-list > header > div span {
+  color: var(--a-accent);
+  font-size: 11px;
+}
+.astra-tool-ledger-list > header > div strong {
+  color: var(--a-muted);
+  font-size: 10px;
+  font-weight: 400;
+}
+.astra-tool-ledger-list dl {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  margin: 14px 0 0;
+}
+.astra-tool-ledger-list dl > div + div {
+  border-left: 1px solid var(--a-line);
+  padding-left: 12px;
+}
+.astra-tool-ledger-list dt {
+  color: var(--a-muted);
+  font-size: 9px;
+}
+.astra-tool-ledger-list dd {
+  font-size: 20px;
+  font-weight: 550;
+  margin: 0;
+}
+.astra-tool-ledger [data-error="true"] :is(dd, .astra-tool-event-dot) {
+  color: var(--a-danger);
+}
+.astra-tool-events {
+  max-height: 640px;
+  overflow: auto;
+  scrollbar-width: thin;
+}
+.astra-tool-events > button {
+  display: flex;
+  align-items: center;
+  text-align: left;
+  gap: 10px;
+  padding: 13px 16px;
+  width: 100%;
+  border: 0;
+  border-bottom: 1px solid var(--a-line);
+  border-left: 3px solid transparent;
+  background: transparent;
+  color: var(--a-ink);
+  transition:
+    background 0.16s,
+    border-color 0.16s;
+}
+.astra-tool-events > button[data-selected="true"] {
+  background: var(--a-selected);
+  border-left-color: var(--a-accent);
+}
+.astra-tool-event-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: currentColor;
+  color: var(--a-accent);
+  box-shadow: 0 0 0 4px color-mix(in srgb, currentColor 12%, transparent);
+  flex: 0 0 7px;
+}
+.astra-tool-event-body {
+  display: grid;
+  gap: 6px;
+  min-width: 0;
+  width: 100%;
+}
+.astra-tool-event-body > span:first-child {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.astra-tool-event-body strong {
+  font:
+    11px ui-monospace,
+    monospace;
+  color: var(--a-accent);
+}
+.astra-tool-event-body small {
+  color: var(--a-muted);
+  font-size: 9px;
+}
+.astra-tool-event-body code {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 11px;
+}
+.astra-tool-event-meta {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 5px;
+  color: var(--a-muted);
+  font-size: 9px;
+}
+.astra-tool-events > button > svg {
+  flex-shrink: 0;
+  color: var(--a-muted);
+}
+.astra-tool-ledger-list > footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 16px;
+  gap: 8px;
+  color: var(--a-muted);
+  font-size: 10px;
+  border-top: 1px solid var(--a-line);
+}
+.astra-tool-ledger-list nav {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.astra-tool-ledger-list footer button {
+  padding: 4px;
+  min-height: 28px;
+}
+.astra-tool-inspector > header {
+  padding: 20px;
+  background: linear-gradient(130deg, var(--a-soft), var(--a-paper));
+  border-bottom: 1px solid var(--a-line);
+}
+.astra-tool-inspector > header > div {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+  color: var(--a-muted);
+  font-size: 10px;
+}
+.astra-tool-inspector > header strong {
+  display: block;
+  font:
+    550 21px ui-monospace,
+    monospace;
+  color: var(--a-accent);
+  margin-top: 12px;
+  overflow-wrap: anywhere;
+}
+.astra-tool-inspector > header p {
+  font-size: 11px;
+  color: var(--a-muted);
+  margin: 7px 0 0;
+}
+.astra-tool-source {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1.2fr;
+  gap: 12px;
+  padding: 16px 20px;
+  margin: 0;
+  border-bottom: 1px solid var(--a-line);
+}
+.astra-tool-source dt {
+  font-size: 9px;
+  color: var(--a-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+.astra-tool-source dd {
+  margin: 4px 0 0;
+  font-size: 11px;
+  overflow-wrap: anywhere;
+}
+.astra-tool-row-note {
+  padding: 10px 20px;
+  margin: 0;
+  background: var(--a-selected);
+  font-size: 11px;
+}
+.astra-tool-payload {
+  min-width: 0;
+  border-bottom: 1px solid var(--a-line);
+}
+.astra-tool-payload header,
+.astra-tool-payload header > div {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  flex-wrap: wrap;
+}
+.astra-tool-payload header {
+  justify-content: space-between;
+  padding: 12px 16px;
+}
+.astra-tool-payload header span {
+  font:
+    10px ui-monospace,
+    monospace;
+  color: var(--a-muted);
+}
+.astra-tool-payload h2 {
+  font-size: 12px;
+  font-weight: 550;
+}
+.astra-tool-payload button {
+  padding: 4px 6px;
+  min-height: 26px;
+  font-size: 9px;
+}
+.astra-tool-payload pre {
+  margin: 0;
+  padding: 16px 20px;
+  background: var(--a-input);
+  max-height: 400px;
+  min-height: 60px;
+  overflow: auto;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  font:
+    11px / 1.75 ui-monospace,
+    monospace;
+  tab-size: 2;
+}
+.astra-tool-payload[data-error="true"] pre {
+  color: var(--a-danger);
+}
+.astra-tool-inspector > footer {
+  padding: 10px 20px;
+  color: var(--a-muted);
+  font-size: 9px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.astra-tool-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  min-height: 260px;
+  padding: 25px;
+  gap: 10px;
+  color: var(--a-muted);
+}
+.astra-tool-empty svg {
+  color: var(--a-accent);
+  opacity: 0.7;
+}
+.astra-tool-empty h2 {
+  color: var(--a-ink);
+  font-size: 14px;
+}
+.astra-tool-empty p {
+  font-size: 11px;
+  margin: 0;
+  max-width: 290px;
+}
+.astra-tool-error {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+  border: 1px solid var(--a-danger);
+  background: var(--a-danger-bg);
+  color: var(--a-danger);
+  padding: 10px 12px;
+  margin: 10px 0;
+  border-radius: 6px;
+  font-size: 11px;
+}
+.astra-tool-stat-rows {
+  display: grid;
+  gap: 18px;
+  max-height: 55vh;
+  overflow: auto;
+  padding: 4px 2px;
+}
+.astra-tool-stat-rows > div > div:first-child {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 12px;
+}
+.astra-tool-stat-rows strong {
+  font:
+    12px ui-monospace,
+    monospace;
+  color: var(--a-accent);
+}
+.astra-tool-stat-rows :is(span, small),
+.astra-tool-empty-stats,
+.astra-tool-stats-read {
+  color: var(--a-muted);
+  font-size: 11px;
+}
+.astra-tool-stat-track {
+  height: 5px;
+  border-radius: 3px;
+  overflow: hidden;
+  background: var(--a-soft);
+  margin: 8px 0 4px;
+}
+.astra-tool-stat-track > span {
+  display: block;
+  height: 100%;
+  background: var(--a-action);
+  border-radius: inherit;
+  transition: width 0.2s ease;
+}
+.astra-tool-spin {
+  animation: astra-tool-reading 1.2s linear infinite;
+}
+@keyframes astra-tool-reading {
+  to {
+    transform: rotate(360deg);
+  }
+}
+.astra-tool-context {
+  margin: 12px 0;
+  border: 1px solid var(--a-line);
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-size: 11px;
+  background: var(--a-soft);
+}
+.astra-tool-context summary {
+  cursor: pointer;
+  color: var(--a-accent);
+}
+.astra-tool-context kbd {
+  float: right;
+  color: var(--a-muted);
+}
+.astra-tool-context p {
+  color: var(--a-muted);
+  margin: 12px 0;
+}
+.astra-tool-context ol {
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+  gap: 20px;
+  padding: 0;
+}
+.astra-tool-context li {
+  display: grid;
+  gap: 4px;
+}
+.astra-tool-context li span {
+  color: var(--a-muted);
+}
+.astra-tool-context nav {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 14px;
+  color: var(--a-accent);
+}
+@media (max-width: 1050px) {
+  .astra-tool-grid {
+    grid-template-columns: 1fr;
+  }
+  .astra-tool-events {
+    max-height: 430px;
+  }
+}
+@media (max-width: 580px) {
+  .astra-tool-heading {
+    padding: 18px;
+    flex-direction: column;
+  }
+  .astra-tool-heading > div:last-child {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    text-align: right;
+  }
+  .astra-tool-heading strong {
+    font-size: 20px;
+  }
+  .astra-tool-controls {
+    gap: 8px;
+  }
+  .astra-tool-controls label.astra-tool-search {
+    flex-basis: 100%;
+  }
+  .astra-tool-controls label {
+    flex: 1 1 100px;
+  }
+  .astra-tool-controls > button {
+    flex: 1 1 90px;
+  }
+  .astra-tool-source {
+    padding: 14px;
+    gap: 8px;
+  }
+  .astra-tool-payload pre {
+    padding: 14px;
+  }
+  .astra-tool-inspector > header {
+    padding: 16px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .astra-tool-ledger *,
+  .astra-tool-statistics * {
+    animation: none !important;
+    transition: none !important;
+  }
+}

@@ -1,0 +1,149 @@
+# Hardened Uroboros sandbox WITH internet access (secured variant).
+#
+# Same distroless, read-only, non-root, capability-dropped app as the sealed
+# sandbox — but the app may reach the PUBLIC internet (LLM APIs, authorized
+# external targets). It still CANNOT reach your Mac or your LAN, and the database
+# still has no internet at all.
+#
+#   host 127.0.0.1:8787 ─► [ firewall netns: Uroboros ] ─► public internet (only)
+#                                      │ dbnet (sealed)
+#                                      ▼
+#                                  [ postgres ]  (no internet)
+#
+# How the egress control works: the Uroboros app shares the firewall container's
+# network namespace (network_mode: service:firewall), so every packet it sends
+# passes the firewall's iptables rules — public allowed, host/LAN/private dropped.
+# (Verified: public IP + DNS + api.anthropic.com reachable; host.docker.internal
+# and 192.168.x.x blocked.)
+#
+# Usage:
+#   cd sandbox
+#   docker compose -f docker-compose.internet.yml up -d --build
+#   open http://127.0.0.1:8787
+#   ./verify-internet.sh
+#
+# To actually run explorations you still set an LLM key in the Uroboros UI (or via
+# ANTHROPIC_API_KEY / OPENAI_API_KEY below). Only ever point Uroboros at targets you
+# are authorized to test.
+
+name: uroboros-internet
+
+networks:
+  # Sealed DB network (no internet, no host). Fixed subnet so the firewall can
+  # explicitly allow it while dropping every other private range.
+  dbnet:
+    name: uroboros_net_dbnet
+    internal: true
+    ipam:
+      config:
+        - subnet: 10.89.7.0/24
+  # Internet-capable bridge; only the firewall sits here, and it publishes the UI.
+  egress:
+    name: uroboros_net_egress
+    ipam:
+      config:
+        - subnet: 10.89.8.0/24
+
+volumes:
+  pgdata:
+  uroborosdata:
+  uroboroskeys:
+
+services:
+  firewall:
+    build:
+      context: ./firewall
+    image: uroboros-sandbox/firewall:local
+    networks: [dbnet, egress]
+    environment:
+      ALLOW_SUBNETS: "10.89.7.0/24"     # permit the DB subnet; drop all other private/host
+    ports:
+      - "127.0.0.1:8787:8787"           # UI published here (shared netns with uroboros); loopback only
+    cap_drop: [ALL]
+    cap_add: [NET_ADMIN, NET_RAW]       # only what iptables needs
+    security_opt:
+      - no-new-privileges:true
+    sysctls:
+      - net.ipv4.ip_forward=0           # no kernel routing between interfaces (defense in depth)
+    read_only: true
+    tmpfs:
+      - /run:rw,nosuid,nodev
+    healthcheck:
+      test: ["CMD-SHELL", "iptables -S OUTPUT | grep -q DROP"]
+      interval: 3s
+      timeout: 2s
+      retries: 15
+    mem_limit: 64m
+    cpus: "0.5"
+    pids_limit: 128
+    restart: unless-stopped
+
+  postgres:
+    image: postgres:16-alpine
+    networks: [dbnet]                   # sealed: no internet, never published
+    environment:
+      POSTGRES_USER: uroboros
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD in sandbox/.env}
+      POSTGRES_DB: uroboros
+      POSTGRES_HOST_AUTH_METHOD: scram-sha-256
+      POSTGRES_INITDB_ARGS: "--auth-host=scram-sha-256"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U uroboros -d uroboros"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+    security_opt:
+      - no-new-privileges:true
+    cap_drop: [ALL]
+    cap_add: [CHOWN, DAC_OVERRIDE, FOWNER, SETGID, SETUID]
+    mem_limit: 512m
+    cpus: "1.0"
+    pids_limit: 256
+    restart: unless-stopped
+
+  uroboros:
+    build:
+      context: ..
+      dockerfile: sandbox/Dockerfile
+      target: app
+    # An operator may select an exact prebuilt Katana runtime image and use
+    # `up --no-build`; the default remains the source-built sandbox image.
+    image: ${UROBOROS_APP_IMAGE:-uroboros-sandbox/app:local}
+    user: "65532:65532"
+    # Share the firewall's network namespace: all app egress is filtered there,
+    # and the firewall publishes the app's :8787 to the host. (With this mode we
+    # cannot also set networks/ports/hostname/extra_hosts on this service.)
+    network_mode: "service:firewall"
+    depends_on:
+      firewall:
+        condition: service_healthy
+      postgres:
+        condition: service_healthy
+    environment:
+      # postgres resolves over the firewall's dbnet interface.
+      UROBOROS_PG_DSN: postgres://uroboros:${POSTGRES_PASSWORD}@postgres:5432/uroboros?sslmode=disable
+      ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY:-}
+      OPENAI_API_KEY: ${OPENAI_API_KEY:-}
+      # Arsenal scanners live on sealed dbnet and can reach only this per-run,
+      # authenticated Traffic listener. "firewall" owns the shared app netns.
+      UROBOROS_ARSENAL_PROXY_LISTEN_HOST: 0.0.0.0
+      UROBOROS_ARSENAL_PROXY_ADVERTISE_HOST: firewall
+    read_only: true
+    tmpfs:
+      - /tmp:rw,nosuid,nodev,noexec,size=128m
+      # Chromium needs executable scratch space in headless/hybrid mode. Keep
+      # general /tmp noexec and confine that exception to Katana's private,
+      # non-persistent working directory.
+      - /app/katana-tmp:rw,nosuid,nodev,exec,size=512m,uid=65532,gid=65532,mode=0700
+    volumes:
+      - uroborosdata:/app/data
+      - uroboroskeys:/app/keystore
+    security_opt:
+      - no-new-privileges:true
+    cap_drop: [ALL]
+    mem_limit: 4g
+    cpus: "1.5"
+    pids_limit: 512
+    restart: unless-stopped

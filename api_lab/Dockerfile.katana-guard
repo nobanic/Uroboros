@@ -1,0 +1,11 @@
+FROM python:3.12-slim@sha256:a6e34c598f2467ed0e9a8d349809fcd8b5c603269512df273a0bb1784edc11b1
+
+LABEL org.opencontainers.image.title="Uroboros Katana scope guard" \
+      org.opencontainers.image.version="1" \
+      org.opencontainers.image.source="https://github.com/nobanic/UroborOS"
+
+WORKDIR /opt/katana-guard
+COPY api_lab/katana_scope_proxy.py /opt/katana-guard/katana_scope_proxy.py
+
+USER 65532:65532
+ENTRYPOINT ["python", "/opt/katana-guard/katana_scope_proxy.py"]

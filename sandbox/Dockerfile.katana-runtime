@@ -1,0 +1,55 @@
+# syntax=docker/dockerfile:1
+
+# Promote one exact, externally compiled Uroboros binary into the already
+# validated K2R dependency image. The build context must contain that binary as
+# `uroboros`; callers record and verify its SHA-256 instead of compiling an
+# uncommitted working tree inside this packaging step.
+ARG BASE_IMAGE=uroboros-k2r/uroboros:katana-2020654-20261019-2217
+FROM ${BASE_IMAGE}
+
+ARG BASE_IMAGE
+ARG BASE_IMAGE_ID
+ARG APP_SOURCE_REVISION
+ARG RUNTIME_SOURCE_REVISION
+ARG APP_BINARY_SHA256
+ARG KATANA_VERSION=v1.8.0
+ARG DIT_MODEL_SHA256=eba238b3093ff7aa4772ce17536bc313cb955428a6aa87dae41695a2dede6e59
+
+LABEL org.opencontainers.image.title="uroboros-katana-production-runtime" \
+      org.opencontainers.image.revision="${RUNTIME_SOURCE_REVISION}" \
+      io.uroboros.app-source-revision="${APP_SOURCE_REVISION}" \
+      io.uroboros.app-binary-sha256="${APP_BINARY_SHA256}" \
+      io.uroboros.base-image="${BASE_IMAGE}" \
+      io.uroboros.base-image-id="${BASE_IMAGE_ID}" \
+      io.uroboros.runtime-contract="task-scoped-katana-k2r"
+
+USER root
+COPY --chmod=0755 uroboros /app/uroboros
+
+# The hardened Compose runtime mounts the existing JWT volume at
+# /app/keystore. The K2R base historically wrote next to the executable, so the
+# immutable image supplies the same safe symlink as sandbox/Dockerfile. Only
+# /root itself needs traversal permission for the pinned Playwright Chromium;
+# its cache subtree is already world-readable/executable.
+RUN test -n "${APP_BINARY_SHA256}" \
+    && echo "${APP_BINARY_SHA256}  /app/uroboros" | sha256sum -c - \
+    && test "$(/usr/local/bin/katana -version 2>&1 | grep -o 'v[0-9][^ ]*' | head -n 1)" = "${KATANA_VERSION}" \
+    && echo "${DIT_MODEL_SHA256}  /usr/local/share/uroboros/dit/model.json" | sha256sum -c - \
+    && test -x /usr/local/bin/uroboros-chromium \
+    && chmod 0755 /root \
+    && mkdir -p /app/data /app/keystore /app/katana-tmp \
+    && rm -f /app/jwt.key \
+    && ln -s keystore/jwt.key /app/jwt.key \
+    && chown 65532:65532 /app/data \
+    && chmod 0750 /app/data \
+    && chown -R 65532:65532 /app/keystore \
+    && chown 65532:65532 /app/katana-tmp \
+    && chmod 0700 /app/katana-tmp \
+    && chown 65532:65532 /app/uroboros
+
+USER 65532:65532
+ENV HOME=/tmp/uroboros-runtime \
+    TMPDIR=/app/katana-tmp \
+    XDG_CONFIG_HOME=/tmp/uroboros-runtime/config \
+    XDG_CACHE_HOME=/tmp/uroboros-runtime/cache
+VOLUME ["/app/data", "/app/keystore"]

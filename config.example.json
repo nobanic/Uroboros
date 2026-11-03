@@ -1,0 +1,23 @@
+{
+  "_comment": "Copy to config.json (or point to another path via the UROBOROS_CONFIG environment variable). This file contains only database and skill_dir; other config such as LLM goes through environment variables or in-app settings, not this file.",
+
+  "_comment_database": "PostgreSQL connection. Priority: the UROBOROS_PG_DSN environment variable > database in this file. Choose one of two forms: (A) fill in the individual fields below; (B) provide only database.dsn, a single complete connection string.",
+  "database": {
+    "host": "127.0.0.1",
+    "port": 5433,
+    "user": "uroboros",
+    "password": "",
+    "dbname": "uroboros",
+    "sslmode": "disable"
+  },
+
+  "_comment_database_dsn": "Form (B): delete the database above and use a full DSN instead. When dsn is non-empty, the individual fields are ignored.",
+  "_example_database_dsn": {
+    "database": {
+      "dsn": "postgres://user:pass@db.example.com:5432/uroboros?sslmode=require"
+    }
+  },
+
+  "_comment_skill_dir": "The skill root directory (one skill per subdirectory, each containing a SKILL.md). Priority: the UROBOROS_SKILL_DIR environment variable > this field > the default (skills/ next to the executable). Leave blank or delete this field to use the default. Relative paths are resolved against the current working directory.",
+  "skill_dir": "/opt/uroboros/skills"
+}

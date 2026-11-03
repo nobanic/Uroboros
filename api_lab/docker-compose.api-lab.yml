@@ -1,0 +1,44 @@
+name: uroboros-api-lab
+volumes:
+  api_lab_data:
+networks:
+  dbnet:
+    external: true
+    name: uroboros_net_dbnet
+services:
+  api-lab:
+    build:
+      context: ..
+      dockerfile: api_lab/Dockerfile
+    image: uroboros-api-lab/service:local
+    networks: [dbnet]
+    environment:
+      API_LAB_TOKEN: ${ARSENAL_TOKEN:?set ARSENAL_TOKEN in bench/.env}
+      API_LAB_IDENTITIES: /run/api-lab/identities.json
+    volumes:
+      - api_lab_data:/var/lib/api-lab
+      - ../bench/api-lab-identities.json:/run/api-lab/identities.json:ro
+      - ..:/sources/uroboros:ro
+    tmpfs:
+      - /tmp:rw,nosuid,nodev,size=128m
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    mem_limit: 1g
+    cpus: "1.5"
+    restart: unless-stopped
+  api-lab-vulnerable:
+    profiles: [fixtures]
+    image: uroboros-api-lab/service:local
+    command: [python, -m, api_lab.fixture, --mode, vulnerable]
+    networks: [dbnet]
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    mem_limit: 128m
+  api-lab-fixed:
+    profiles: [fixtures]
+    image: uroboros-api-lab/service:local
+    command: [python, -m, api_lab.fixture, --mode, fixed]
+    networks: [dbnet]
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    mem_limit: 128m

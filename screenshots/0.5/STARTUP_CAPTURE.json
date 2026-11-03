@@ -1,0 +1,32 @@
+{
+  "application": "Uroboros",
+  "capturedAt": "2026-11-03T12:01:27.681Z",
+  "sourceRevision": "cb40a6e617e2e69dc4e124e08312a8f9ddc57505",
+  "mode": "normal",
+  "data": "Actual native compiled application with a fresh disposable local PostgreSQL database, synthetic operator assignment and no model provider.",
+  "modelCalls": 0,
+  "images": [
+    {
+      "file": "33-automatic-startup-defaults.png",
+      "title": "Automatic startup with preserved defaults",
+      "width": 1600,
+      "height": 1000,
+      "sha256": "71d3e18ffe07723a98894d2b36864b84da2e126f1794281ceddeb04f07092942",
+      "sourceRevision": "cb40a6e617e2e69dc4e124e08312a8f9ddc57505",
+      "frontendStaticTreeSHA256": "1ee1825e2938a8a37807acd419908231cccd64d082ce1ff4fa34842915e98fa2",
+      "mode": "normal",
+      "data": "Owned disposable local operation; no provider configured."
+    },
+    {
+      "file": "32-automatic-startup.png",
+      "title": "Choose initial discovery for an operation",
+      "width": 1600,
+      "height": 1000,
+      "sha256": "36587796ed6928fe6aca66f665f25207fec4fb59e22cca23952e79693b293793",
+      "sourceRevision": "cb40a6e617e2e69dc4e124e08312a8f9ddc57505",
+      "frontendStaticTreeSHA256": "1ee1825e2938a8a37807acd419908231cccd64d082ce1ff4fa34842915e98fa2",
+      "mode": "normal",
+      "data": "Owned disposable local operation; no provider configured."
+    }
+  ]
+}

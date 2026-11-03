@@ -1,0 +1,128 @@
+.astra-tool-filters {
+  display: grid;
+  grid-template-columns: minmax(180px, 2fr) repeat(2, minmax(130px, 1fr));
+  gap: 1rem;
+  margin-block: 1rem;
+}
+.astra-tool-workspace label,
+.astra-tool-editor label {
+  display: grid;
+  gap: 0.4rem;
+}
+.astra-tool-workspace input:not([type="checkbox"]),
+.astra-tool-workspace select,
+.astra-tool-editor textarea {
+  width: 100%;
+  min-width: 0;
+  border: 1px solid var(--a-line);
+  border-radius: 6px;
+  padding: 0.55rem 0.7rem;
+  color: var(--a-ink);
+  background: var(--a-paper);
+  font: inherit;
+}
+.astra-tool-catalog {
+  display: grid;
+  grid-template-columns: minmax(180px, 300px) minmax(0, 1fr);
+  gap: 1rem;
+  align-items: start;
+}
+.astra-tool-catalog > nav {
+  display: grid;
+  gap: 0.4rem;
+  max-height: 75vh;
+  overflow: auto;
+}
+.astra-tool-catalog > nav button {
+  text-align: left;
+  padding: 0.8rem;
+}
+.astra-tool-catalog > nav button[aria-current] {
+  border-color: var(--a-focus);
+  background: var(--a-selected);
+}
+.astra-tool-catalog > nav small {
+  display: block;
+  margin-top: 0.3rem;
+}
+.astra-tool-description {
+  white-space: pre-wrap;
+  margin-block: 1rem;
+}
+.astra-tool-catalog dl {
+  display: grid;
+  grid-template-columns: 120px minmax(0, 1fr);
+  gap: 0.6rem;
+  margin-block: 1rem;
+  font-size: 0.85rem;
+}
+.astra-tool-catalog dt {
+  color: var(--a-muted);
+}
+.astra-tool-catalog dd {
+  overflow-wrap: anywhere;
+}
+.astra-tool-workspace pre,
+.astra-tool-editor pre {
+  max-height: 55vh;
+  overflow: auto;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  font-size: 0.8rem;
+  padding: 1rem;
+  background: var(--a-soft);
+  border-radius: 6px;
+}
+.astra-tool-editor > p,
+.astra-tool-editor details {
+  margin-block: 1rem;
+}
+.astra-tool-editor fieldset {
+  margin-block: 1rem;
+}
+.astra-tool-schema {
+  padding: 1rem;
+  border: 1px solid var(--a-line);
+  border-radius: 8px;
+}
+.astra-tool-schema legend {
+  padding-inline: 0.35rem;
+  font-weight: 600;
+}
+.astra-tool-schema > p {
+  color: var(--a-muted);
+  font-size: 0.85rem;
+}
+.astra-tool-schema article {
+  padding-block: 1rem;
+  border-bottom: 1px solid var(--a-line);
+}
+.astra-tool-schema article:last-child {
+  border-bottom: 0;
+}
+.astra-tool-schema article header {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.7rem;
+  font-size: 0.85rem;
+  align-items: center;
+  margin-bottom: 0.8rem;
+}
+.astra-tool-schema article code {
+  color: var(--a-accent);
+}
+.astra-tool-schema input[type="checkbox"] {
+  width: 17px;
+  height: 17px;
+}
+@media (max-width: 800px) {
+  .astra-tool-catalog {
+    grid-template-columns: 1fr;
+  }
+  .astra-tool-catalog > nav {
+    max-height: 280px;
+  }
+  .astra-tool-filters {
+    grid-template-columns: 1fr;
+  }
+}

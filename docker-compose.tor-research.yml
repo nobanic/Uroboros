@@ -1,0 +1,9 @@
+# Optional production pin for the default-on T6C Tor research sidecar. Build and
+# audit tor-research/Dockerfile, then provide its repository and immutable sha256
+# digest. The base Compose file already supplies the service, network boundary
+# and runtime hardening; this overlay replaces the local build with the accepted
+# immutable image identity for promotion.
+services:
+  tor-research:
+    image: ${UROBOROS_TOR_IMAGE_REPOSITORY:?set the audited Tor image repository}@${UROBOROS_TOR_IMAGE_DIGEST:?set the audited Tor image digest}
+    build: !reset null

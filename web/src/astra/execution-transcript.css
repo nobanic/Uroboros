@@ -1,0 +1,348 @@
+.astra-replay {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 5px;
+  color: var(--a-ink, var(--foreground));
+  font-size: 12px;
+}
+.astra-replay svg {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+}
+.astra-replay button:focus-visible {
+  outline: 2px solid var(--a-accent, #4495ff);
+  outline-offset: 3px;
+}
+.astra-replay-round {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-block: 12px 8px;
+  color: var(--a-muted, var(--muted-foreground));
+  font-size: 10px;
+  letter-spacing: 0.06em;
+}
+.astra-replay-round > span {
+  height: 1px;
+  flex: 1;
+  background: var(--a-line, var(--border));
+}
+.astra-replay-tool,
+.astra-replay-message {
+  min-width: 0;
+  border: 1px solid transparent;
+  border-left: 2px solid color-mix(in srgb, #4a8ef7 35%, transparent);
+  border-radius: 5px 9px 9px 5px;
+  background: color-mix(in srgb, #5292ea 4%, transparent);
+}
+.astra-replay-tool:hover,
+.astra-replay-message:hover {
+  background: color-mix(in srgb, #5292ea 9%, transparent);
+}
+.astra-replay-tool[data-focused="true"] {
+  border: 2px solid var(--a-accent, #4495ff);
+  background: color-mix(in srgb, #5292ea 12%, transparent);
+  box-shadow: 0 0 0 4px color-mix(in srgb, #5292ea 7%, transparent);
+}
+.astra-replay-disclosure {
+  display: flex;
+  width: 100%;
+  min-width: 0;
+  align-items: center;
+  gap: 7px;
+  padding: 9px 8px;
+  text-align: left;
+  cursor: pointer;
+}
+.astra-replay-disclosure > svg:first-child {
+  width: 12px;
+  height: 12px;
+  color: var(--a-muted, var(--muted-foreground));
+  transition: transform 140ms ease;
+}
+.astra-replay-disclosure[aria-expanded="true"] > svg:first-child {
+  transform: rotate(90deg);
+}
+.astra-replay-tool .astra-replay-disclosure > svg:nth-child(2),
+.astra-replay-tool strong {
+  color: light-dark(#1962b5, #8bbcff);
+}
+.astra-replay-tool code,
+.astra-replay-message-preview {
+  min-width: 0;
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.astra-replay-tool code {
+  color: var(--a-muted, var(--muted-foreground));
+  font-size: 11px;
+}
+.astra-replay-message small {
+  flex-shrink: 0;
+  color: var(--a-muted, var(--muted-foreground));
+  font-size: 10px;
+}
+.astra-replay-lane {
+  flex-shrink: 0;
+  padding: 2px 5px;
+  border-radius: 4px;
+  background: #236bc2;
+  color: #fff;
+  font-size: 9px;
+  font-weight: 650;
+}
+.astra-replay-lane[data-tone="amber"] {
+  background: #98600d;
+}
+.astra-replay-lane[data-tone="sky"] {
+  background: #036b9e;
+}
+.astra-replay-lane[data-tone="violet"] {
+  background: #744ac0;
+}
+.astra-replay-lane[data-tone="teal"] {
+  background: #0d756e;
+}
+.astra-replay-lane[data-tone="pink"] {
+  background: #af346b;
+}
+.astra-replay-lane[data-tone="orange"] {
+  background: #b85519;
+}
+.astra-replay-state {
+  flex-shrink: 0;
+  margin-left: auto;
+  color: var(--a-muted, var(--muted-foreground));
+  font-size: 10px;
+  font-weight: 650;
+}
+.astra-replay-tool[data-state="complete"] .astra-replay-state,
+.astra-replay-state[data-state="allowed"] {
+  color: light-dark(#13724f, #68d9ab);
+}
+.astra-replay-tool[data-state="failed"] .astra-replay-state,
+.astra-replay-message[data-error="true"],
+.astra-replay-answer[data-error="true"] .astra-replay-answer-body,
+.astra-replay-state[data-state="denied"] {
+  color: light-dark(#b32b46, #ff92a3);
+}
+.astra-replay-detail {
+  min-width: 0;
+  margin: 0 8px 8px 28px;
+}
+.astra-replay-detail pre {
+  max-height: 288px;
+  overflow: auto;
+  padding: 12px;
+  border: 1px solid var(--a-line, var(--border));
+  border-radius: 7px;
+  background: color-mix(in srgb, var(--a-bg, var(--background)) 85%, transparent);
+  font-size: 11px;
+  line-height: 1.7;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+.astra-replay-turn {
+  display: flex;
+  min-width: 0;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-block: 14px 9px;
+}
+.astra-replay-turn-body {
+  display: flex;
+  min-width: 0;
+  max-width: 85%;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 6px;
+}
+.astra-replay-bubble {
+  min-width: 0;
+  max-width: 100%;
+  padding: 10px 13px;
+  border: 1px solid #4d9aff66;
+  border-radius: 13px 4px 13px 13px;
+  background: linear-gradient(120deg, #235ea8, #204b87);
+  box-shadow: 0 4px 14px #07182c18;
+  color: #f3f8ff;
+  font-size: 13px;
+  line-height: 1.65;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+.astra-replay-avatar {
+  display: grid;
+  width: 27px;
+  height: 27px;
+  flex-shrink: 0;
+  place-items: center;
+  border: 1px solid #5b9cec40;
+  border-radius: 8px;
+  background: #3587ee12;
+  color: light-dark(#2363ac, #9ccaff);
+}
+.astra-replay-files {
+  display: flex;
+  min-width: 0;
+  max-width: 100%;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.astra-replay-files > span {
+  display: inline-flex;
+  min-width: 0;
+  max-width: 100%;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 8px;
+  border: 1px solid var(--a-line, var(--border));
+  border-radius: 7px;
+  background: var(--a-panel, var(--card));
+}
+.astra-replay-files strong {
+  max-width: 180px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.astra-replay-files small,
+.astra-replay time {
+  flex-shrink: 0;
+  color: var(--a-muted, var(--muted-foreground));
+  font-size: 10px;
+  font-variant-numeric: tabular-nums;
+}
+.astra-replay-answer {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 5px;
+  margin-block: 5px 11px;
+}
+.astra-replay-answer-body {
+  min-width: 0;
+  max-width: 100%;
+  padding: 12px 14px;
+  border: 1px solid var(--a-line, var(--border));
+  border-radius: 5px 12px 12px 12px;
+  background: color-mix(in srgb, #5d94dc 6%, var(--a-panel, var(--card)));
+  overflow-wrap: anywhere;
+}
+.astra-replay-answer[data-error="true"] .astra-replay-answer-body {
+  white-space: pre-wrap;
+}
+.astra-replay-approval {
+  min-width: 0;
+  margin-block: 8px;
+  padding: 12px;
+  border: 1px solid light-dark(#c9943e88, #bf8c3c66);
+  border-radius: 10px;
+  background: light-dark(#fff6e6, #6d4b0e12);
+}
+.astra-replay-approval > header {
+  display: flex;
+  min-width: 0;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 9px;
+}
+.astra-replay-approval > header > svg {
+  color: light-dark(#976014, #e5b66a);
+}
+.astra-replay-approval header > div {
+  min-width: 0;
+}
+.astra-replay-approval code,
+.astra-replay-approval header span {
+  margin-left: 6px;
+}
+.astra-replay-approval header p {
+  max-width: 480px;
+  overflow: hidden;
+  color: var(--a-muted, var(--muted-foreground));
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.astra-replay-approval-actions,
+.astra-replay-retry {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+.astra-replay-approval-actions {
+  margin-left: auto;
+}
+.astra-replay-retry {
+  margin-top: 6px;
+  color: var(--a-muted, var(--muted-foreground));
+  font-size: 11px;
+}
+.astra-replay-live {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 8px;
+  color: var(--a-muted, var(--muted-foreground));
+}
+.astra-replay-live > span {
+  display: flex;
+  gap: 4px;
+}
+.astra-replay-live i {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #5a9df2;
+  animation: astra-replay-signal 1.3s ease-in-out infinite;
+}
+.astra-replay-live i:nth-child(2) {
+  animation-delay: 150ms;
+}
+.astra-replay-live i:nth-child(3) {
+  animation-delay: 300ms;
+}
+@keyframes astra-replay-signal {
+  50% {
+    opacity: 0.4;
+    transform: translateY(-3px);
+  }
+}
+@media (max-width: 640px) {
+  .astra-replay-disclosure {
+    gap: 5px;
+    padding: 9px 5px;
+    flex-wrap: wrap;
+  }
+  .astra-replay-tool code {
+    flex-basis: 45%;
+  }
+  .astra-replay-message-preview {
+    flex-basis: 60%;
+  }
+  .astra-replay-turn-body {
+    max-width: calc(100% - 36px);
+  }
+  .astra-replay-approval header p {
+    max-width: 230px;
+  }
+  .astra-replay-detail {
+    margin-left: 10px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .astra-replay-live i {
+    animation: none;
+  }
+  .astra-replay-disclosure > svg:first-child {
+    transition: none;
+  }
+}

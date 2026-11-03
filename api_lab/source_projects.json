@@ -1,0 +1,11 @@
+{
+  "projects": {
+    "uroboros": {
+      "root": "/sources/uroboros",
+      "default_paths": ["agent", "server", "web/src", "api_lab/fixture.py"],
+      "extensions": [".go", ".ts", ".tsx", ".js", ".jsx", ".py"],
+      "exclude_directories": ["node_modules", ".git", "__pycache__", "vendor", "out", "dist"],
+      "revision_label": "operator_mounted_working_tree"
+    }
+  }
+}

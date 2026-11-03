@@ -1,0 +1,930 @@
+.astra-conversations {
+  --background: var(--a-bg);
+  --foreground: var(--a-ink);
+  --card: var(--a-paper);
+  --card-foreground: var(--a-ink);
+  --muted: var(--a-soft);
+  --muted-foreground: var(--a-muted);
+  --accent: var(--a-selected);
+  --accent-foreground: var(--a-ink);
+  --primary: var(--a-action);
+  --primary-foreground: #fff;
+  --border: var(--a-line);
+  --input: var(--a-line);
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  height: calc(100svh - 100px);
+  min-height: 600px;
+  color: var(--a-ink);
+  background: var(--a-bg);
+  color-scheme: var(--a-scheme);
+  border: 1px solid var(--a-line);
+  border-radius: 16px;
+  overflow: hidden;
+  font-size: 13px;
+  line-height: 1.5;
+}
+.astra-conversations svg {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+}
+.astra-conversations :is(button, input, select, summary):focus-visible {
+  outline: 2px solid var(--a-focus);
+  outline-offset: 2px;
+}
+.astra-conversations button {
+  cursor: pointer;
+}
+.astra-conversations button:disabled {
+  opacity: 0.45;
+  cursor: default;
+}
+.astra-conversations
+  :is(
+    .astra-conversations-command,
+    .astra-conversation-index > header,
+    .astra-conversation-filter,
+    .astra-conversation-compose-actions,
+    .astra-conversation-error,
+    .astra-conversation-dialog-actions,
+    .astra-conversation-rename
+  )
+  button,
+.astra-conversation-earlier,
+.astra-conversation-load {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  border: 1px solid var(--a-line);
+  border-radius: 7px;
+  padding: 7px 10px;
+  min-height: 32px;
+  font: inherit;
+  font-size: 11px;
+  color: var(--a-ink);
+  background: var(--a-paper);
+}
+.astra-conversations button.is-primary {
+  background: var(--a-action);
+  border-color: var(--a-action);
+  color: #fff;
+}
+.astra-conversations button.is-danger {
+  color: var(--a-danger);
+  background: var(--a-danger-bg);
+}
+.astra-conversations button:hover {
+  filter: brightness(0.98);
+}
+.astra-conversations-command {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding: 20px 24px;
+  background: linear-gradient(115deg, var(--a-selected), var(--a-paper) 65%);
+  border-bottom: 1px solid var(--a-line);
+}
+.astra-conversations-command > div {
+  flex: 1;
+  min-width: 200px;
+}
+.astra-conversations-command small,
+.astra-conversation-heading small {
+  color: var(--a-muted);
+  font-size: 9px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+.astra-conversations-command h1 {
+  margin-top: 5px;
+  font-weight: 750;
+  font-size: 24px;
+  letter-spacing: -0.035em;
+}
+.astra-conversations-command p {
+  color: var(--a-muted);
+  margin-top: 3px;
+  font-size: 11px;
+}
+.astra-conversations-command dl {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  padding-right: 16px;
+  margin-right: 4px;
+  border-right: 1px solid var(--a-line);
+}
+.astra-conversations-command dt {
+  color: var(--a-muted);
+  font-size: 9px;
+}
+.astra-conversations-command dd {
+  font-weight: 700;
+  font-size: 21px;
+  font-variant-numeric: tabular-nums;
+}
+.astra-conversations .astra-conversations-command .astra-conversation-index-toggle {
+  display: none;
+}
+.astra-conversations-body {
+  flex: 1;
+  min-width: 0;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: 265px minmax(0, 1fr) 205px;
+}
+.astra-conversation-index {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  min-height: 0;
+  border-right: 1px solid var(--a-line);
+  background: var(--a-paper);
+}
+.astra-conversation-index > header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 15px 14px 10px;
+}
+.astra-conversation-index > header > div {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+.astra-conversation-filter {
+  padding: 0 12px 10px;
+  border-bottom: 1px solid var(--a-line);
+}
+.astra-conversation-filter :is(input[type="search"], select) {
+  width: 100%;
+  border: 1px solid var(--a-line);
+  background: var(--a-input);
+  color: var(--a-ink);
+  padding: 9px 10px;
+  border-radius: 7px;
+  font: inherit;
+  font-size: 11px;
+  margin-bottom: 8px;
+}
+.astra-conversation-filter > div {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 3px;
+  color: var(--a-muted);
+  font-size: 10px;
+}
+.astra-conversation-filter > div > span,
+.astra-conversation-filter label {
+  flex: 1;
+}
+.astra-conversation-filter label {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+.astra-conversation-filter button {
+  min-height: 28px !important;
+  padding: 4px 7px !important;
+  font-size: 10px !important;
+}
+.astra-conversation-filter input[type="checkbox"],
+.astra-conversation-row > input {
+  width: 14px;
+  height: 14px;
+  flex: 0 0 14px;
+  accent-color: var(--a-action);
+}
+.astra-conversation-roster {
+  min-height: 0;
+  overflow: auto;
+  scrollbar-width: thin;
+  padding: 9px;
+}
+.astra-conversation-roster section {
+  margin-bottom: 12px;
+}
+.astra-conversation-roster h3,
+.astra-conversation-group {
+  display: flex;
+  gap: 7px;
+  align-items: center;
+  width: 100%;
+  border: 0;
+  padding: 10px 7px;
+  background: none;
+  color: var(--a-muted);
+  font-size: 10px;
+  text-align: left;
+}
+.astra-conversation-roster h3 > span,
+.astra-conversation-group > span {
+  margin-left: auto;
+  font-size: 9px;
+}
+.astra-conversation-group > strong {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+.astra-conversation-group svg {
+  width: 11px;
+  height: 11px;
+  transform: rotate(90deg);
+  transition: transform 140ms;
+}
+.astra-conversation-group[aria-expanded="false"] svg {
+  transform: none;
+}
+.astra-conversation-group i,
+.astra-conversation-row i,
+.astra-conversation-live i {
+  width: 6px;
+  height: 6px;
+  flex: 0 0 6px;
+  border-radius: 50%;
+  background: var(--a-success);
+  box-shadow: 0 0 7px color-mix(in srgb, var(--a-success) 45%, transparent);
+}
+.astra-conversation-row {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+  position: relative;
+  min-width: 0;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  margin-bottom: 3px;
+  padding: 2px 4px;
+}
+.astra-conversation-row[data-active="true"] {
+  border-color: var(--a-line);
+  background: var(--a-selected);
+  box-shadow: inset 3px 0 var(--a-action);
+}
+.astra-conversation-row:hover {
+  background: var(--a-soft);
+}
+.astra-conversation-select {
+  display: block;
+  flex: 1;
+  min-width: 0;
+  border: 0;
+  background: none;
+  color: var(--a-ink);
+  padding: 9px 5px;
+  text-align: left;
+}
+.astra-conversation-select strong {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 12px;
+  font-weight: 650;
+}
+.astra-conversation-select small,
+.astra-conversation-select time {
+  display: block;
+  color: var(--a-muted);
+  font-size: 9px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  margin-top: 3px;
+}
+.astra-conversation-select time {
+  opacity: 0.75;
+  font-size: 8px;
+}
+.astra-conversation-rename {
+  display: flex;
+  gap: 3px;
+  flex: 1;
+  min-width: 0;
+  flex-wrap: wrap;
+  padding: 5px;
+}
+.astra-conversation-rename input {
+  flex: 1;
+  min-width: 70px;
+  border: 1px solid var(--a-line);
+  border-radius: 5px;
+  background: var(--a-input);
+  color: var(--a-ink);
+  padding: 6px;
+  font: inherit;
+  font-size: 11px;
+}
+.astra-conversation-rename button {
+  padding: 3px 6px !important;
+  min-height: 27px !important;
+}
+.astra-conversation-rename p {
+  width: 100%;
+  color: var(--a-danger);
+  font-size: 10px;
+}
+.astra-conversation-load {
+  display: flex;
+  width: 100%;
+}
+.astra-conversation-channel {
+  min-width: 0;
+  min-height: 0;
+  padding: 12px;
+}
+.astra-conversation-pane {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 0;
+  min-width: 0;
+  overflow: hidden;
+  border: 1px solid var(--a-line);
+  border-radius: 12px;
+  background: var(--a-paper);
+}
+.astra-conversation-pane > .side-question-workspace {
+  flex: 1;
+  min-height: 0;
+}
+.astra-conversation-heading {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 18px;
+  border-bottom: 1px solid var(--a-line);
+  background: linear-gradient(120deg, var(--a-soft), var(--a-paper));
+  flex-shrink: 0;
+}
+.astra-conversation-heading > div {
+  min-width: 0;
+  flex: 1;
+}
+.astra-conversation-heading h2 {
+  font-size: 17px;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  overflow-wrap: anywhere;
+}
+.astra-conversation-heading p {
+  font-size: 10px;
+  color: var(--a-muted);
+  margin-top: 3px;
+}
+.astra-conversation-heading label {
+  display: grid;
+  gap: 3px;
+  font-size: 9px;
+  color: var(--a-muted);
+  min-width: 150px;
+}
+.astra-conversation-heading select {
+  width: 100%;
+  font: inherit;
+  font-size: 11px;
+  border: 1px solid var(--a-line);
+  border-radius: 6px;
+  padding: 6px 8px;
+  background: var(--a-input);
+  color: var(--a-ink);
+}
+.astra-conversation-emblem {
+  display: grid;
+  place-items: center;
+  flex: 0 0 38px;
+  width: 38px;
+  height: 38px;
+  border-radius: 11px;
+  border: 1px solid var(--a-line);
+  background: var(--a-selected);
+  color: var(--a-accent);
+}
+.astra-conversation-live {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+  font-size: 10px;
+  color: var(--a-success);
+}
+.astra-conversation-live i {
+  animation: astra-chat-signal 2s ease-in-out infinite;
+}
+.astra-conversation-meter {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 16px;
+  flex-shrink: 0;
+  padding: 9px 18px;
+  border-bottom: 1px solid var(--a-line);
+  background: var(--a-soft);
+  color: var(--a-muted);
+  font-size: 9px;
+  font-variant-numeric: tabular-nums;
+}
+.astra-conversation-meter b {
+  color: var(--a-ink);
+  margin-left: 4px;
+}
+.astra-conversation-meter > span:last-child {
+  margin-left: auto;
+}
+.astra-conversation-transcript {
+  flex: 1;
+  min-height: 0;
+  min-width: 0;
+}
+.astra-conversation-transcript [data-slot="scroll-area-viewport"] > div {
+  display: block !important;
+}
+.astra-conversation-transcript [data-conversation-transcript] {
+  min-width: 0;
+  padding: 18px;
+}
+.astra-conversation-earlier {
+  margin: 0 auto 20px;
+  display: flex;
+}
+.astra-conversation-placeholder {
+  padding: 32px 14px;
+  text-align: center;
+  color: var(--a-muted);
+  font-size: 12px;
+}
+.astra-conversation-composer {
+  flex-shrink: 0;
+  padding: 14px 16px 9px;
+  border-top: 1px solid var(--a-line);
+}
+.astra-conversations .astra-conversation-composer [data-slot="textarea"] {
+  width: 100%;
+  background: var(--a-input) !important;
+  color: var(--a-ink) !important;
+  border: 1px solid var(--a-line) !important;
+  border-radius: 8px;
+  padding: 11px 12px;
+  font: inherit;
+  font-size: 12px;
+  min-height: 70px;
+  max-height: 160px;
+}
+.astra-conversation-compose-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 0;
+  flex-wrap: wrap;
+}
+.astra-conversation-compose-actions > small {
+  color: var(--a-muted);
+  font-size: 9px;
+  flex: 1;
+}
+.astra-conversation-compose-actions > button:last-child {
+  margin-left: auto;
+}
+.astra-conversation-compose-footer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+.astra-conversation-profile {
+  display: flex;
+  gap: 6px;
+  flex: 1;
+  min-width: 0;
+  align-items: center;
+  font-size: 9px;
+  color: var(--a-muted);
+}
+.astra-conversation-profile select {
+  border: 0;
+  background: var(--a-paper);
+  color: var(--a-accent);
+  min-width: 0;
+  flex: 1;
+  max-width: 300px;
+  padding: 5px;
+  font-size: 10px;
+}
+.astra-conversation-files {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-bottom: 9px;
+}
+.astra-conversation-files > span {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  border: 1px solid var(--a-line);
+  border-radius: 6px;
+  background: var(--a-soft);
+  padding: 4px 7px;
+  font-size: 10px;
+}
+.astra-conversation-files strong {
+  max-width: 150px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.astra-conversation-files small {
+  color: var(--a-muted);
+}
+.astra-conversation-files button {
+  border: 0;
+  color: var(--a-muted);
+  background: none;
+}
+.astra-conversation-error {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+  justify-content: space-between;
+  margin: 8px;
+  padding: 10px 12px;
+  border: 1px solid color-mix(in srgb, var(--a-danger) 20%, transparent);
+  border-radius: 7px;
+  color: var(--a-danger);
+  background: var(--a-danger-bg);
+  font-size: 11px;
+  overflow-wrap: anywhere;
+}
+.astra-conversation-error > span {
+  flex: 1;
+}
+.astra-conversation-draft {
+  min-height: 0;
+  overflow: auto;
+  flex: 1;
+  text-align: center;
+  padding: 20px 24px;
+  background: radial-gradient(ellipse at 50% 10%, var(--a-selected), transparent 65%);
+}
+.astra-conversation-draft > small {
+  font-size: 9px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--a-muted);
+}
+.astra-conversation-draft > h2 {
+  font-size: 22px;
+  letter-spacing: -0.03em;
+  font-weight: 700;
+  margin: 7px 0;
+}
+.astra-conversation-draft > p {
+  font-size: 11px;
+  color: var(--a-muted);
+  max-width: 52ch;
+  margin: 0 auto;
+}
+.astra-conversation-orbit {
+  display: grid;
+  place-items: center;
+  position: relative;
+  width: 105px;
+  height: 105px;
+  margin: 8px auto 16px;
+}
+.astra-conversation-orbit > i {
+  position: absolute;
+  inset: 0;
+  border: 1px solid var(--a-line);
+  border-radius: 50%;
+}
+.astra-conversation-orbit > i:nth-child(2) {
+  inset: 12px;
+  border-style: dashed;
+  border-color: var(--a-focus);
+  animation: astra-chat-orbit 45s linear infinite;
+}
+.astra-conversation-orbit > span {
+  display: grid;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  border-radius: 16px;
+  color: var(--a-accent);
+  background: var(--a-paper);
+  border: 1px solid var(--a-line);
+  box-shadow: var(--a-shadow);
+}
+.astra-conversation-orbit svg {
+  width: 25px;
+  height: 25px;
+}
+.astra-conversation-briefs {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  margin: 26px auto 0;
+  max-width: 520px;
+}
+.astra-conversation-briefs button {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 3px 9px;
+  border: 1px solid var(--a-line);
+  border-radius: 9px;
+  background: var(--a-paper);
+  color: var(--a-ink);
+  padding: 13px;
+  text-align: left;
+  transition:
+    transform 140ms,
+    border-color 140ms;
+}
+.astra-conversation-briefs button:hover {
+  transform: translateY(-2px);
+  border-color: var(--a-focus);
+}
+.astra-conversation-briefs svg {
+  grid-row: span 2;
+  color: var(--a-accent);
+}
+.astra-conversation-briefs strong {
+  font-size: 11px;
+  font-weight: 650;
+}
+.astra-conversation-briefs span {
+  grid-column: 2;
+  font-size: 9px;
+  color: var(--a-muted);
+}
+.astra-conversation-briefs b {
+  grid-column: 3;
+  grid-row: 1 / span 2;
+  color: var(--a-accent);
+}
+.astra-conversation-context {
+  min-width: 0;
+  min-height: 0;
+  overflow: auto;
+  padding: 20px 16px;
+  background: var(--a-paper);
+  border-left: 1px solid var(--a-line);
+}
+.astra-conversation-context-signal {
+  text-align: center;
+  margin-bottom: 24px;
+}
+.astra-conversation-context-signal > svg {
+  width: 32px;
+  height: 32px;
+  color: var(--a-accent);
+  margin: 8px auto 14px;
+}
+.astra-conversation-context-signal small {
+  display: block;
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--a-muted);
+}
+.astra-conversation-context h3 {
+  font-size: 14px;
+  font-weight: 700;
+  margin: 7px 0;
+  overflow-wrap: anywhere;
+}
+.astra-conversation-context p {
+  font-size: 10px;
+  color: var(--a-muted);
+}
+.astra-conversation-context dl > div {
+  display: flex;
+  gap: 9px;
+  justify-content: space-between;
+  padding: 10px 0;
+  border-top: 1px solid var(--a-line);
+  font-size: 10px;
+}
+.astra-conversation-context dt {
+  color: var(--a-muted);
+}
+.astra-conversation-context dd {
+  text-align: right;
+  overflow-wrap: anywhere;
+  max-width: 65%;
+}
+.astra-conversation-protocol {
+  border-top: 1px solid var(--a-line);
+  margin-top: 10px;
+  padding-top: 20px;
+}
+.astra-conversation-protocol > small {
+  font-size: 9px;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--a-muted);
+}
+.astra-conversation-protocol > div {
+  display: flex;
+  gap: 10px;
+  margin-top: 17px;
+}
+.astra-conversation-protocol b {
+  font-size: 10px;
+  font-weight: 500;
+  color: var(--a-accent);
+}
+.astra-conversation-protocol strong {
+  font-size: 11px;
+  color: var(--a-ink);
+  display: block;
+}
+.astra-conversation-protocol span {
+  display: block;
+  font-size: 10px;
+  margin-top: 2px;
+}
+.astra-conversation-context footer {
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+  border-top: 1px solid var(--a-line);
+  margin-top: 26px;
+  padding-top: 15px;
+  color: var(--a-muted);
+  font-size: 9px;
+}
+.astra-conversation-context.is-dialog {
+  border: 0;
+  padding: 0;
+}
+.astra-conversation-dialog-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 24px;
+  justify-content: flex-end;
+}
+.astra-conversation-delete-ids {
+  font-size: 11px;
+  color: var(--a-muted);
+  max-height: 100px;
+  overflow: auto;
+  margin-top: 16px;
+}
+.astra-conversation-outcomes {
+  list-style: none;
+  max-height: 280px;
+  overflow: auto;
+  font-size: 11px;
+  margin-top: 16px;
+}
+.astra-conversation-outcomes li {
+  padding: 6px;
+  color: var(--a-danger);
+}
+.astra-conversation-outcomes li[data-ok="true"] {
+  color: var(--a-success);
+}
+@keyframes astra-chat-orbit {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes astra-chat-signal {
+  50% {
+    opacity: 0.4;
+  }
+}
+@media (max-width: 1450px) {
+  .astra-conversations-body {
+    grid-template-columns: 245px minmax(0, 1fr);
+  }
+  .astra-conversations-body > .astra-conversation-context {
+    display: none;
+  }
+}
+@media (max-width: 900px) {
+  .astra-conversations {
+    height: calc(100svh - 90px);
+    min-height: 620px;
+  }
+  .astra-conversations-command {
+    padding: 16px;
+    gap: 8px;
+  }
+  .astra-conversations-command > div {
+    flex-basis: 100%;
+  }
+  .astra-conversations-command dl {
+    margin-right: auto;
+    gap: 16px;
+    padding-right: 12px;
+  }
+  .astra-conversations-command h1 {
+    font-size: 21px;
+  }
+  .astra-conversations-command dd {
+    font-size: 16px;
+  }
+  .astra-conversations .astra-conversations-command .astra-conversation-index-toggle {
+    display: inline-flex;
+  }
+  .astra-conversations-body {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+  }
+  .astra-conversation-index {
+    display: none;
+  }
+  .astra-conversations[data-index-open="true"] .astra-conversation-index {
+    display: flex;
+    position: absolute;
+    inset: 0;
+    z-index: 5;
+    border: 0;
+    box-shadow: var(--a-shadow);
+  }
+  .astra-conversation-channel {
+    flex: 1;
+    padding: 7px;
+  }
+  .astra-conversation-heading {
+    padding: 12px;
+  }
+  .astra-conversation-heading h2 {
+    font-size: 15px;
+  }
+  .astra-conversation-heading > div {
+    min-width: 140px;
+  }
+  .astra-conversation-profile > span {
+    display: none;
+  }
+  .astra-conversation-composer {
+    padding: 10px;
+  }
+  .astra-conversation-transcript [data-conversation-transcript] {
+    padding: 14px 11px;
+  }
+  .astra-conversation-meter {
+    gap: 5px 10px;
+    padding: 8px 12px;
+  }
+  .astra-conversation-draft {
+    padding: 14px;
+  }
+  .astra-conversation-orbit {
+    width: 80px;
+    height: 80px;
+    margin-bottom: 10px;
+  }
+  .astra-conversation-briefs {
+    margin-top: 16px;
+    gap: 7px;
+  }
+  .astra-conversation-briefs button {
+    padding: 10px;
+  }
+  .astra-conversation-briefs svg {
+    width: 13px;
+    height: 13px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .astra-conversation-orbit i,
+  .astra-conversation-live i {
+    animation: none;
+  }
+  .astra-conversation-group svg,
+  .astra-conversation-briefs button {
+    transition: none;
+  }
+}
+
+.astra-conversation-row-menu {
+  flex: 0 0 24px;
+  width: 24px;
+  height: 28px;
+  border: 0;
+  border-radius: 5px;
+  color: var(--a-muted);
+  background: transparent;
+  font-weight: 700;
+}
+.astra-conversation-menu {
+  background: var(--a-paper) !important;
+  color: var(--a-ink) !important;
+  border: 1px solid var(--a-line) !important;
+}
+.astra-conversation-menu [role="menuitem"]:focus {
+  background: var(--a-selected);
+}

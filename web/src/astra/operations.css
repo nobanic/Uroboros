@@ -1,0 +1,281 @@
+.astra-operation-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+  align-items: end;
+  margin-block: 0.8rem;
+}
+.astra-operations label,
+.astra-operation-form label {
+  display: grid;
+  gap: 0.3rem;
+}
+.astra-operation-check {
+  display: flex !important;
+  align-items: center;
+  gap: 0.5rem;
+}
+.astra-operation-check input {
+  width: auto;
+}
+.astra-operations input:not([type="checkbox"]),
+.astra-operations select,
+.astra-operations textarea {
+  padding: 0.5rem 0.65rem;
+  border: 1px solid var(--a-line);
+  background: var(--a-paper);
+  border-radius: 6px;
+  color: var(--a-ink);
+  font: inherit;
+  width: 100%;
+  min-width: 0;
+}
+.astra-operations fieldset {
+  border: 1px solid var(--a-line);
+  padding: 1rem;
+  border-radius: 8px;
+  margin-block: 1rem;
+}
+.astra-operations fieldset > label {
+  margin-block: 0.8rem;
+}
+.astra-operations legend {
+  padding-inline: 0.35rem;
+  font-weight: 650;
+}
+.astra-operations button,
+.astra-operation-form button {
+  cursor: pointer;
+}
+.astra-operation-pulse {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  gap: 0.6rem;
+  margin-block: 1.4rem;
+}
+.astra-operation-pulse button {
+  padding: 1rem;
+  text-align: left;
+}
+.astra-operation-pulse strong {
+  display: block;
+  font-size: 1.8rem;
+}
+.astra-operation-pulse [aria-pressed="true"] {
+  outline: 2px solid var(--a-focus);
+}
+.astra-category-destinations {
+  display: flex;
+  gap: 0.5rem;
+  overflow: auto;
+  padding-block: 0.8rem;
+}
+.astra-category-destinations > div {
+  border: 1px dashed #9fb7d6;
+  border-radius: 8px;
+  padding: 0.6rem 1rem;
+  min-width: 155px;
+}
+.astra-category-destinations small {
+  display: block;
+  color: var(--a-muted);
+}
+.astra-operation-board {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1rem;
+  align-items: start;
+}
+.astra-operation-board > section {
+  min-width: 0;
+  background: var(--a-selected);
+  border-radius: 12px;
+  padding: 0.8rem;
+}
+.astra-operation-board h2 {
+  font-size: 1rem;
+  display: flex;
+  justify-content: space-between;
+  margin: 0.2rem 0 1rem;
+}
+.astra-operation-board article,
+.astra-archive-cards article {
+  background: var(--a-paper);
+  border: 1px solid var(--a-line);
+  border-radius: 10px;
+  padding: 1rem;
+  margin-bottom: 0.8rem;
+  overflow-wrap: anywhere;
+}
+.astra-operation-title {
+  background: transparent !important;
+  border: 0 !important;
+  padding-inline: 0 !important;
+  text-align: left;
+  font-size: 1.05rem;
+  font-weight: 650;
+}
+.astra-operation-board article > p {
+  font-size: 0.83rem;
+  white-space: pre-wrap;
+  max-height: 8rem;
+  overflow: auto;
+  margin-block: 0.6rem;
+}
+.astra-operation-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+.astra-operation-actions button,
+.astra-operation-actions a {
+  font-size: 0.75rem;
+  padding: 0.35rem 0.5rem;
+}
+.astra-operation-table {
+  width: 100%;
+  overflow: auto;
+}
+.astra-operation-table table {
+  border-collapse: collapse;
+  width: 100%;
+  font-size: 0.85rem;
+}
+.astra-operation-table th,
+.astra-operation-table td {
+  border-bottom: 1px solid var(--a-line);
+  text-align: left;
+  padding: 0.8rem;
+  vertical-align: top;
+}
+.astra-operation-table td:first-child {
+  min-width: 220px;
+  max-width: 420px;
+}
+.astra-operation-table td p {
+  max-height: 5rem;
+  overflow: auto;
+}
+.astra-operation-form fieldset {
+  margin-block: 1.1rem;
+}
+.astra-operation-form details {
+  margin-block: 1rem;
+  padding: 0.8rem;
+  border: 1px solid var(--a-line);
+  border-radius: 8px;
+}
+.astra-operation-form summary {
+  cursor: pointer;
+  font-weight: 650;
+}
+.astra-operation-form .astra-startup-menu {
+  background: linear-gradient(120deg, var(--a-selected), var(--a-paper));
+  border-color: var(--a-accent, var(--a-line));
+}
+.astra-startup-menu summary > span {
+  margin-right: 0.8rem;
+}
+.astra-startup-menu summary small {
+  color: var(--a-muted);
+  font-weight: 400;
+}
+.astra-startup-menu fieldset {
+  margin-bottom: 0;
+}
+.astra-startup-menu p {
+  color: var(--a-muted);
+  font-size: 0.85rem;
+  line-height: 1.5;
+}
+.astra-startup-menu .astra-startup-note {
+  border-top: 1px solid var(--a-line);
+  margin-bottom: 0;
+  padding-top: 0.75rem;
+}
+.astra-operation-choices li {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-block: 0.4rem;
+}
+.astra-operation-choices li > span {
+  flex: 1;
+}
+.astra-operation-choices ol {
+  list-style: decimal;
+  padding: 0;
+}
+.astra-operation-rule {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.7rem;
+  padding-block: 1rem;
+  border-top: 1px solid var(--a-line);
+}
+.astra-category-list {
+  list-style: none;
+  padding: 0;
+}
+.astra-category-list li {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  align-items: center;
+  padding-block: 0.6rem;
+}
+.astra-category-list li > span {
+  flex: 1;
+}
+.astra-operation-outcomes {
+  background: var(--a-selected);
+  border: 1px solid var(--a-line);
+  padding: 0.8rem;
+  margin-block: 1rem;
+  border-radius: 8px;
+  max-height: 260px;
+  overflow: auto;
+}
+.astra-operation-outcomes [data-ok="false"] {
+  color: var(--a-danger);
+}
+.astra-operation-archives {
+  margin-top: 2rem;
+  border-top: 2px solid var(--a-line);
+  padding-top: 1rem;
+}
+.astra-archive-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr));
+  gap: 1rem;
+}
+.astra-archive-cards article header {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  justify-content: space-between;
+}
+.astra-archive-cards pre {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  max-height: 400px;
+  overflow: auto;
+  font-size: 0.75rem;
+}
+.astra-archive-cards progress {
+  width: calc(100% - 4rem);
+  margin-right: 0.6rem;
+}
+@media (max-width: 1250px) {
+  .astra-operation-board {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 650px) {
+  .astra-operation-board {
+    grid-template-columns: 1fr;
+  }
+  .astra-operation-filters > label {
+    width: 100%;
+  }
+}

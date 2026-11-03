@@ -1,0 +1,231 @@
+.astra-graph-record-index {
+  position: absolute;
+  z-index: 8;
+  inset: 12px auto 12px 12px;
+  display: flex;
+  flex-direction: column;
+  width: min(356px, calc(100% - 24px));
+  min-height: 0;
+  overflow: hidden;
+  color: var(--g-ink);
+  background: var(--g-surface);
+  border: 1px solid var(--g-line);
+  border-radius: 12px;
+  box-shadow: 0 16px 48px #0003;
+}
+
+.astra-graph-record-index > header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 15px;
+  border-bottom: 1px solid var(--g-line);
+  background: linear-gradient(120deg, var(--g-selected), var(--g-surface));
+}
+
+.astra-graph-record-index-mark {
+  display: grid;
+  place-items: center;
+  color: var(--g-accent);
+}
+
+.astra-graph-record-index-mark svg {
+  width: 24px;
+  height: 24px;
+}
+
+.astra-graph-record-index header small {
+  font-size: 9px;
+  color: var(--g-muted);
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.astra-graph-record-index h3 {
+  margin: 3px 0 0;
+  font-size: 15px;
+  font-weight: 650;
+}
+
+.astra-graph-record-index header button {
+  margin-left: auto;
+  padding: 6px;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--g-muted);
+}
+
+.astra-graph-record-index header button:hover {
+  background: var(--g-selected);
+  color: var(--g-ink);
+}
+
+.astra-graph-record-index header button svg {
+  width: 16px;
+  height: 16px;
+}
+
+.astra-evidence-workspace .astra-graph-record-index-search {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 12px 12px 0;
+  padding: 8px 10px;
+  border: 1px solid var(--g-line);
+  border-radius: 7px;
+  background: var(--g-canvas);
+}
+
+.astra-graph-record-index-search svg {
+  width: 14px;
+  height: 14px;
+  color: var(--g-muted);
+}
+
+.astra-evidence-workspace .astra-graph-record-index-search input {
+  width: 100%;
+  min-width: 0;
+  padding: 2px 0;
+  border: 0;
+  color: var(--g-ink);
+  background: transparent;
+}
+
+.astra-graph-record-index-count {
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+  padding: 10px 14px;
+  font-size: 10px;
+  color: var(--g-muted);
+}
+
+.astra-graph-record-index-count strong {
+  color: var(--g-ink);
+}
+
+.astra-graph-record-index-count > span {
+  margin-left: auto;
+  font-size: 9px;
+}
+
+.astra-graph-record-index-scroll {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+  scrollbar-color: var(--g-line) transparent;
+}
+
+.astra-graph-record-index ol {
+  list-style: none;
+  margin: 0;
+  padding: 0 10px 10px;
+  display: grid;
+  gap: 7px;
+}
+
+.astra-evidence-workspace .astra-graph-record-index li > button {
+  display: block;
+  width: 100%;
+  text-align: left;
+  border: 1px solid var(--g-line);
+  border-left: 3px solid var(--record-color);
+  border-radius: 8px;
+  background: var(--g-raised);
+  color: var(--g-ink);
+  padding: 11px 12px;
+}
+
+.astra-evidence-workspace .astra-graph-record-index li > button:hover {
+  border-color: var(--g-accent);
+  background: var(--g-selected);
+}
+
+.astra-graph-record-index-kind {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 10px;
+  color: var(--g-muted);
+}
+
+.astra-graph-record-index-kind svg {
+  width: 13px;
+  height: 13px;
+  color: var(--g-accent);
+}
+
+.dark .astra-graph-record-index-kind svg {
+  color: var(--record-color);
+}
+
+.astra-graph-record-index-kind code {
+  margin-left: auto;
+  font-size: 10px;
+  color: var(--g-ink);
+}
+
+.astra-evidence-workspace .astra-graph-record-index li p {
+  margin: 8px 0;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+  white-space: pre-wrap;
+}
+
+.astra-graph-record-index-meta {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 5px 8px;
+  color: var(--g-muted);
+  font-size: 9px;
+}
+
+.astra-graph-record-index-meta:empty {
+  display: none;
+}
+
+.astra-graph-record-index-more {
+  display: block;
+  margin: 0 auto 12px;
+  padding: 8px 12px;
+  border: 1px solid var(--g-line);
+  border-radius: 6px;
+  background: var(--g-selected);
+  color: var(--g-accent);
+}
+
+.astra-graph-record-index-empty {
+  margin: 0;
+  padding: 20px;
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--g-muted);
+}
+
+.astra-graph-record-index > footer {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 11px 14px;
+  color: var(--g-muted);
+  border-top: 1px solid var(--g-line);
+  background: var(--g-raised);
+  font-size: 10px;
+}
+
+.astra-graph-record-index > footer svg {
+  width: 12px;
+  height: 12px;
+}
+
+@media (max-width: 900px) {
+  .astra-graph-record-toggle > span {
+    display: none;
+  }
+}

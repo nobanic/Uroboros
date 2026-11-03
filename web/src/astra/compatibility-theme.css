@@ -1,0 +1,12 @@
+.astra-model-workspace .astra-model-header h1,
+.astra-model-workspace .astra-model-header h1 + p {
+  display: block;
+}
+
+/* Retained route frames paint a permanent dark background. Give replacement
+   content its own resolved surface so light text/controls share a real surface. */
+.uro-module-stage > .astra-model-workspace {
+  background: var(--a-bg);
+  border-radius: inherit;
+  min-height: 480px;
+}

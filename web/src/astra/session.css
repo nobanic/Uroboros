@@ -1,0 +1,807 @@
+.astra-sessions-workspace {
+  --background: var(--a-bg);
+  --foreground: var(--a-ink);
+  --card: var(--a-paper);
+  --card-foreground: var(--a-ink);
+  --muted: var(--a-soft);
+  --muted-foreground: var(--a-muted);
+  --accent: var(--a-selected);
+  --accent-foreground: var(--a-ink);
+  --primary: var(--a-action);
+  --primary-foreground: #fff;
+  --border: var(--a-line);
+  --input: var(--a-line);
+  color: var(--a-ink);
+  color-scheme: var(--a-scheme);
+  background: var(--a-bg);
+  display: grid;
+  grid-template-columns: minmax(230px, 285px) minmax(0, 1fr);
+  gap: 16px;
+  min-width: 0;
+  height: max(560px, calc(100svh - 230px));
+  border-radius: 14px;
+  padding: 12px;
+  font-size: 13px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+.astra-sessions-workspace svg {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+}
+.astra-sessions-workspace button {
+  cursor: pointer;
+}
+.astra-sessions-workspace button:disabled {
+  cursor: default;
+  opacity: 0.5;
+}
+.astra-sessions-workspace .astra-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 6px 10px;
+  min-height: 30px;
+  border: 1px solid var(--a-line);
+  border-radius: 7px;
+  background: var(--a-paper);
+  color: var(--a-ink);
+  font: inherit;
+  font-size: 11px;
+}
+.astra-sessions-workspace .astra-button:hover {
+  background: var(--a-soft);
+}
+.astra-sessions-workspace .astra-button.is-primary {
+  background: var(--a-action);
+  border-color: var(--a-action);
+  color: #fff;
+}
+.astra-sessions-workspace .astra-button.is-primary:hover {
+  background: var(--a-action-hover);
+}
+.astra-sessions-workspace .astra-button.is-danger {
+  background: var(--a-danger-bg);
+  color: var(--a-danger);
+}
+.astra-sessions-workspace :is(button, input, select, textarea):focus-visible {
+  outline: 2px solid var(--a-focus);
+  outline-offset: 2px;
+}
+.astra-session-roster,
+.astra-session-execution {
+  min-height: 0;
+  min-width: 0;
+  border: 1px solid var(--a-line);
+  border-radius: 12px;
+  background: var(--a-paper);
+  overflow: hidden;
+}
+.astra-session-roster {
+  display: flex;
+  flex-direction: column;
+  box-shadow: var(--a-shadow);
+}
+.astra-session-roster > header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 16px 13px 9px;
+  background: linear-gradient(120deg, var(--a-selected), var(--a-paper));
+}
+.astra-session-roster-toggle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--a-ink);
+  text-align: left;
+  font-size: 15px;
+  font-weight: 700;
+  flex: 1;
+}
+.astra-session-roster-toggle small {
+  display: none;
+}
+.astra-session-connection {
+  white-space: nowrap;
+  font-size: 10px;
+  color: var(--a-muted);
+}
+.astra-session-connection::before {
+  content: "";
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  margin-right: 5px;
+  background: #d6a455;
+}
+.astra-session-connection[data-connected="true"]::before {
+  background: var(--a-success);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--a-success) 10%, transparent);
+}
+.astra-session-tokens {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  font-size: 11px;
+  color: var(--a-muted);
+  flex-wrap: wrap;
+}
+.astra-session-tokens > span {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  white-space: nowrap;
+}
+.astra-session-tokens b {
+  color: var(--a-ink);
+  background: var(--a-soft);
+  padding: 1px 5px;
+  border-radius: 4px;
+  font-family: ui-monospace, monospace;
+  font-size: 10px;
+}
+.astra-session-roster > .astra-session-tokens {
+  padding: 8px 13px 15px;
+  border-bottom: 1px solid var(--a-line);
+}
+.astra-session-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-height: 0;
+  flex: 1;
+  padding: 12px 8px 8px;
+}
+.astra-session-search {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--a-input);
+  border: 1px solid var(--a-line);
+  border-radius: 7px;
+  padding: 0 9px;
+}
+.astra-session-search svg {
+  color: var(--a-muted);
+  width: 14px;
+}
+.astra-session-search input {
+  padding: 8px 0;
+  width: 100%;
+  min-width: 0;
+  background: transparent;
+  color: var(--a-ink);
+  border: 0;
+  font: inherit;
+  font-size: 11px;
+  outline-offset: 0;
+}
+.astra-session-list > select {
+  border: 1px solid var(--a-line);
+  border-radius: 7px;
+  background: var(--a-input);
+  color: var(--a-ink);
+  padding: 7px;
+  font-size: 11px;
+}
+.astra-session-list-scroll {
+  min-height: 0;
+  flex: 1;
+}
+.astra-session-list-scroll [data-slot="scroll-area-viewport"] > div {
+  display: block !important;
+}
+.astra-session-group {
+  margin-bottom: 16px;
+}
+.astra-session-group h3 {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: 0;
+  padding: 6px;
+  text-transform: uppercase;
+  font-weight: 650;
+  letter-spacing: 0.08em;
+  font-size: 9px;
+  color: var(--a-muted);
+}
+.astra-session-group h3 > span {
+  font-size: 9px;
+  font-weight: 400;
+  color: var(--a-muted);
+}
+.astra-session-group h3 > button {
+  margin-left: auto;
+  background: var(--a-soft);
+  color: var(--a-accent);
+  border: 1px solid var(--a-line);
+  border-radius: 5px;
+  padding: 3px;
+}
+.astra-session-group h3 svg {
+  width: 13px;
+  height: 13px;
+}
+.astra-session-item {
+  display: flex;
+  align-items: center;
+  gap: 1px;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  margin: 3px 0;
+  transition:
+    background 0.15s,
+    border-color 0.15s;
+  position: relative;
+}
+.astra-session-item:hover {
+  background: var(--a-soft);
+}
+.astra-session-item[data-active="true"] {
+  background: var(--a-selected);
+  border-color: color-mix(in srgb, var(--a-accent) 30%, var(--a-line));
+}
+.astra-session-item[data-active="true"]::before {
+  content: "";
+  position: absolute;
+  left: -1px;
+  top: 12px;
+  bottom: 12px;
+  width: 3px;
+  border-radius: 2px;
+  background: var(--a-action);
+}
+.astra-session-item > button:first-child {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  min-width: 0;
+  flex: 1;
+  color: var(--a-ink);
+  background: none;
+  border: 0;
+  padding: 11px 8px;
+  text-align: left;
+}
+.astra-session-item > button > span:nth-child(2) {
+  min-width: 0;
+  flex: 1;
+}
+.astra-session-item strong {
+  display: block;
+  font-size: 12px;
+  line-height: 1.4;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-weight: 600;
+}
+.astra-session-item small {
+  display: block;
+  margin-top: 3px;
+  font-size: 9px;
+  color: var(--a-muted);
+}
+.astra-session-item em {
+  font-size: 8px;
+  font-style: normal;
+  color: var(--a-accent);
+  border: 1px solid var(--a-line);
+  padding: 1px 4px;
+  border-radius: 4px;
+}
+.astra-session-item b,
+.astra-session-roster-toggle > b {
+  font:
+    600 9px ui-monospace,
+    monospace;
+  border-radius: 5px;
+  color: var(--a-accent);
+  background: var(--a-soft);
+  padding: 2px 5px;
+}
+.astra-session-status {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  border: 1px solid var(--a-muted);
+  flex-shrink: 0;
+}
+.astra-session-item[data-status="running"] .astra-session-status {
+  border-color: var(--a-action);
+  background: var(--a-action);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--a-action) 10%, transparent);
+}
+.astra-session-item[data-status="done"] .astra-session-status {
+  border-color: var(--a-success);
+  background: var(--a-success);
+}
+.astra-session-item[data-status="paused"] .astra-session-status {
+  background: #c99942;
+  border-color: #c99942;
+  border-radius: 2px;
+}
+.astra-session-item[data-status="blocked"] .astra-session-status {
+  background: var(--a-danger);
+  border-color: var(--a-danger);
+}
+.astra-session-item[data-status="exhausted"] .astra-session-status {
+  background: #a68ce6;
+  border-color: #a68ce6;
+}
+.astra-session-item[data-status="deleted"] strong {
+  text-decoration: line-through;
+  color: var(--a-muted);
+}
+.astra-session-delete {
+  background: transparent;
+  color: var(--a-muted);
+  border: 0;
+  padding: 5px;
+  opacity: 0.3;
+}
+.astra-session-item:hover .astra-session-delete,
+.astra-session-item:focus-within .astra-session-delete {
+  opacity: 1;
+  color: var(--a-danger);
+}
+.astra-session-delete svg {
+  width: 12px;
+  height: 12px;
+}
+.astra-session-list > footer {
+  padding: 4px 5px;
+  font-size: 9px;
+  color: var(--a-muted);
+}
+.astra-session-stage {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+  min-height: 0;
+}
+.astra-session-read-errors {
+  padding: 8px 12px;
+  border: 1px solid var(--a-line);
+  border-radius: 7px;
+  color: var(--a-muted);
+  background: var(--a-paper);
+  font-size: 11px;
+}
+.astra-session-read-errors summary {
+  cursor: pointer;
+}
+.astra-session-read-errors p {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+.astra-session-read-errors button {
+  font-size: 10px;
+  padding: 4px 6px;
+}
+.astra-session-notice {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  justify-content: space-between;
+  padding: 8px 12px;
+  background: var(--a-success-bg);
+  color: var(--a-success);
+  border: 1px solid var(--a-line);
+  border-radius: 7px;
+  margin: 0;
+  font-size: 11px;
+}
+.astra-session-notice button {
+  border: 0;
+  background: none;
+  color: inherit;
+}
+.astra-session-execution {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  box-shadow: var(--a-shadow);
+}
+.astra-session-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  padding: 17px 18px;
+  background: linear-gradient(120deg, var(--a-soft), var(--a-paper));
+}
+.astra-session-emblem {
+  display: grid;
+  place-items: center;
+  width: 39px;
+  height: 39px;
+  border-radius: 10px;
+  color: var(--a-accent);
+  border: 1px solid var(--a-line);
+  background: var(--a-selected);
+}
+.astra-session-header > div {
+  flex: 1;
+  min-width: 140px;
+}
+.astra-session-header p {
+  color: var(--a-muted);
+  font-size: 9px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin: 0 0 3px;
+}
+.astra-session-header h2 {
+  color: var(--a-ink);
+  font-size: 16px;
+  font-weight: 650;
+  letter-spacing: -0.02em;
+  margin: 0;
+  line-height: 1.4;
+}
+.astra-session-header > button {
+  font-size: 10px;
+  height: 29px;
+}
+.astra-session-live {
+  font-size: 10px;
+  color: var(--a-success);
+}
+.astra-session-facts {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 9px 15px;
+  padding: 9px 18px;
+  border-top: 1px solid var(--a-line);
+  border-bottom: 1px solid var(--a-line);
+  background: var(--a-soft);
+  color: var(--a-muted);
+  font-size: 10px;
+}
+.astra-session-facts > span {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+.astra-session-facts > span:first-child {
+  color: var(--a-accent);
+}
+.astra-session-facts svg {
+  width: 12px;
+  height: 12px;
+}
+.astra-session-facts > button {
+  max-width: 220px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font: inherit;
+  color: var(--a-ink);
+  border: 0;
+  padding: 0;
+  background: none;
+}
+.astra-session-facts .astra-session-tokens {
+  margin-left: auto;
+  font-size: 10px;
+}
+.astra-session-deleted {
+  background: var(--a-danger-bg);
+  color: var(--a-danger);
+  font-size: 11px;
+  padding: 10px 18px;
+  margin: 0;
+}
+.astra-session-deleted strong {
+  display: block;
+  margin-top: 5px;
+  overflow-wrap: anywhere;
+}
+.astra-session-transcript {
+  flex: 1;
+  min-height: 0;
+  min-width: 0;
+}
+.astra-session-transcript [data-slot="scroll-area-viewport"] > div {
+  display: block !important;
+}
+.astra-session-transcript [data-session-transcript] {
+  padding: 20px;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+.astra-session-history-button {
+  display: block;
+  width: fit-content;
+  margin: 0 auto 18px;
+  background: var(--a-soft);
+  color: var(--a-accent);
+  border: 1px solid var(--a-line);
+  border-radius: 6px;
+  padding: 6px 14px;
+  font-size: 10px;
+}
+.astra-session-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: var(--a-muted);
+  min-height: 250px;
+  padding: 35px 20px;
+}
+.astra-session-placeholder > svg {
+  width: 28px;
+  height: 28px;
+  color: var(--a-accent);
+  opacity: 0.8;
+  margin: 0 0 15px;
+}
+.astra-session-placeholder h3 {
+  font-size: 15px;
+  color: var(--a-ink);
+  margin-bottom: 7px;
+  font-weight: 600;
+}
+.astra-session-placeholder p {
+  max-width: 330px;
+  font-size: 11px;
+  line-height: 1.8;
+}
+.astra-session-composer {
+  padding: 12px 15px 7px;
+  border-top: 1px solid var(--a-line);
+  background: var(--a-paper);
+}
+.astra-session-composer textarea {
+  color: var(--a-ink);
+  background: var(--a-input);
+  border: 1px solid var(--a-line);
+  border-radius: 9px;
+  padding: 11px 12px;
+  font-size: 12px;
+  resize: vertical;
+  min-height: 62px;
+  max-height: 145px;
+}
+/* The retained task shell forces dark shadcn inputs. This replacement owns its
+   resolved field surface in both saved themes without changing other routes. */
+.astra-session-composer [data-slot="textarea"] {
+  background: var(--a-input) !important;
+  color: var(--a-ink) !important;
+  border-color: var(--a-line) !important;
+}
+.astra-session-compose-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  align-items: center;
+  padding: 9px 0 3px;
+}
+.astra-session-compose-actions > span {
+  color: var(--a-muted);
+  font-size: 9px;
+  margin-right: auto;
+}
+.astra-session-compose-actions > button {
+  font-size: 10px;
+  min-height: 30px;
+  padding: 5px 9px;
+}
+.astra-session-compose-actions > button:last-child {
+  margin-left: auto;
+}
+.astra-session-footer-tools {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  min-height: 25px;
+}
+.astra-session-footer-tools > span {
+  font-size: 9px;
+  color: var(--a-muted);
+}
+.astra-session-attachments {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.astra-session-attachments > span {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--a-soft);
+  border: 1px solid var(--a-line);
+  border-radius: 5px;
+  padding: 4px 7px;
+  margin-bottom: 8px;
+  font-size: 10px;
+}
+.astra-session-attachments small {
+  color: var(--a-muted);
+}
+.astra-session-attachments button {
+  color: var(--a-muted);
+  border: 0;
+  background: none;
+}
+.astra-session-muted {
+  font-size: 11px;
+  color: var(--a-muted);
+  padding: 7px;
+}
+.astra-session-raw {
+  font:
+    11px / 1.7 ui-monospace,
+    monospace;
+  background: var(--a-input);
+  border: 1px solid var(--a-line);
+  color: var(--a-ink);
+  border-radius: 8px;
+  padding: 13px;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  max-height: 420px;
+  overflow: auto;
+}
+.astra-session-source-facts {
+  display: grid;
+  margin: 18px 0 24px;
+  grid-template-columns: 100px minmax(0, 1fr);
+  gap: 9px;
+  font-size: 12px;
+}
+.astra-session-source-facts dt {
+  color: var(--a-muted);
+}
+.astra-session-source-facts dd {
+  overflow-wrap: anywhere;
+  margin: 0;
+}
+.astra-sessions-workspace .astra-editor-body > h3 {
+  margin: 24px 0 10px;
+  color: var(--a-muted);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.astra-session-source-asset {
+  padding: 14px;
+  margin-bottom: 8px;
+  border: 1px solid var(--a-line);
+  border-left: 3px solid var(--a-focus);
+  border-radius: 8px;
+  background: var(--a-soft);
+  font-size: 12px;
+}
+.astra-session-source-asset p {
+  margin-top: 6px;
+  color: var(--a-muted);
+  line-height: 1.6;
+}
+.astra-session-delete-modes {
+  display: flex;
+  gap: 9px;
+  margin: 15px 0;
+}
+.astra-session-delete-modes button {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  flex: 1;
+}
+.astra-session-delete-modes button[aria-pressed="true"] {
+  border-color: var(--a-focus);
+  background: var(--a-selected);
+}
+.astra-session-delete-modes small {
+  font-size: 10px;
+  font-weight: 400;
+}
+@media (min-width: 1100px) {
+  .astra-session-roster-toggle {
+    cursor: default !important;
+  }
+}
+@media (max-width: 1099px) {
+  .astra-sessions-workspace {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto minmax(0, 1fr);
+    height: max(580px, calc(100svh - 160px));
+    padding: 8px;
+    gap: 10px;
+  }
+  .astra-session-roster > header {
+    padding: 10px 12px;
+  }
+  .astra-session-roster-toggle > span {
+    min-width: 0;
+  }
+  .astra-session-roster-toggle small {
+    display: block;
+    font-size: 10px;
+    font-weight: 400;
+    color: var(--a-muted);
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    max-width: 60vw;
+  }
+  .astra-session-roster > .astra-session-tokens {
+    padding: 0 12px 10px;
+  }
+  .astra-session-roster[data-expanded="false"] .astra-session-list {
+    display: none;
+  }
+  .astra-session-roster[data-expanded="true"] .astra-session-list {
+    max-height: 42svh;
+  }
+  .astra-session-roster[data-expanded="true"] .astra-session-list-scroll {
+    min-height: 130px;
+  }
+  .astra-session-group {
+    margin-bottom: 8px;
+  }
+  .astra-session-item .astra-session-delete {
+    opacity: 1;
+  }
+}
+@media (max-width: 600px) {
+  .astra-session-header {
+    padding: 12px;
+    gap: 7px;
+  }
+  .astra-session-header h2 {
+    font-size: 14px;
+  }
+  .astra-session-header .astra-session-emblem {
+    width: 31px;
+    height: 31px;
+    border-radius: 8px;
+  }
+  .astra-session-header > div {
+    min-width: 170px;
+  }
+  .astra-session-facts {
+    padding: 9px 12px;
+    gap: 7px 12px;
+  }
+  .astra-session-facts .astra-session-tokens {
+    margin-left: 0;
+  }
+  .astra-session-transcript [data-session-transcript] {
+    padding: 14px 10px;
+  }
+  .astra-session-composer {
+    padding: 10px 10px 5px;
+  }
+  .astra-session-footer-tools > span {
+    max-width: 80%;
+    text-align: right;
+  }
+  .astra-session-placeholder {
+    min-height: 180px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .astra-session-item {
+    transition: none;
+  }
+}

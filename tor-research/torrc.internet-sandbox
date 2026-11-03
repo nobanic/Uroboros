@@ -1,0 +1,25 @@
+# Uroboros internet-sandbox Tor research client. This process is not a relay,
+# exit, bridge or onion service and exposes no ControlPort.
+ClientOnly 1
+ORPort 0
+DirPort 0
+BridgeRelay 0
+ExitRelay 0
+PublishServerDescriptor 0
+
+# The application shares the firewall namespace on the fixed production
+# control subnet. Mandatory SOCKS authentication is supplied by the broker and
+# isolates each task/session; all other sources are rejected.
+SocksPort 10.89.9.2:9050 IsolateSOCKSAuth
+SocksPolicy accept 10.89.9.0/24
+SocksPolicy reject *
+SafeSocks 1
+TestSocks 1
+ClientRejectInternalAddresses 1
+AutomapHostsOnResolve 0
+
+RunAsDaemon 0
+AvoidDiskWrites 1
+DataDirectory /var/lib/tor
+PidFile /run/tor/tor.pid
+Log notice stdout

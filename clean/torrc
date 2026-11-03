@@ -1,0 +1,21 @@
+# Client-only Tor profile for the isolated Uroboros 0.5 Docker network.
+ClientOnly 1
+ORPort 0
+DirPort 0
+BridgeRelay 0
+ExitRelay 0
+PublishServerDescriptor 0
+
+SocksPort 172.30.75.2:9050 IsolateSOCKSAuth
+SocksPolicy accept 172.30.75.0/24
+SocksPolicy reject *
+SafeSocks 1
+TestSocks 1
+ClientRejectInternalAddresses 1
+AutomapHostsOnResolve 0
+
+RunAsDaemon 0
+AvoidDiskWrites 1
+DataDirectory /var/lib/tor
+PidFile /run/tor/tor.pid
+Log notice stdout

@@ -1,0 +1,2 @@
+# local secrets / state for the sandbox — never commit
+.env

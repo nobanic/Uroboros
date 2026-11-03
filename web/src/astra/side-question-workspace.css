@@ -1,0 +1,417 @@
+.astra-side-panel {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 0;
+  color: var(--foreground);
+  background: var(--background);
+  font-size: 13px;
+}
+.astra-side-heading {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 16px 14px 12px;
+  border-bottom: 1px solid var(--border);
+  background: linear-gradient(135deg, color-mix(in srgb, var(--primary) 8%, transparent), transparent 80%);
+}
+.astra-side-heading > div {
+  flex: 1;
+  min-width: 0;
+}
+.astra-side-heading h2 {
+  margin: 2px 0;
+  font-size: 15px;
+  font-weight: 650;
+  letter-spacing: -0.02em;
+}
+.astra-side-heading p {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  color: var(--muted-foreground);
+  font-size: 11px;
+}
+.astra-side-heading small {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 10px;
+  color: var(--muted-foreground);
+}
+.astra-side-panel kbd {
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 1px 4px;
+  font: 10px monospace;
+  color: var(--muted-foreground);
+}
+.astra-side-emblem {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 36px;
+  height: 36px;
+  color: var(--primary);
+  border: 1px solid color-mix(in srgb, var(--primary) 25%, var(--border));
+  border-radius: 11px;
+  background: color-mix(in srgb, var(--primary) 9%, var(--background));
+}
+.astra-side-icon {
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  flex-shrink: 0;
+  border-radius: 7px;
+  color: var(--muted-foreground);
+  cursor: pointer;
+}
+.astra-side-icon:hover {
+  background: var(--muted);
+  color: var(--foreground);
+}
+.astra-side-panel button:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+.astra-side-panel :is(button, textarea, summary):focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 3px;
+}
+.astra-side-snapshot {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 10px 15px;
+  border-bottom: 1px solid var(--border);
+  background: color-mix(in srgb, var(--muted) 35%, transparent);
+  font-size: 11px;
+  color: var(--muted-foreground);
+}
+.astra-side-snapshot > i {
+  width: 6px;
+  height: 6px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: var(--muted-foreground);
+}
+.astra-side-snapshot > i[data-ready="true"] {
+  background: #4c9efc;
+  box-shadow: 0 0 0 4px #4c9efc13;
+}
+.astra-side-snapshot > div {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+}
+.astra-side-snapshot strong {
+  font-size: 11px;
+  color: var(--foreground);
+  overflow-wrap: anywhere;
+}
+.astra-side-history {
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+  overscroll-behavior: contain;
+  padding: 15px;
+  scrollbar-width: thin;
+}
+.astra-side-earlier {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 14px;
+  border: 1px dashed var(--border);
+  border-radius: 8px;
+  font-size: 11px;
+  color: var(--muted-foreground);
+  cursor: pointer;
+}
+.astra-side-earlier:hover {
+  color: var(--primary);
+  border-color: var(--primary);
+}
+.astra-side-exchange {
+  position: relative;
+  min-width: 0;
+  margin-bottom: 16px;
+  padding: 13px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: color-mix(in srgb, var(--card) 85%, var(--background));
+  box-shadow: 0 3px 10px #00000006;
+  animation: astra-side-appear 160ms ease-out;
+}
+.astra-side-exchange > header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  gap: 8px;
+}
+.astra-side-ordinal {
+  font: 10px monospace;
+  color: var(--muted-foreground);
+}
+.astra-side-state {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 10px;
+  color: var(--muted-foreground);
+}
+.astra-side-state > i {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: currentColor;
+}
+.astra-side-state[data-state="running"] {
+  color: #3c91ed;
+}
+.astra-side-state[data-state="running"] > i {
+  animation: astra-side-pulse 1.6s ease-in-out infinite;
+}
+.astra-side-state[data-state="completed"] {
+  color: #269a89;
+}
+.astra-side-state:is([data-state="failed"], [data-state="interrupted"]) {
+  color: var(--destructive);
+}
+.astra-side-question {
+  margin: 0 0 12px;
+  font-size: 13px;
+  line-height: 1.6;
+  font-weight: 550;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+.astra-side-answer {
+  min-width: 0;
+  padding-top: 10px;
+  border-top: 1px solid var(--border);
+  line-height: 1.65;
+  overflow-wrap: anywhere;
+}
+.astra-side-answer pre {
+  max-width: 100%;
+  overflow: auto;
+}
+.astra-side-preparing {
+  padding: 3px 0;
+  color: var(--muted-foreground);
+  font-size: 12px;
+}
+.astra-side-exchange > footer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 5px 10px;
+  margin-top: 14px;
+  font-size: 10px;
+  color: var(--muted-foreground);
+}
+.astra-side-exchange > footer > span {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+.astra-side-context {
+  margin-top: 10px;
+  padding-top: 9px;
+  border-top: 1px dashed var(--border);
+  color: var(--muted-foreground);
+  font-size: 10px;
+  line-height: 1.6;
+}
+.astra-side-context summary {
+  width: fit-content;
+  cursor: pointer;
+}
+.astra-side-context p {
+  margin-top: 8px;
+}
+.astra-side-context dl > div {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 6px;
+}
+.astra-side-context dd {
+  color: var(--foreground);
+  font-variant-numeric: tabular-nums;
+}
+.astra-side-empty {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 10px;
+  padding: 45px 18px;
+  text-align: center;
+  color: var(--muted-foreground);
+}
+.astra-side-empty > svg {
+  color: var(--primary);
+  margin-bottom: 4px;
+}
+.astra-side-empty h3 {
+  font-size: 14px;
+  font-weight: 550;
+  color: var(--foreground);
+}
+.astra-side-empty p {
+  max-width: 250px;
+  font-size: 12px;
+  line-height: 1.7;
+}
+.astra-side-loading {
+  padding: 15px;
+  color: var(--muted-foreground);
+}
+.astra-side-compose {
+  padding: 12px 14px 10px;
+  flex-shrink: 0;
+  border-top: 1px solid var(--border);
+  background: var(--background);
+}
+.astra-side-input {
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
+  padding: 9px;
+  border: 1px solid color-mix(in srgb, var(--primary) 22%, var(--border));
+  border-radius: 11px;
+  background: color-mix(in srgb, var(--muted) 25%, var(--background));
+  box-shadow: 0 2px 8px #00000006;
+}
+.astra-side-input:focus-within {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--primary) 12%, transparent);
+}
+.astra-side-input textarea {
+  flex: 1;
+  min-width: 0;
+  min-height: 40px;
+  max-height: 160px;
+  padding: 2px;
+  resize: none;
+  field-sizing: content;
+  border: 0;
+  outline: none;
+  background: transparent;
+  font-size: 12px;
+  line-height: 1.6;
+}
+.astra-side-input textarea:focus-visible {
+  outline: none;
+}
+.astra-side-panel[data-composer="inline"] textarea {
+  min-height: 24px;
+}
+.astra-side-send {
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  flex-shrink: 0;
+  border-radius: 8px;
+  color: var(--primary-foreground);
+  background: var(--primary);
+  cursor: pointer;
+}
+.astra-side-stop {
+  background: var(--destructive);
+  color: white;
+}
+.astra-side-compose-note {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+  margin-top: 8px;
+  font-size: 9px;
+  color: var(--muted-foreground);
+}
+.astra-side-error {
+  margin-bottom: 8px;
+  padding: 9px 10px;
+  border: 1px solid color-mix(in srgb, var(--destructive) 25%, transparent);
+  border-radius: 8px;
+  color: var(--destructive);
+  background: color-mix(in srgb, var(--destructive) 5%, transparent);
+  font-size: 11px;
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+}
+.astra-side-confirm {
+  margin: auto;
+  width: min(430px, calc(100vw - 32px));
+  padding: 24px;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  background: var(--background);
+  color: var(--foreground);
+  box-shadow: 0 24px 90px #00000045;
+}
+.astra-side-confirm::backdrop {
+  background: #040b1bb3;
+  backdrop-filter: blur(4px);
+}
+.astra-side-confirm h2 {
+  margin-top: 16px;
+  font-size: 17px;
+  font-weight: 600;
+}
+.astra-side-confirm p {
+  margin-top: 10px;
+  font-size: 13px;
+  line-height: 1.7;
+  color: var(--muted-foreground);
+}
+.astra-side-confirm > div {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 24px;
+}
+.astra-side-confirm button {
+  padding: 8px 13px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  font-size: 12px;
+  cursor: pointer;
+}
+.astra-side-confirm button:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 3px;
+}
+.astra-side-confirm-delete {
+  background: var(--destructive);
+  color: white;
+}
+@keyframes astra-side-appear {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes astra-side-pulse {
+  50% {
+    opacity: 0.35;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .astra-side-exchange,
+  .astra-side-state > i {
+    animation: none;
+  }
+}

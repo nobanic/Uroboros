@@ -1,0 +1,744 @@
+.astra-inference,
+.astra-inference-delete {
+  --capture-panel: #101d31;
+  --capture-deep: #0a1526;
+  --capture-line: #273d59;
+  --capture-text: #e0ebfb;
+  --capture-muted: #9bb0cb;
+  --capture-blue: #79baff;
+  --capture-tint: #182e49;
+  --capture-error: #ffacb6;
+  --capture-good: #88dbc5;
+  color: var(--capture-text);
+  font-size: 12px;
+  line-height: 1.5;
+}
+:root:not(.dark) .astra-inference,
+:root:not(.dark) .astra-inference-delete {
+  --capture-panel: #fff;
+  --capture-deep: #f2f6fc;
+  --capture-line: #d3deec;
+  --capture-text: #17304f;
+  --capture-muted: #526b87;
+  --capture-blue: #1d65a8;
+  --capture-tint: #e8f2ff;
+  --capture-error: #a32c42;
+  --capture-good: #18745c;
+}
+.astra-inference {
+  padding: clamp(14px, 2vw, 28px);
+  min-width: 0;
+  width: 100%;
+}
+.astra-inference :where(input, select, button),
+.astra-inference-delete button {
+  font: inherit;
+}
+.astra-inference button:not([role="switch"]),
+.astra-inference-delete button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-height: 31px;
+  padding: 6px 10px;
+  border: 1px solid var(--capture-line);
+  border-radius: 6px;
+  background: var(--capture-panel);
+  color: var(--capture-text);
+  cursor: pointer;
+  transition:
+    border-color 0.15s,
+    background 0.15s;
+}
+.astra-inference button:disabled,
+.astra-inference-delete button:disabled {
+  cursor: default;
+  opacity: 0.45;
+}
+.astra-inference button:not([role="switch"]):hover:not(:disabled),
+.astra-inference-delete button:hover:not(:disabled) {
+  background: var(--capture-tint);
+  border-color: var(--capture-blue);
+}
+.astra-inference :where(input, select, button, pre):focus-visible,
+.astra-inference-delete button:focus-visible {
+  outline: 2px solid var(--capture-blue);
+  outline-offset: 3px;
+}
+.astra-inference :where(input, select) {
+  min-width: 0;
+  width: 100%;
+  background: var(--capture-deep);
+  border: 1px solid var(--capture-line);
+  border-radius: 6px;
+  padding: 8px 10px;
+  color: var(--capture-text);
+}
+.astra-inference input::placeholder {
+  color: var(--capture-muted);
+  opacity: 0.8;
+}
+.astra-inference button.is-danger,
+.astra-inference-delete button.is-danger {
+  color: var(--capture-error);
+}
+.astra-inference-heading {
+  display: flex;
+  gap: 17px;
+  align-items: center;
+  border: 1px solid var(--capture-line);
+  border-radius: 12px;
+  padding: 22px;
+  background: linear-gradient(115deg, var(--capture-panel), var(--capture-deep));
+}
+.astra-inference-heading-icon {
+  display: grid;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  border: 1px solid var(--capture-line);
+  border-radius: 11px;
+  background: var(--capture-tint);
+  color: var(--capture-blue);
+  flex-shrink: 0;
+}
+.astra-inference-heading > div:first-of-type {
+  min-width: 0;
+}
+.astra-inference-heading > div > span {
+  color: var(--capture-blue);
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  font-size: 10px;
+}
+.astra-inference-heading h1 {
+  font-size: clamp(22px, 2.2vw, 30px);
+  font-weight: 650;
+  letter-spacing: -0.035em;
+  margin: 5px 0;
+}
+.astra-inference-heading p {
+  color: var(--capture-muted);
+  margin: 0;
+  font-size: 11px;
+}
+.astra-inference-recording {
+  margin-left: auto;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.astra-inference-recording > label {
+  text-align: right;
+}
+.astra-inference-recording small {
+  display: block;
+  font-size: 10px;
+  color: var(--capture-muted);
+}
+.astra-inference-recording [role="switch"] {
+  position: relative;
+  width: 34px;
+  height: 20px;
+  padding: 0;
+  border-radius: 20px;
+  border: 1px solid var(--capture-line);
+  background: var(--capture-deep);
+  cursor: pointer;
+}
+.astra-inference-recording [role="switch"][data-state="checked"] {
+  background: #2777bc;
+  border-color: #65aff1;
+}
+.astra-inference-recording [role="switch"] > span {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 14px;
+  height: 14px;
+  background: #e7f2ff;
+  border-radius: 100%;
+  transition: transform 0.15s;
+}
+.astra-inference-recording [role="switch"][data-state="checked"] > span {
+  transform: translateX(14px);
+}
+.astra-inference-contextbar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 13px 0;
+  color: var(--capture-muted);
+  font-size: 11px;
+}
+.astra-inference-contextbar > span {
+  margin-left: auto;
+}
+.astra-inference-contextbar kbd {
+  padding-left: 8px;
+  color: var(--capture-blue);
+}
+.astra-inference-context {
+  padding: 17px;
+  margin-bottom: 15px;
+  border: 1px solid var(--capture-line);
+  background: var(--capture-panel);
+  border-radius: 9px;
+  color: var(--capture-muted);
+}
+.astra-inference-context > p {
+  margin: 0;
+}
+.astra-inference-context ol {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
+  margin: 14px 0;
+  list-style: none;
+  padding: 0;
+}
+.astra-inference-context li > strong {
+  display: block;
+  color: var(--capture-text);
+}
+.astra-inference-context nav {
+  display: flex;
+  gap: 18px;
+  flex-wrap: wrap;
+}
+.astra-inference-context a {
+  display: inline-flex;
+  gap: 5px;
+  align-items: center;
+  color: var(--capture-blue);
+}
+.astra-inference-recording-note {
+  font-size: 11px;
+  color: var(--capture-muted);
+  margin: 0 0 18px;
+}
+.astra-inference-board {
+  border: 1px solid var(--capture-line);
+  background: var(--capture-panel);
+  border-radius: 12px;
+  overflow: hidden;
+  min-width: 0;
+}
+.astra-inference-filters {
+  display: grid;
+  grid-template-columns: minmax(120px, 1fr) minmax(120px, 0.9fr) minmax(130px, 1fr) 100px auto;
+  align-items: end;
+  gap: 10px;
+  padding: 16px;
+  background: var(--capture-deep);
+}
+.astra-inference-filters > label {
+  display: grid;
+  gap: 6px;
+  min-width: 0;
+}
+.astra-inference-filters > label > span {
+  font-size: 10px;
+  color: var(--capture-muted);
+}
+.astra-inference-filters > div {
+  display: flex;
+  gap: 7px;
+  align-items: center;
+}
+.astra-inference-pagination {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 16px;
+  border-top: 1px solid var(--capture-line);
+  border-bottom: 1px solid var(--capture-line);
+  font-size: 11px;
+  color: var(--capture-muted);
+  font-variant-numeric: tabular-nums;
+}
+.astra-inference-pagination > span:first-child {
+  margin-right: auto;
+}
+.astra-inference-layout {
+  display: grid;
+  grid-template-columns: minmax(300px, 0.95fr) minmax(0, 1.35fr);
+  align-items: start;
+  min-width: 0;
+}
+.astra-inference-stream {
+  min-width: 0;
+}
+.astra-inference-stream > header {
+  display: flex;
+  gap: 15px;
+  justify-content: space-between;
+  padding: 16px;
+  border-bottom: 1px solid var(--capture-line);
+}
+.astra-inference-stream > header > div > span {
+  color: var(--capture-muted);
+  display: block;
+  font-size: 10px;
+}
+.astra-inference-stream > header > div > strong {
+  font-size: 14px;
+  font-weight: 550;
+}
+.astra-inference-stream dl {
+  display: flex;
+  gap: 14px;
+  margin: 0;
+}
+.astra-inference-stream dt {
+  color: var(--capture-muted);
+  font-size: 9px;
+}
+.astra-inference-stream dd {
+  margin: 2px 0 0;
+  font-variant-numeric: tabular-nums;
+}
+.astra-inference-records {
+  overflow-y: auto;
+  max-height: 73vh;
+  min-height: 260px;
+  padding: 6px;
+  scrollbar-color: var(--capture-line) transparent;
+}
+.astra-inference-records > button[role="option"] {
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  text-align: left;
+  gap: 10px;
+  padding: 13px 10px;
+  margin: 3px 0;
+  border: 1px solid transparent;
+  background: transparent;
+}
+.astra-inference-records > button[aria-selected="true"] {
+  background: var(--capture-tint);
+  border-color: var(--capture-blue);
+}
+.astra-inference-record-status {
+  display: grid;
+  place-items: center;
+  width: 31px;
+  height: 31px;
+  flex-shrink: 0;
+  background: var(--capture-deep);
+  border: 1px solid var(--capture-line);
+  color: var(--capture-blue);
+  border-radius: 7px;
+}
+.astra-inference-records > button[data-error="true"] .astra-inference-record-status {
+  color: var(--capture-error);
+}
+.astra-inference-record-identity {
+  flex: 1;
+  min-width: 0;
+}
+.astra-inference-record-identity > span {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+.astra-inference-record-identity strong {
+  display: block;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-weight: 550;
+  font-size: 12px;
+}
+.astra-inference-record-identity :where(small, code) {
+  display: block;
+  color: var(--capture-muted);
+  font-size: 10px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.astra-inference-record-identity > code {
+  margin-top: 4px;
+  color: var(--capture-blue);
+}
+.astra-inference-record-metrics {
+  display: grid;
+  justify-items: end;
+  flex-shrink: 0;
+  gap: 3px;
+  font-size: 10px;
+}
+.astra-inference-record-metrics > span {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.astra-inference-record-metrics :where(small, time) {
+  color: var(--capture-muted);
+  font-size: 9px;
+}
+.astra-inference-stream > footer {
+  padding: 12px 16px;
+  border-top: 1px solid var(--capture-line);
+  color: var(--capture-muted);
+  font-size: 10px;
+}
+.astra-inference-inspector {
+  border-left: 1px solid var(--capture-line);
+  min-width: 0;
+  background: var(--capture-deep);
+}
+.astra-inference-inspector > header {
+  padding: 18px;
+}
+.astra-inference-inspector > header > div {
+  display: flex;
+  gap: 10px;
+  justify-content: space-between;
+  color: var(--capture-muted);
+  font-size: 10px;
+}
+.astra-inference-inspector h2 {
+  margin: 10px 0 5px;
+  font-size: 18px;
+  font-weight: 550;
+  overflow-wrap: anywhere;
+}
+.astra-inference-inspector > header > p {
+  margin: 0;
+  color: var(--capture-muted);
+  font-size: 11px;
+}
+.astra-inference-facts {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+  margin: 0;
+  padding: 14px 18px;
+  border-top: 1px solid var(--capture-line);
+  border-bottom: 1px solid var(--capture-line);
+}
+.astra-inference-facts dt {
+  color: var(--capture-muted);
+  font-size: 9px;
+}
+.astra-inference-facts dd {
+  margin: 4px 0 0;
+  font-size: 11px;
+  overflow-wrap: anywhere;
+}
+.astra-inference [data-error="true"],
+.astra-inference [data-warning="true"] {
+  color: var(--capture-error);
+}
+.astra-inference-mode {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 14px 18px;
+}
+.astra-inference-mode > div {
+  flex: 1;
+  min-width: 0;
+}
+.astra-inference-mode strong {
+  display: block;
+  font-weight: 500;
+  font-size: 11px;
+}
+.astra-inference-mode small {
+  display: block;
+  color: var(--capture-muted);
+  font-size: 9px;
+}
+.astra-inference-mode > button {
+  font-size: 10px;
+  white-space: nowrap;
+  padding: 5px 7px;
+}
+.astra-inference-mode > button[aria-pressed="true"] {
+  color: var(--capture-blue);
+  background: var(--capture-tint);
+}
+.astra-inference-payloads {
+  display: grid;
+  gap: 14px;
+  padding: 0 14px 14px;
+}
+.astra-inference-payload {
+  border: 1px solid var(--capture-line);
+  border-radius: 8px;
+  overflow: hidden;
+  min-width: 0;
+  background: var(--capture-panel);
+}
+.astra-inference-payload > header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 11px;
+  border-bottom: 1px solid var(--capture-line);
+  background: var(--capture-tint);
+}
+.astra-inference-payload > header > span {
+  color: var(--capture-blue);
+  font-size: 10px;
+}
+.astra-inference-payload h3 {
+  font-size: 11px;
+  font-weight: 550;
+  margin: 0 auto 0 0;
+}
+.astra-inference-payload > header > button {
+  min-height: 25px;
+  padding: 3px 6px;
+  font-size: 10px;
+}
+.astra-inference-payload pre {
+  margin: 0;
+  padding: 15px;
+  max-height: 410px;
+  min-height: 120px;
+  overflow: auto;
+  white-space: pre;
+  font:
+    11px / 1.7 var(--font-geist-mono),
+    monospace;
+  tab-size: 2;
+  color: var(--capture-text);
+}
+.astra-inference-payload[data-wrap="true"] pre {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+.astra-inference-payload-loading {
+  padding: 35px 15px;
+  min-height: 120px;
+  color: var(--capture-muted);
+}
+.astra-inference-wire-note {
+  color: var(--capture-muted);
+  font-size: 10px;
+  margin: 0;
+  padding: 0 18px 18px;
+}
+.astra-inference-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 300px;
+  padding: 35px;
+  gap: 12px;
+  text-align: center;
+  color: var(--capture-muted);
+}
+.astra-inference-empty > svg {
+  color: var(--capture-blue);
+}
+.astra-inference-empty > p {
+  margin: 0;
+  font-size: 11px;
+}
+.astra-inference-error {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border: 1px solid currentColor;
+  color: var(--capture-error);
+  padding: 10px 12px;
+  border-radius: 7px;
+  margin: 0 0 12px;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+.astra-inference-error > span {
+  flex: 1;
+  min-width: 0;
+}
+.astra-inference-board > .astra-inference-error {
+  margin: 12px 16px;
+}
+.astra-inference-inspector > .astra-inference-error {
+  margin: 0 14px 12px;
+}
+.astra-inference-notice {
+  color: var(--capture-good);
+  background: var(--capture-deep);
+  border: 1px solid var(--capture-line);
+  border-radius: 7px;
+  padding: 10px 12px;
+  margin: 0 0 14px;
+}
+.astra-inference-copy-error {
+  margin: 0;
+  padding: 10px 12px;
+  color: var(--capture-error);
+  font-size: 10px;
+}
+.astra-inference-delete[data-slot="alert-dialog-content"] {
+  background: var(--capture-panel);
+  border: 1px solid var(--capture-line);
+  color: var(--capture-text);
+  border-radius: 12px;
+  padding: 22px;
+  width: min(calc(100vw - 32px), 460px);
+  max-width: 460px;
+}
+.astra-inference-delete [data-slot="alert-dialog-title"] {
+  color: var(--capture-text);
+  overflow-wrap: anywhere;
+  text-align: left;
+}
+.astra-inference-delete [data-slot="alert-dialog-description"] {
+  color: var(--capture-muted);
+  font-size: 12px;
+  text-align: left;
+}
+.astra-inference-delete > footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+@media (max-width: 1200px) {
+  .astra-inference-filters {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+  .astra-inference-filters > div {
+    justify-content: flex-end;
+    grid-column: 2 / 4;
+  }
+  .astra-inference-layout {
+    grid-template-columns: minmax(275px, 0.9fr) minmax(0, 1.2fr);
+  }
+  .astra-inference-record-status {
+    display: none;
+  }
+}
+@media (max-width: 950px) {
+  .astra-inference-layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .astra-inference-records {
+    max-height: 330px;
+  }
+  .astra-inference-inspector {
+    border-left: 0;
+    border-top: 1px solid var(--capture-line);
+  }
+  .astra-inference-record-status {
+    display: grid;
+  }
+}
+@media (max-width: 600px) {
+  .astra-inference-heading {
+    flex-wrap: wrap;
+    padding: 17px;
+    gap: 12px;
+  }
+  .astra-inference-heading-icon {
+    width: 40px;
+    height: 40px;
+  }
+  .astra-inference-heading > div:first-of-type {
+    flex: 1;
+  }
+  .astra-inference-heading h1 {
+    font-size: 23px;
+  }
+  .astra-inference-heading > div > span {
+    font-size: 8px;
+  }
+  .astra-inference-heading p {
+    font-size: 10px;
+  }
+  .astra-inference-recording {
+    flex-basis: 100%;
+    justify-content: space-between;
+    border-top: 1px solid var(--capture-line);
+    padding-top: 10px;
+  }
+  .astra-inference-recording > label {
+    text-align: left;
+  }
+  .astra-inference-recording small {
+    display: inline;
+    margin-left: 8px;
+  }
+  .astra-inference-contextbar {
+    flex-wrap: wrap;
+  }
+  .astra-inference-contextbar > span {
+    display: none;
+  }
+  .astra-inference-context ol {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 8px;
+  }
+  .astra-inference-filters {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    padding: 12px;
+  }
+  .astra-inference-filters > label:nth-child(3) {
+    grid-column: 1 / 3;
+  }
+  .astra-inference-filters > div {
+    grid-column: 2;
+    flex-wrap: wrap;
+  }
+  .astra-inference-filters > div > button {
+    font-size: 10px;
+  }
+  .astra-inference-pagination {
+    padding: 10px 12px;
+    gap: 7px;
+    font-size: 10px;
+  }
+  .astra-inference-pagination > span:first-child {
+    display: none;
+  }
+  .astra-inference-pagination output {
+    margin-right: auto;
+  }
+  .astra-inference-record-status {
+    display: none;
+  }
+  .astra-inference-record-identity strong {
+    font-size: 11px;
+  }
+  .astra-inference-record-metrics time {
+    font-size: 8px;
+  }
+  .astra-inference-stream > header {
+    padding: 13px;
+  }
+  .astra-inference-stream dl {
+    gap: 10px;
+  }
+  .astra-inference-facts {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .astra-inference-mode {
+    flex-wrap: wrap;
+    padding: 12px;
+  }
+  .astra-inference-mode > div {
+    flex-basis: 100%;
+  }
+  .astra-inference-payloads {
+    padding: 0 10px 12px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .astra-inference *,
+  .astra-inference-delete,
+  .astra-inference-delete * {
+    animation: none !important;
+    transition: none !important;
+  }
+}

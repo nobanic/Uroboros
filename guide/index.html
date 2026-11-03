@@ -1,0 +1,288 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Uroboros 0.5 Operator Guide</title><style>:root{color-scheme:dark}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:#081220;color:#dce9fa;font:16px/1.75 system-ui,sans-serif}main{max-width:1180px;margin:auto;padding:42px 28px 80px}header{border:1px solid #294365;border-radius:18px;padding:22px 28px;background:linear-gradient(130deg,#142e4c,#0c192a);margin-bottom:32px}h1,h2,h3{line-height:1.25;color:#f0f6ff;scroll-margin-top:20px}h1{font-size:36px}h2{margin-top:58px;padding-top:18px;border-top:1px solid #263d59}h3{margin-top:32px}a{color:#91bcff}img{display:block;width:100%;height:auto;border:1px solid #294365;border-radius:12px;margin:24px 0;background:#06101d}table{border-collapse:collapse;width:100%;display:block;overflow:auto}th,td{border:1px solid #294365;padding:10px 14px;text-align:left}th{background:#11243b}pre{padding:20px;background:#0e2035;border:1px solid #294365;border-radius:10px;overflow:auto}code{font:14px/1.6 ui-monospace,monospace}p code,li code,td code{background:#132a45;padding:2px 5px;border-radius:4px}blockquote{border-left:3px solid #6598f4;padding-left:18px;color:#adc4e5}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px}.grid figure{margin:0}.grid img{margin:0;aspect-ratio:1.6;object-fit:contain}.grid figcaption{padding:10px 4px;color:#adc4e5}footer{margin-top:42px;color:#91aacb}</style><main><header><strong>UROBOROS / OPERATOR GUIDE</strong><p><a href="../README.md">Main README</a> · <a href="../screenshots/index.html">Screenshot gallery</a> · <a href="README.md">Markdown version</a></p></header><link rel="preload" as="image" href="../screenshots/0.5/01-setup.png"/><link rel="preload" as="image" href="../screenshots/0.5/02-login.png"/><link rel="preload" as="image" href="../screenshots/0.5/03-mission-control.png"/><link rel="preload" as="image" href="../screenshots/0.5/19-model-fabric.png"/><link rel="preload" as="image" href="../screenshots/0.5/20-new-model-profile.png"/><link rel="preload" as="image" href="../screenshots/0.5/21-agents.png"/><link rel="preload" as="image" href="../screenshots/0.5/23-toolchain.png"/><link rel="preload" as="image" href="../screenshots/0.5/24-mcp-mesh.png"/><link rel="preload" as="image" href="../screenshots/0.5/25-skills.png"/><link rel="preload" as="image" href="../screenshots/0.5/10-asset-graph.png"/><link rel="preload" as="image" href="../screenshots/0.5/11-asset-guard.png"/><link rel="preload" as="image" href="../screenshots/0.5/04-operations.png"/><link rel="preload" as="image" href="../screenshots/0.5/32-automatic-startup.png"/><link rel="preload" as="image" href="../screenshots/0.5/06-operation-detail.png"/><link rel="preload" as="image" href="../screenshots/0.5/05-living-console.png"/><link rel="preload" as="image" href="../screenshots/0.5/07-evidence-graph.png"/><link rel="preload" as="image" href="../screenshots/0.5/08-graph-records.png"/><link rel="preload" as="image" href="../screenshots/0.5/09-evidence-inspector.png"/><link rel="preload" as="image" href="../screenshots/0.5/14-traffic.png"/><link rel="preload" as="image" href="../screenshots/0.5/12-findings.png"/><link rel="preload" as="image" href="../screenshots/0.5/17-command-chat.png"/><link rel="preload" as="image" href="../screenshots/0.5/15-tool-runs.png"/><link rel="preload" as="image" href="../screenshots/0.5/16-model-ledger.png"/><link rel="preload" as="image" href="../screenshots/0.5/18-workspace.png"/><link rel="preload" as="image" href="../screenshots/0.5/26-intercept-rules.png"/><link rel="preload" as="image" href="../screenshots/0.5/27-approvals.png"/><link rel="preload" as="image" href="../screenshots/0.5/28-signals.png"/><link rel="preload" as="image" href="../screenshots/0.5/29-system-log.png"/><link rel="preload" as="image" href="../screenshots/0.5/30-configuration.png"/><link rel="preload" as="image" href="../screenshots/0.5/31-search-intelligence.png"/><h1 id="uroboros-05-operator-guide">Uroboros 0.5 Operator Guide</h1>
+<p>This guide covers installation, first login, model and tool configuration,
+authorized operations, graph navigation, traffic, findings and persistent state.
+Return to the <a href="../README.md">main README</a> for requirements and the source layout.</p>
+<p>The screenshots were captured from the current compiled console at a
+1600 × 1000 viewport with the blue dark theme. Main pages use built-in synthetic
+demonstration data. Setup and login show the normal frontend with isolated
+authentication-state fixtures. Domains, findings, provider status and usage in
+these illustrations are examples, not live assessment results or credentials.
+Your new installation starts with an empty database.</p>
+<p>Use Uroboros only within your authorization. The console supports the evidence
+and review process; the operator remains responsible for scope and conclusions.</p>
+<h2 id="contents">Contents</h2>
+<ol>
+<li><a href="#1-start-the-local-stack">Start the local stack</a></li>
+<li><a href="#2-initialize-and-sign-in">Initialize and sign in</a></li>
+<li><a href="#3-navigate-mission-control">Navigate Mission Control</a></li>
+<li><a href="#4-configure-models-and-capabilities">Configure models and capabilities</a></li>
+<li><a href="#5-define-scope-and-guard-rules">Define scope and guard rules</a></li>
+<li><a href="#6-create-and-monitor-an-operation">Create and monitor an operation</a></li>
+<li><a href="#7-read-the-evidence-graph">Read the evidence graph</a></li>
+<li><a href="#8-review-traffic-and-findings">Review traffic and findings</a></li>
+<li><a href="#9-use-chat-records-and-workspace">Use chat, records and workspace</a></li>
+<li><a href="#10-configure-the-system">Configure the system</a></li>
+<li><a href="#11-stop-restart-and-update">Stop, restart and update</a></li>
+<li><a href="#troubleshooting">Troubleshooting</a></li>
+</ol>
+<h2 id="1-start-the-local-stack">1. Start the local stack</h2>
+<p>Open a terminal in the package directory containing <code>clean/</code>, <code>web/</code> and
+<code>go.mod</code>. Start Docker Desktop with Linux containers on Windows, or Docker Engine
+on Linux. Both hosts require Compose v2 and an AMD64/x86-64 Linux engine.</p>
+<p>Run the preflight first. It checks the source distribution, engine and exact
+binary runtime images without building or starting application containers.</p>
+<p>Windows:</p>
+<pre><code class="language-powershell">powershell -NoProfile -ExecutionPolicy Bypass -File .\clean\start.ps1 -PreflightOnly
+powershell -NoProfile -ExecutionPolicy Bypass -File .\clean\start.ps1
+</code></pre>
+<p>Linux:</p>
+<pre><code class="language-bash">bash ./clean/start.sh --preflight-only
+bash ./install.sh
+</code></pre>
+<p>The first source build includes the frontend, browser runtime and pinned tool
+dependencies. Wait for bootstrap and the authentication checks to finish, then
+open <a href="http://127.0.0.1:8805/">http://127.0.0.1:8805/</a>.</p>
+<p>The repository includes the exact broker/worker archives under
+<code>clean/runtime-images/</code> as regular Git files. A clone or GitHub-generated source
+ZIP includes them; the launchers verify and load them on a fresh Docker host.
+The <a href="../clean/runtime-images/MANIFEST.md">image manifest</a>
+defines the accepted identities. Do not replace a failed image check with an
+unverified archive.</p>
+<h2 id="2-initialize-and-sign-in">2. Initialize and sign in</h2>
+<p>A genuinely new database opens <code>/setup/</code>. There is no preset operator account,
+password or model credential.</p>
+<ol>
+<li>Enter a local passphrase with at least eight characters.</li>
+<li>Confirm the passphrase.</li>
+<li>Submit the initialization form.</li>
+<li>Use that passphrase on <code>/login/</code> when signing in again.</li>
+</ol>
+<p><img src="../screenshots/0.5/01-setup.png" alt="First operator initialization"/></p>
+<p><img src="../screenshots/0.5/02-login.png" alt="Operator sign-in"/></p>
+<p>The account is persistent runtime data. Do not put its password, provider keys
+or signing key into the source directory. If setup appears unexpectedly, check
+that you are using the intended Compose project and volumes before creating
+another account.</p>
+<h2 id="3-navigate-mission-control">3. Navigate Mission Control</h2>
+<p><strong>Mission Control</strong> summarizes active operations, mapped assets, evidence,
+pending human decisions and agent activity. Open an operation from the live
+queue to inspect its details.</p>
+<p><img src="../screenshots/0.5/03-mission-control.png" alt="Mission Control"/></p>
+<p>The left navigation groups operational work separately from system controls.
+The top bar identifies the current area, search and connection state. Contextual
+decision rails connect related pages and describe the next useful action.</p>
+<table><thead><tr><th>Operational page</th><th>Purpose</th></tr></thead><tbody><tr><td>Mission Control</td><td>Overall activity and posture.</td></tr><tr><td>Command Chat</td><td>Agent conversations and operation context.</td></tr><tr><td>Operations</td><td>Create, inspect, pause, resume and review operations.</td></tr><tr><td>Findings</td><td>Triage findings and their evidence.</td></tr><tr><td>Traffic</td><td>Search recorded HTTP exchanges.</td></tr><tr><td>Tool Runs</td><td>Audit tool inputs, execution state and outputs.</td></tr><tr><td>Model Ledger</td><td>Inspect model call records and usage.</td></tr><tr><td>Asset Graph</td><td>Manage organizations, assets, services and endpoints.</td></tr><tr><td>Workspace</td><td>Browse files and artifacts.</td></tr></tbody></table>
+<p><code>DEMO</code> in these screenshots identifies demonstration state. It is not evidence
+that a real operation is running. A new normal installation has no seeded
+assessment results.</p>
+<h2 id="4-configure-models-and-capabilities">4. Configure models and capabilities</h2>
+<h3 id="create-a-model-profile">Create a model profile</h3>
+<p>Open <strong>Model Fabric</strong>. Review the current profile, health and failover order,
+then choose <strong>New profile</strong>.</p>
+<p><img src="../screenshots/0.5/19-model-fabric.png" alt="Model Fabric"/></p>
+<p>Fill in the profile name, provider format, model, credential and connection
+details. Use the endpoint and model identifier documented by your provider.
+For an OpenAI-compatible Chat Completions service, choose the corresponding
+format and its documented base URL. Select a native format only when the
+provider supports it.</p>
+<p><img src="../screenshots/0.5/20-new-model-profile.png" alt="New model profile"/></p>
+<p>The editor also exposes streaming, rate and output limits, context size,
+reasoning controls and retry behavior. Save the profile and explicitly make it
+active when it is ready. Review pool priority and exclusions before relying on
+failover.</p>
+<p><strong>Load available models</strong> and <strong>Test connection</strong> can contact the configured
+provider. Confirm the intended account and limits before using them. A provider
+balance error is separate from Uroboros research budgets.</p>
+<h3 id="review-agent-roles">Review agent roles</h3>
+<p>Open <strong>Agents</strong> and inspect the model, tools, MCP servers and skills bound to
+each role.</p>
+<p><img src="../screenshots/0.5/21-agents.png" alt="Agent configuration"/></p>
+<p>Bindings are deliberate boundaries. For example, planning and graph-management
+tools need not be available to a worker executing one intent. A catalog entry
+does not grant every agent permission to call it. Test a tool in the role that
+owns it instead of repeatedly sending an unsupported worker intent.</p>
+<h3 id="review-toolchain-mcp-and-skills">Review Toolchain, MCP and skills</h3>
+<p><strong>Toolchain</strong> lists registered tools and their configuration. Check enabled
+state and bindings when a tool is unavailable.</p>
+<p><img src="../screenshots/0.5/23-toolchain.png" alt="Toolchain"/></p>
+<p><strong>MCP Mesh</strong> manages connected MCP servers and tool visibility. Deferred tools
+are discovered on demand; discovery and invocation are separate from successful
+execution of the requested feature.</p>
+<p><img src="../screenshots/0.5/24-mcp-mesh.png" alt="MCP Mesh"/></p>
+<p><strong>Skills</strong> contains the product skill catalog and its bindings. These skills
+are application capabilities, not developer-session instructions.</p>
+<p><img src="../screenshots/0.5/25-skills.png" alt="Skills"/></p>
+<h2 id="5-define-scope-and-guard-rules">5. Define scope and guard rules</h2>
+<p>Open <strong>Asset Graph</strong> to review organizations, assets, services and endpoints.
+Use search and filters to inspect the relevant subset instead of treating every
+known asset as an authorized target.</p>
+<p><img src="../screenshots/0.5/10-asset-graph.png" alt="Asset Graph"/></p>
+<p>Register the exact target scope supplied by the operator. Do not infer a wider
+network or related domain from one authorized endpoint. Related-task evidence
+and a globally visible asset are not automatically new testing authority.</p>
+<p>Open <strong>Asset Guard</strong> to review asset-specific policy before running work.</p>
+<p><img src="../screenshots/0.5/11-asset-guard.png" alt="Asset Guard"/></p>
+<p>Some discovery is task infrastructure. The first eligible Katana crawl can
+start automatically from the frozen task scope. The planner reviews the current
+discovery snapshot and records run/skip decisions for typed families. A skip
+with an empty scope is different from an attempted scanner run failing.</p>
+<p>A discovery candidate, passive fingerprint or callback does not automatically
+become a confirmed finding. Preserve the normal evidence and review lifecycle.</p>
+<h2 id="6-create-and-monitor-an-operation">6. Create and monitor an operation</h2>
+<p>Open <strong>Operations</strong> and choose <strong>New operation</strong>. Give it a concrete goal,
+authorized target context and useful constraints. Check the model profile and
+scope before starting.</p>
+<p><img src="../screenshots/0.5/04-operations.png" alt="Operation list"/></p>
+<p>Before choosing <strong>Create operation</strong>, open <strong>Automatic startup</strong>:</p>
+<p>The default keeps Katana enabled and lets the initial scout follow the workspace setting:</p>
+<p><img src="../screenshots/0.5/33-automatic-startup-defaults.png" alt="Automatic startup defaults"/></p>
+<table><thead><tr><th>Choice</th><th>Behavior</th></tr></thead><tbody><tr><td>Initial Katana crawl</td><td>On by default. Turn it off to skip the infrastructure crawl for this operation. Automatic scheduling will continue to respect this choice after scope changes, resume and restart.</td></tr><tr><td>Initial reconnaissance scout</td><td>Use the workspace default, explicitly enable one bounded initial reconnaissance intent, or turn it off for this operation. The workspace setting is unchanged.</td></tr></tbody></table>
+<p><img src="../screenshots/0.5/32-automatic-startup.png" alt="Choose initial discovery"/></p>
+<p>These are startup choices, not tool bans. The planner and workers can still use
+Katana and other tools later under the normal scope, discovery-review and
+operator rules. A skipped infrastructure crawl is reported as
+<code>skipped_by_operator</code>; the planner can review the available evidence without
+waiting for a crawl that was intentionally omitted.</p>
+<p>Goal decomposition, ordinary planning, the separately selected <strong>Seed the first
+intent</strong>, and custom <strong>on task create</strong> agent triggers retain their own behavior.
+Templates leave these runtime choices as currently entered. API clients can
+send <code>skip_initial_katana: true</code> and <code>initial_scout: false</code>; omitted startup
+options preserve the original defaults, and <code>initial_scout: null</code> follows the
+workspace default.</p>
+<p>Open an operation to inspect its <strong>Overview</strong>, exploration graph and associated
+work. Review goals, active intents, tool results, captured evidence and the
+main-agent conversation together.</p>
+<p><img src="../screenshots/0.5/06-operation-detail.png" alt="Operation workspace"/></p>
+<p>The living console provides a compact operational view with an operation
+selector, activity and graph-focused navigation.</p>
+<p><img src="../screenshots/0.5/05-living-console.png" alt="Living console"/></p>
+<p>Use <strong>Pause</strong> when work needs review and <strong>Resume</strong> when the intended conditions
+are ready. A goal is complete only when its acceptance condition has evidence.
+Successful invocation alone is not proof of a useful result.</p>
+<p>When asking the main agent to change direction, state the intended result and
+the constraints clearly. A new intent may start model or tool work. A status
+request and a request to launch new work are different actions.</p>
+<h2 id="7-read-the-evidence-graph">7. Read the evidence graph</h2>
+<p>The graph relates goals, work, facts, findings and evidence. Node type, state,
+edges and lineage explain where a conclusion came from and what can follow.</p>
+<p><img src="../screenshots/0.5/07-evidence-graph.png" alt="Evidence graph"/></p>
+<p>Use the available graph controls to:</p>
+<ul>
+<li>fit the graph to the workspace;</li>
+<li>zoom and pan while keeping readable node labels;</li>
+<li>search for a record by its visible text;</li>
+<li>filter the relevant record types or states;</li>
+<li>focus on a record and inspect its neighbors;</li>
+<li>open a record without treating its position or animation as finding authority.</li>
+</ul>
+<p>The <strong>graph record browser</strong> gives a text-first view of graph contents. It is
+useful when the graph is large or you want to find a specific record quickly.</p>
+<p><img src="../screenshots/0.5/08-graph-records.png" alt="Graph record browser"/></p>
+<p>Select or search for a record to open its inspector. Review its content, raw
+data and lineage, then return to the graph context.</p>
+<p><img src="../screenshots/0.5/09-evidence-inspector.png" alt="Evidence inspector"/></p>
+<p>Animations communicate activity; they do not establish that an assessment or
+verification succeeded. The interface respects reduced-motion preferences.
+Use the underlying tool and traffic records when a conclusion is unclear.</p>
+<h2 id="8-review-traffic-and-findings">8. Review traffic and findings</h2>
+<h3 id="captured-http">Captured HTTP</h3>
+<p>Open <strong>Traffic</strong> to filter exchanges by host, path, method, status and other
+available fields. Inspect the actual request and response associated with a
+tool result or finding.</p>
+<p><img src="../screenshots/0.5/14-traffic.png" alt="Captured traffic"/></p>
+<p>Traffic is useful only when recording is enabled and the operation uses the
+intended recording path. A screenshot of a tool response is not a substitute
+for the saved exchange and its provenance. Preserve relevant capture IDs when
+attaching evidence.</p>
+<h3 id="findings">Findings</h3>
+<p>Open <strong>Findings</strong> to review severity, state, affected asset and supporting
+evidence. Follow a finding into its details and inspect the linked records.</p>
+<p><img src="../screenshots/0.5/12-findings.png" alt="Finding triage"/></p>
+<p>Separate an observation or static candidate from a verified runtime conclusion.
+Review reproduction conditions and controls before confirming a finding. Export
+only after checking the finding text, evidence and sensitive fields.</p>
+<h2 id="9-use-chat-records-and-workspace">9. Use chat, records and workspace</h2>
+<h3 id="command-chat">Command Chat</h3>
+<p><strong>Command Chat</strong> provides a direct conversation with an agent, optionally in
+an operation context. Check that context before asking it to perform work.</p>
+<p><img src="../screenshots/0.5/17-command-chat.png" alt="Command Chat"/></p>
+<h3 id="tool-runs">Tool Runs</h3>
+<p><strong>Tool Runs</strong> records inputs, state and output. Inspect the actual result when
+an agent reports a dependency error, missing job or rejected scope. These are
+different outcomes and should not all be summarized as a successful tool test.</p>
+<p><img src="../screenshots/0.5/15-tool-runs.png" alt="Tool run audit"/></p>
+<h3 id="model-ledger">Model Ledger</h3>
+<p><strong>Model Ledger</strong> shows recorded model activity and usage. Use it to understand
+which profile handled a call and why a run stopped or changed provider.</p>
+<p><img src="../screenshots/0.5/16-model-ledger.png" alt="Model Ledger"/></p>
+<h3 id="workspace">Workspace</h3>
+<p><strong>Workspace</strong> contains operation files and artifacts. Inspect their provenance
+and contents before sharing them. Keep operator credentials and private reports
+out of a public source export.</p>
+<p><img src="../screenshots/0.5/18-workspace.png" alt="Workspace"/></p>
+<h2 id="10-configure-the-system">10. Configure the system</h2>
+<h3 id="intercept-rules-and-approvals">Intercept rules and approvals</h3>
+<p><strong>Intercept Rules</strong> controls supported allow, deny and approval behavior. Review
+the applicable rule and operation context before changing it.</p>
+<p><img src="../screenshots/0.5/26-intercept-rules.png" alt="Intercept Rules"/></p>
+<p>Open <strong>Approvals</strong> when an action is waiting for an operator decision. Check
+the requested action and evidence before approving or rejecting it.</p>
+<p><img src="../screenshots/0.5/27-approvals.png" alt="Approvals"/></p>
+<h3 id="signals-and-system-log">Signals and System Log</h3>
+<p><strong>Signals</strong> configures notifications. Test the intended destination and avoid
+including secrets or unnecessary target details in notification payloads.</p>
+<p><img src="../screenshots/0.5/28-signals.png" alt="Signals"/></p>
+<p><strong>System Log</strong> helps explain connection, dependency and execution failures.
+Correlate its timestamps with operation activity and tool records.</p>
+<p><img src="../screenshots/0.5/29-system-log.png" alt="System Log"/></p>
+<h3 id="configuration-domains">Configuration domains</h3>
+<p><strong>Configuration</strong> groups controls into Network &amp; evidence, Agent runtime,
+Search intelligence and Lifecycle &amp; labs. Read each control&#x27;s impact text;
+some settings affect running agents or subsequent requests immediately.</p>
+<p><img src="../screenshots/0.5/30-configuration.png" alt="Configuration"/></p>
+<h3 id="research-budgets">Research budgets</h3>
+<p>Open <strong>Search intelligence → Recorded failover &amp; budgets</strong>.</p>
+<p><img src="../screenshots/0.5/31-search-intelligence.png" alt="Research providers and budgets"/></p>
+<p>The audited broker has a shared research budget per operation. The default
+40 cumulative attempts includes web searches, vulnerability-provider calls and
+other audited research requests across its agents. Failed attempts, provider
+fallbacks and retries count. Cache receipts do not.</p>
+<p><strong>Attempts per minute</strong> is a separate rolling 60-second admission limit.
+Raising it does not replenish an exhausted cumulative budget. Raising
+<strong>Requests per task/session</strong> allows later calls up to the new total; it does
+not erase earlier attempts or automatically restart a stopped operation.</p>
+<p>The current settings accept 1–100,000 cumulative requests and 1–10,000 attempts
+per minute. Paid request units, provider quotas, model tokens and scanner
+budgets remain separate. None of these settings widens target authorization.</p>
+<h3 id="api-and-source-experiments">API and source experiments</h3>
+<p>API Experiment Lab tools are available through their configured MCP bindings.
+Review schemas and the request catalog before starting an experiment. Inspect
+status, results and artifacts; preserve source context when replaying an
+exported recipe. Static matches are candidates, not runtime proof.</p>
+<p>Remember that a container&#x27;s <code>localhost</code> is that container. A service reachable
+from the application or your Windows host is not automatically reachable from
+API Lab. Use the intended service address and authorized scope.</p>
+<h2 id="11-stop-restart-and-update">11. Stop, restart and update</h2>
+<p>Windows:</p>
+<pre><code class="language-powershell">powershell -NoProfile -ExecutionPolicy Bypass -File .\clean\status.ps1
+powershell -NoProfile -ExecutionPolicy Bypass -File .\clean\stop.ps1
+powershell -NoProfile -ExecutionPolicy Bypass -File .\clean\start.ps1
+</code></pre>
+<p>Linux:</p>
+<pre><code class="language-bash">bash ./clean/status.sh
+bash ./clean/stop.sh
+bash ./clean/start.sh
+</code></pre>
+<p>Stopping preserves PostgreSQL, settings, operation records, artifacts and the
+signing keystore. Git rollback does not roll back those stores. Back up the
+affected state before a migration, reset or behavior-changing experiment.</p>
+<p>For an update, obtain the intended source version from
+<a href="https://github.com/nobanic/Uroboros">nobanic/Uroboros</a>, verify its release files
+and rebuild with the same clean launcher, project and private state. Retain any
+existing custom port or Compose overrides. The legacy root <code>update.sh</code> is not
+the clean-stack updater, and native in-place binary swapping is not a persistent
+upgrade of this read-only Docker stack.</p>
+<h2 id="troubleshooting">Troubleshooting</h2>
+<table><thead><tr><th>Symptom</th><th>Check</th></tr></thead><tbody><tr><td>Docker cannot be reached</td><td>Start the intended Docker engine and verify Linux-container mode.</td></tr><tr><td>Required binary image is missing</td><td>Supply the exact archives from the matching release or preload their pinned image identities.</td></tr><tr><td>Archive checksum mismatch</td><td>Preserve the failed file and obtain the matching trusted archive; do not change the expected checksum.</td></tr><tr><td>Setup appears on an existing installation</td><td>Confirm project, private runtime file and volume names before initializing anything.</td></tr><tr><td>New dashboard is empty</td><td>A clean database has no demonstration operations; configure a model and create authorized work.</td></tr><tr><td>An agent reports <code>unknown tool</code></td><td>Inspect its role bindings. Planner/main tools need not be in a worker registry.</td></tr><tr><td>Research reports <code>research_budget_exhausted</code></td><td>Inspect the shared cumulative research count and configured task budget.</td></tr><tr><td>Provider returns a balance or quota error</td><td>Check that provider account and profile; this is separate from local research admission limits.</td></tr><tr><td>Main-agent activity is not updating</td><td>Check connection state and refresh once, then inspect tool activity and logs. Avoid resending paid work blindly.</td></tr><tr><td>A scanner has not started</td><td>Review current scope, discovery review and explicit run/skip decision before calling it a failure.</td></tr><tr><td>API Lab cannot reach localhost</td><td>Check container networking and use the intended scoped service address.</td></tr><tr><td>Traffic is empty</td><td>Check capture configuration and the operation&#x27;s recording path.</td></tr><tr><td>A Git-free copy fails source provenance</td><td>Keep its valid <code>RELEASE_SOURCE</code> file; use the matching complete release.</td></tr></tbody></table>
+<p>For installation details and source organization, return to the
+<a href="../README.md">main README</a> or <a href="../clean/README.md">clean-stack guide</a>.</p></main></html>

@@ -1,0 +1,283 @@
+@layer components {
+  .finding-inspector {
+    min-width: 0;
+    border-radius: inherit;
+    background: var(--a-bg);
+    color: var(--a-ink);
+  }
+  .finding-section {
+    min-width: 0;
+    color: var(--a-ink);
+  }
+  .finding-section-head {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 18px 20px;
+    border-bottom: 1px solid color-mix(in srgb, var(--a-line) 75%, transparent);
+  }
+  .finding-section-intro {
+    min-width: 0;
+  }
+  .finding-section-title {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    font-size: 14px;
+    font-weight: 650;
+    line-height: 1.5;
+  }
+  .finding-section-title::before {
+    content: "";
+    flex: 0 0 4px;
+    width: 4px;
+    height: 14px;
+    border-radius: 4px;
+    background: var(--a-accent);
+    box-shadow: 0 0 12px color-mix(in srgb, var(--a-accent) 24%, transparent);
+  }
+  .finding-section-description {
+    max-width: 76ch;
+    margin-top: 5px;
+    color: var(--a-muted);
+    font-size: 12px;
+    line-height: 1.65;
+  }
+  .finding-section-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 8px;
+  }
+  .finding-section-body {
+    min-width: 0;
+    padding: 18px 20px;
+  }
+  .finding-section-footer {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 14px 20px;
+    border-top: 1px solid var(--a-line);
+  }
+  .finding-dialog-heading {
+    position: relative;
+    display: grid;
+    align-content: start;
+    gap: 9px;
+    padding: 0 0 18px 46px;
+    border-bottom: 1px solid var(--a-line);
+    color: var(--a-ink);
+    text-align: left;
+  }
+  .finding-dialog-mark {
+    position: absolute;
+    inset: 0 auto auto 0;
+    width: 32px;
+    height: 36px;
+    border: 1px solid color-mix(in srgb, var(--a-accent) 45%, var(--a-line));
+    border-radius: 10px 10px 14px 14px;
+    background: linear-gradient(145deg, var(--a-selected), var(--a-soft));
+  }
+  .finding-dialog-mark::after {
+    content: "";
+    position: absolute;
+    inset: 9px 10px 12px;
+    border: 2px solid var(--a-accent);
+    border-top-width: 5px;
+    border-radius: 2px;
+  }
+  .finding-property {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 12px 0;
+  }
+  .finding-property > span {
+    flex-shrink: 0;
+    padding-top: 3px;
+    color: var(--a-muted);
+    font-size: 11px;
+  }
+  .finding-property > div {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    min-width: 0;
+    max-width: 100%;
+    flex: 1 1 0;
+    gap: 6px;
+    text-align: right;
+    font-size: 13px;
+  }
+  .finding-section-body:has(> .finding-property) {
+    container: finding-facts / inline-size;
+  }
+  @container finding-facts (max-width: 260px) {
+    .finding-property {
+      flex-direction: column;
+      gap: 6px;
+    }
+    .finding-property > div {
+      flex: none;
+      width: 100%;
+      align-items: flex-start;
+      text-align: left;
+    }
+  }
+  .finding-empty {
+    display: grid;
+    justify-items: center;
+    gap: 8px;
+    min-width: 0;
+    padding: 30px 18px;
+    border: 1px dashed var(--a-line);
+    border-radius: 12px;
+    background: color-mix(in srgb, var(--a-soft) 65%, transparent);
+    text-align: center;
+  }
+  .finding-empty h3 {
+    font-size: 13px;
+    font-weight: 600;
+  }
+  .finding-empty p {
+    max-width: 52ch;
+    color: var(--a-muted);
+    font-size: 12px;
+    line-height: 1.6;
+  }
+  .finding-empty-mark {
+    width: 24px;
+    height: 24px;
+    margin-bottom: 5px;
+    border: 1px solid var(--a-line);
+    border-radius: 8px;
+    background: linear-gradient(135deg, var(--a-selected), var(--a-paper));
+  }
+  .finding-inspector-row {
+    min-width: 0;
+    border-bottom: 1px solid var(--a-line);
+    transition: background-color 160ms ease;
+  }
+  .finding-inspector-row:last-child {
+    border-bottom: 0;
+  }
+  .finding-inspector-row[data-expanded="true"] {
+    background: color-mix(in srgb, var(--a-selected) 35%, var(--a-paper));
+  }
+  .finding-inspector-row button[aria-expanded] {
+    min-width: 0;
+  }
+  .finding-packet {
+    min-width: 0;
+    margin: 16px 0;
+    overflow: hidden;
+    border: 1px solid var(--a-line);
+    border-radius: 12px;
+    color: var(--a-ink);
+    background: var(--a-input);
+  }
+  .finding-packet-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 8px 12px;
+    border-bottom: 1px solid var(--a-line);
+    background: linear-gradient(100deg, var(--a-selected), var(--a-soft));
+    font-size: 11px;
+    font-weight: 600;
+  }
+  .finding-packet-bar > div {
+    display: flex;
+    align-items: center;
+    gap: 3px;
+  }
+  .finding-packet-bar small {
+    margin-left: 8px;
+    color: var(--a-muted);
+    font-size: 10px;
+    font-weight: 400;
+  }
+  .finding-inspector > header {
+    background: linear-gradient(110deg, var(--a-paper), var(--a-soft));
+    border-color: var(--a-line);
+  }
+  .finding-inspector-heading {
+    max-width: 42rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: var(--a-ink);
+    font-size: 15px;
+    font-weight: 650;
+  }
+  @media (max-width: 600px) {
+    .finding-inspector-row > div:first-child {
+      flex-wrap: wrap;
+      gap: 10px;
+      padding: 12px;
+    }
+    .finding-inspector-row > div:first-child > button:first-child {
+      flex-basis: 100%;
+    }
+    .finding-section-head {
+      flex-wrap: wrap;
+      gap: 12px;
+      padding: 15px;
+    }
+    .finding-section-actions {
+      justify-content: flex-start;
+    }
+    .finding-section-body {
+      padding: 15px;
+    }
+    .finding-section-footer {
+      padding: 12px 15px;
+    }
+    .finding-property {
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .finding-property > div {
+      flex: 1 1 150px;
+    }
+    .finding-inspector-heading {
+      max-width: 100%;
+      white-space: normal;
+      overflow-wrap: anywhere;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .finding-inspector-row {
+      transition: none;
+    }
+  }
+}
+
+/* Own these surfaces without opting into the retained card skin's important rules. */
+.finding-section {
+  position: relative;
+  overflow: clip;
+  border: 1px solid var(--a-line);
+  border-radius: 16px;
+  background-color: var(--a-paper);
+  background-image: linear-gradient(125deg, color-mix(in srgb, var(--a-selected) 24%, var(--a-paper)), var(--a-paper) 58%);
+  box-shadow: var(--a-shadow);
+}
+
+/* Bound legacy utility-sized links and badges to the actual facts column. */
+.finding-property > div :is(a, code) {
+  min-width: 0;
+  max-width: 100%;
+  overflow-wrap: anywhere;
+}
+
+.uro-module-stage .finding-inspector h1.finding-inspector-heading {
+  display: block;
+}

@@ -1,0 +1,130 @@
+# Hardened, fully-sealed sandbox for studying Uroboros.
+#
+# Topology:
+#
+#   host 127.0.0.1:8787  ──►  [gateway]  ──►  [uroboros]  ──►  [postgres]
+#                              edge+internal   internal      internal
+#                              (forwarder)     (SEALED)      (SEALED)
+#
+#   * "internal" network has NO route to the internet or the host (verified).
+#   * uroboros and postgres live ONLY on "internal": zero egress, cannot reach the
+#     host, cannot leak the host IP/DNS (external + host.docker.internal SERVFAIL).
+#   * The only thing reachable from the host is the UI, and only on 127.0.0.1
+#     (never the LAN), via a dumb fixed-target Go TCP forwarder. The app cannot
+#     use the forwarder as a pivot: the app has no default route and no caps, the
+#     lab subnet is not SNAT'd, and the forwarder itself does user-space proxying
+#     with kernel IP-forwarding disabled (net.ipv4.ip_forward=0).
+#
+# Usage:
+#   cd sandbox
+#   cp .env.sandbox.example .env   # (a ready .env with a random password is generated for you)
+#   docker compose -f docker-compose.sandbox.yml up -d --build
+#   open http://127.0.0.1:8787      # first visit -> /setup to set an admin password
+#   ./verify-isolation.sh           # prove the seal against the running stack
+
+name: uroboros-sandbox
+
+networks:
+  # Sealed LAB network: no internet and no host route (Docker-enforced), yet
+  # containers ON it can freely talk to each other. Uroboros, Postgres, and any
+  # target you attach (e.g. monixa.local) all live here — so Uroboros can scan the
+  # target while nothing in the lab can reach the internet or your Mac.
+  # Fixed name so your target's own compose can join it as an external network.
+  lab:
+    name: uroboros_sandbox_lab
+    internal: true
+  # Edge: only the UI forwarder sits here; it is the sole published surface.
+  edge:
+    name: uroboros_sandbox_edge
+
+volumes:
+  pgdata:
+  uroborosdata:
+  uroboroskeys:
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    networks: [lab]              # sealed; never published
+    environment:
+      POSTGRES_USER: uroboros
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD in sandbox/.env}
+      POSTGRES_DB: uroboros
+      # Keep auth strict even on the internal net.
+      POSTGRES_HOST_AUTH_METHOD: scram-sha-256
+      POSTGRES_INITDB_ARGS: "--auth-host=scram-sha-256"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U uroboros -d uroboros"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+    security_opt:
+      - no-new-privileges:true
+    cap_drop: [ALL]
+    cap_add: [CHOWN, DAC_OVERRIDE, FOWNER, SETGID, SETUID]  # needed by initdb/gosu step-down only
+    mem_limit: 512m
+    cpus: "1.0"
+    pids_limit: 256
+    restart: unless-stopped
+
+  uroboros:
+    build:
+      context: ..
+      dockerfile: sandbox/Dockerfile
+      target: app
+    image: uroboros-sandbox/app:local
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks: [lab]              # sealed; NO published ports
+    hostname: uroboros-sandbox
+    environment:
+      UROBOROS_PG_DSN: postgres://uroboros:${POSTGRES_PASSWORD}@postgres:5432/uroboros?sslmode=disable
+      # LLM keys are intentionally left empty: with egress sealed the agent cannot
+      # call any LLM anyway. See README-SANDBOX.md ("Lab mode") to allow ONLY an
+      # LLM endpoint if you later want to actually drive explorations.
+      ANTHROPIC_API_KEY: ""
+      OPENAI_API_KEY: ""
+    # Defense in depth: if anything ever tries these, send them to itself, not out.
+    extra_hosts:
+      - "host.docker.internal:127.0.0.1"
+      - "gateway.docker.internal:127.0.0.1"
+    read_only: true                   # root FS immutable -> also neuters self-update
+    tmpfs:
+      - /tmp:rw,nosuid,nodev,noexec,size=128m
+    volumes:
+      - uroborosdata:/app/data           # the only writable, persistent path (named volume, no host path)
+      - uroboroskeys:/app/keystore       # jwt signing key: writable, persistent, NOT in the browsable workspace
+    security_opt:
+      - no-new-privileges:true
+    cap_drop: [ALL]                   # static server binary on distroless needs no capabilities
+    mem_limit: 4g
+    cpus: "1.5"
+    pids_limit: 512
+    restart: unless-stopped
+
+  gateway:
+    build:
+      context: ..
+      dockerfile: sandbox/Dockerfile
+      target: gateway
+    image: uroboros-sandbox/gateway:local
+    depends_on: [uroboros]
+    networks: [edge, lab]        # straddles both, forwards inbound only
+    environment:
+      LISTEN: ":8787"
+      TARGET: "uroboros:8787"
+    ports:
+      - "127.0.0.1:8787:8787"         # localhost ONLY — not exposed to the LAN
+    read_only: true
+    security_opt:
+      - no-new-privileges:true
+    cap_drop: [ALL]
+    sysctls:
+      - net.ipv4.ip_forward=0           # forwarder does user-space proxying only; no kernel routing
+    mem_limit: 64m
+    cpus: "0.5"
+    pids_limit: 64
+    restart: unless-stopped

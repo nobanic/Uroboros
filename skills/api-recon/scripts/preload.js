@@ -1,0 +1,341 @@
+/**
+ * api-recon coverage-mode preload script — reference template
+ *
+ * ⚠ Not a ready-made general tool: adjust it for the target site before injecting.
+ * Common changes: loginPathRe, stubs, neutralize.fields/success, apiPattern, mockTier, forward
+ *
+ * Inject at document-start (CDP addScriptToEvaluateOnNewDocument or a userscript)
+ * The CONFIG fields should stay consistent with recon/config.json
+ */
+(function () {
+  'use strict';
+
+  const CONFIG = {
+    loginPathRe: /\/(login|signin)(\/|$|\?)/i,
+    mockTier: 'L1+L2',
+    forward: true,
+    neutralize: {
+      fields: ['response_code', 'code', 'errno', 'ret', 'status'],
+      success: 0,
+      flags: { success: true, message: 'ok' },
+    },
+    stubs: [],
+    apiPattern: /\/(api|apis|v\d+|dev|internal|graphql)\//i,
+    apiFallbackRe: /^\/(api|apis|v\d+|dev|internal)\//i,
+    // API-discovery enhancements: fetch/XHR hooks, request-header and response recording
+    recordDetail: true,           // detailed recording of method/url/headers/body/response
+    respMax: 600,
+    extractUrlsFromResponse: true, // extract nested URLs from JSON responses
+    neutralizeVueRouter: true,    // neutralize Vue beforeEach/push login redirects
+    observe: {
+      storageReads: false,        // observe localStorage.getItem (helps confirm the session key name)
+      cookieReads: false,         // observe document.cookie reads
+      xhrHeaders: true,           // record XHR setRequestHeader
+    },
+  };
+
+  window.__API_RECON_PRELOAD__ = true;
+  window.__API_RECON_LOG__ = window.__API_RECON_LOG__ || new Set();
+  window.__API_RECON_DETAIL__ = window.__API_RECON_DETAIL__ || [];
+  window.__API_RECON_ROUTES__ = window.__API_RECON_ROUTES__ || new Set();
+  window.__API_RECON_OBSERVE__ = window.__API_RECON_OBSERVE__ || { storage: [], headers: [] };
+
+  function trunc(s, n) {
+    n = n || CONFIG.respMax || 600;
+    s = String(s == null ? '' : s);
+    return s.length > n ? s.slice(0, n) + '…' : s;
+  }
+
+  function extractApiUrlsFromText(text) {
+    if (!CONFIG.extractUrlsFromResponse || !text) return;
+    const re = /["'](\/(?:api|apis|v\d+|dev|internal|graphql)[^"'`\\s]*)["'`]/gi;
+    let m;
+    while ((m = re.exec(text))) {
+      const p = m[1].split('?')[0];
+      window.__API_RECON_LOG__.add('GET ' + p);
+    }
+    const broad = /\/api\/[a-zA-Z0-9_./-]+/g;
+    while ((m = broad.exec(text))) {
+      const p = m[0].split('?')[0];
+      if (!/\.(svg|png|jpg|gif|ico)$/i.test(p)) window.__API_RECON_LOG__.add('GET ' + p);
+    }
+  }
+
+  function recordApi(url, method) {
+    const p = String(url || '').split('?')[0];
+    if (CONFIG.apiPattern.test(p)) {
+      window.__API_RECON_LOG__.add((method || 'GET').toUpperCase() + ' ' + p);
+    }
+  }
+
+  function recordApiDetail(entry) {
+    recordApi(entry.url, entry.method);
+    if (!CONFIG.recordDetail) return;
+    window.__API_RECON_DETAIL__.push(entry);
+    if (entry.responseBody) extractApiUrlsFromText(entry.responseBody);
+  }
+
+  function blocked(url) {
+    return url && CONFIG.loginPathRe.test(String(url));
+  }
+
+  // --- Navigation neutralization ---
+  (function neutralizeNativeNavigation() {
+    const rawAssign = Location.prototype.assign;
+    const rawReplace = Location.prototype.replace;
+    Location.prototype.assign = function (url) {
+      if (blocked(url)) return;
+      return rawAssign.call(this, url);
+    };
+    Location.prototype.replace = function (url) {
+      if (blocked(url)) return;
+      return rawReplace.call(this, url);
+    };
+
+    const rawPush = history.pushState;
+    const rawRep = history.replaceState;
+    history.pushState = function (s, t, url) {
+      if (blocked(url)) return;
+      return rawPush.apply(this, arguments);
+    };
+    history.replaceState = function (s, t, url) {
+      if (blocked(url)) return;
+      return rawRep.apply(this, arguments);
+    };
+
+    const hrefDesc = Object.getOwnPropertyDescriptor(Location.prototype, 'href');
+    if (hrefDesc && hrefDesc.set) {
+      const nativeSet = hrefDesc.set;
+      Object.defineProperty(Location.prototype, 'href', {
+        configurable: true,
+        enumerable: hrefDesc.enumerable,
+        get: hrefDesc.get,
+        set(url) {
+          if (blocked(url)) return;
+          return nativeSet.call(this, url);
+        },
+      });
+    }
+    window.close = function () {};
+  })();
+
+  // --- Neutralize Vue Router login redirects ---
+  function neutralizeVueRouter() {
+    if (!CONFIG.neutralizeVueRouter) return;
+    try {
+      const el = document.querySelector('[data-v-app]');
+      const app = (el && el.__vue_app__) || window.__VUE__;
+      if (!app) return;
+      const router = app.config && app.config.globalProperties && app.config.globalProperties.$router;
+      if (!router) return;
+      router.beforeEach(function (to, from, next) { next(); });
+      if (router.beforeResolve) router.beforeResolve(function (to, from, next) { next(); });
+      function wrapNav(fn) {
+        return function (loc) {
+          const path = typeof loc === 'string' ? loc : (loc && (loc.path || loc.fullPath)) || '';
+          if (blocked(path)) return Promise.resolve();
+          return fn.apply(this, arguments);
+        };
+      }
+      router.push = wrapNav(router.push.bind(router));
+      router.replace = wrapNav(router.replace.bind(router));
+      if (router.getRoutes) {
+        router.getRoutes().forEach(function (r) {
+          if (r.path) window.__API_RECON_ROUTES__.add(r.path);
+        });
+      }
+    } catch (e) { /* ignore */ }
+  }
+
+  function runPostLoadHooks() {
+    neutralizeVueRouter();
+    // Business-layer navigation functions (goPage / navigateTo, etc.)
+    ['goPage', 'navigateTo', 'jumpTo', 'redirectTo'].forEach(function (name) {
+      if (typeof window[name] !== 'function' || window[name].__apiReconWrapped) return;
+      const raw = window[name];
+      window[name] = function () {
+        const arg = arguments[0];
+        const path = typeof arg === 'string' ? arg : (arg && arg.path) || '';
+        if (blocked(path)) return;
+        return raw.apply(this, arguments);
+      };
+      window[name].__apiReconWrapped = true;
+    });
+  }
+  document.addEventListener('DOMContentLoaded', runPostLoadHooks);
+  window.addEventListener('load', runPostLoadHooks);
+
+  // --- Observation hooks: help discover session key names and request headers (optional, storage/cookie off by default) ---
+  if (CONFIG.observe && CONFIG.observe.storageReads) {
+    const rawGet = Storage.prototype.getItem;
+    Storage.prototype.getItem = function (key) {
+      window.__API_RECON_OBSERVE__.storage.push({ type: 'getItem', key: key, at: location.pathname });
+      return rawGet.apply(this, arguments);
+    };
+  }
+  if (CONFIG.observe && CONFIG.observe.cookieReads) {
+    const cookieDesc = Object.getOwnPropertyDescriptor(Document.prototype, 'cookie');
+    if (cookieDesc && cookieDesc.get) {
+      const nativeGet = cookieDesc.get;
+      Object.defineProperty(document, 'cookie', {
+        configurable: true,
+        get: function () {
+          window.__API_RECON_OBSERVE__.storage.push({ type: 'cookieRead', at: location.pathname });
+          return nativeGet.call(this);
+        },
+        set: cookieDesc.set,
+      });
+    }
+  }
+
+  // --- Mock helpers ---
+  const NEGATIVE_RE = /not\s*login|unauthorized|forbidden|session\s*expired|invalid\s*token/i;
+  const tier = CONFIG.mockTier || 'L1+L2';
+
+  function patchJsonBody(text) {
+    if (!tier.includes('L2')) return text;
+    try {
+      const j = JSON.parse(text);
+      if (j && typeof j === 'object') {
+        const msg = String(j.message || j.msg || '');
+        for (const f of CONFIG.neutralize.fields) {
+          if (f in j && j[f] !== CONFIG.neutralize.success && NEGATIVE_RE.test(msg)) {
+            j[f] = CONFIG.neutralize.success;
+          }
+        }
+        Object.assign(j, CONFIG.neutralize.flags || {});
+        if (j.data == null) j.data = {};
+        return JSON.stringify(j);
+      }
+    } catch (e) { /* ignore */ }
+    return text;
+  }
+
+  function lookupPrecise(url) {
+    if (!tier.includes('L1')) return null;
+    const p = String(url || '');
+    for (const s of CONFIG.stubs) {
+      if (s._re ? s._re.test(p) : new RegExp(s.match).test(p)) return s.body;
+    }
+    return null;
+  }
+
+  function fallbackBody(url) {
+    const p = String(url).split('?')[0];
+    if (/\/(list|search|query|page|all|tree|nodes|options)/i.test(p)) {
+      return { response_code: 0, data: [] };
+    }
+    if (/\/(get|detail|info|config|status)/i.test(p)) {
+      return { response_code: 0, data: {} };
+    }
+    return { response_code: 0, data: {}, success: true };
+  }
+
+  function matchMock(url) {
+    const precise = lookupPrecise(url);
+    if (precise) return precise;
+    if (tier.includes('L3') && CONFIG.apiFallbackRe.test(String(url || '').split('?')[0])) {
+      return fallbackBody(url);
+    }
+    return null;
+  }
+
+  CONFIG.stubs.forEach(function (s) {
+    if (s.match && !s._re) s._re = new RegExp(s.match);
+  });
+
+  function _requestInfo(method, url, headers, body) {
+    return { method, url, reqHeaders: headers, reqBody: body };
+  }
+
+  function _recordResponse(request, status, text, source, shorten) {
+    recordApiDetail({ ...request, status, responseBody: shorten ? trunc(text) : text, source });
+  }
+
+  function _response(text, original) {
+    const metadata = original
+      ? { status: original.status, statusText: original.statusText, headers: original.headers }
+      : { status: 200, headers: { 'Content-Type': 'application/json' } };
+    return new Response(text, metadata);
+  }
+
+  function _completeMock(xhr, body) {
+    setTimeout(function () {
+      for (const [field, value] of [['readyState', 4], ['status', 200], ['responseText', body]]) {
+        Object.defineProperty(xhr, field, { configurable: true, get: function () { return value; } });
+      }
+      xhr.onreadystatechange && xhr.onreadystatechange();
+      xhr.onload && xhr.onload();
+    }, 0);
+  }
+
+  // --- fetch Hook ---
+  const rawFetch = window.fetch;
+  window.fetch = async function (input, init) {
+    const url = typeof input === 'string' ? input : (input && input.url) || '';
+    const method = ((init && init.method) || 'GET').toUpperCase();
+    const reqHeaders = (init && init.headers) || {};
+    const reqBody = init && init.body ? trunc(init.body) : null;
+    const request = _requestInfo(method, url, reqHeaders, reqBody);
+    const mock = matchMock(url);
+    if (mock && !CONFIG.forward) {
+      _recordResponse(request, 200, JSON.stringify(mock), 'mock', false);
+      return _response(JSON.stringify(mock));
+    }
+    const resp = await rawFetch.apply(this, arguments);
+    const clone = resp.clone();
+    let text = '';
+    try { text = await clone.text(); } catch (e) { /* ignore */ }
+    _recordResponse(request, resp.status, text, 'fetch', true);
+    if (!tier.includes('L2') && !mock) return resp;
+    const patched = patchJsonBody(text);
+    return patched !== text ? _response(patched, resp) : resp;
+  };
+
+  // --- XHR Hook ---
+  const rawOpen = XMLHttpRequest.prototype.open;
+  const rawSend = XMLHttpRequest.prototype.send;
+  const rawSetHeader = XMLHttpRequest.prototype.setRequestHeader;
+  XMLHttpRequest.prototype.open = function (method, url) {
+    this.__apiReconUrl = url;
+    this.__apiReconMethod = method;
+    this.__apiReconHeaders = {};
+    return rawOpen.apply(this, arguments);
+  };
+  if (CONFIG.observe && CONFIG.observe.xhrHeaders) {
+    XMLHttpRequest.prototype.setRequestHeader = function (name, value) {
+      if (!this.__apiReconHeaders) this.__apiReconHeaders = {};
+      this.__apiReconHeaders[name] = value;
+      window.__API_RECON_OBSERVE__.headers.push({ name: name, url: this.__apiReconUrl });
+      return rawSetHeader.apply(this, arguments);
+    };
+  }
+  XMLHttpRequest.prototype.send = function (body) {
+    const xhr = this;
+    const url = xhr.__apiReconUrl || '';
+    const method = (xhr.__apiReconMethod || 'GET').toUpperCase();
+    const mock = matchMock(url);
+    if (mock && !CONFIG.forward) {
+      const bodyStr = JSON.stringify(mock);
+      _recordResponse(_requestInfo(method, url, xhr.__apiReconHeaders, trunc(body)), 200, bodyStr, 'mock', false);
+      _completeMock(xhr, bodyStr);
+      return;
+    }
+    const orig = xhr.onreadystatechange;
+    xhr.onreadystatechange = function () {
+      if (xhr.readyState === 4) {
+        _recordResponse(_requestInfo(method, url, xhr.__apiReconHeaders, trunc(body)), xhr.status, xhr.responseText, 'xhr', true);
+        if (tier.includes('L2') && xhr.responseText) {
+          try {
+            const patched = patchJsonBody(xhr.responseText);
+            if (patched !== xhr.responseText) {
+              Object.defineProperty(xhr, 'responseText', { configurable: true, get: function () { return patched; } });
+            }
+          } catch (e) { /* ignore */ }
+        }
+      }
+      orig && orig.apply(this, arguments);
+    };
+    return rawSend.apply(this, arguments);
+  };
+})();

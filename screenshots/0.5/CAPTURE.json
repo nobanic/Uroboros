@@ -1,0 +1,274 @@
+{
+  "application": "Uroboros",
+  "capturedAt": "2026-11-03T09:45:28.947Z",
+  "sourceRevision": "2fc2b11b028eef95402393e5c21f2e0591d8508c",
+  "frontendRuntimeTree": "acde5db4baac0a7343b3ce7d8b62cc063a7906a0",
+  "viewport": {
+    "width": 1600,
+    "height": 1000
+  },
+  "data": "Synthetic built-in demonstration data; normal auth pages use isolated auth-status fixture.",
+  "images": [
+    {
+      "file": "01-setup.png",
+      "title": "First operator initialization",
+      "route": "/setup",
+      "mode": "normal",
+      "sha256": "49142015edfbbb095b5635b8224cd743c974b360ad79883a09e6aadc4fe789ab",
+      "width": 1600,
+      "height": 1000
+    },
+    {
+      "file": "02-login.png",
+      "title": "Operator sign-in",
+      "route": "/login",
+      "mode": "normal",
+      "sha256": "7faaaed91597283eb2faf8fd51a95e9abc170cde8c13e18529f5108a8b0a29fc",
+      "width": 1600,
+      "height": 1000
+    },
+    {
+      "file": "03-mission-control.png",
+      "title": "Mission Control",
+      "route": "/dashboard",
+      "mode": "mock",
+      "sha256": "64ef999273253d508dc9319130cc6553d18ab62a0c61085786521738f03d1545",
+      "width": 1600,
+      "height": 1000
+    },
+    {
+      "file": "04-operations.png",
+      "title": "Operations",
+      "route": "/function/tasks",
+      "mode": "mock",
+      "sha256": "05b52dc0188d8821adb79c426339820c40293346d8218a7ce6bf397b812bdb74",
+      "width": 1600,
+      "height": 1000
+    },
+    {
+      "file": "05-living-console.png",
+      "title": "Living console",
+      "route": "/astra",
+      "mode": "mock",
+      "sha256": "90739c1bc0883d153195f4e68c3cfa15a59b74611db38485e743d1ac6253844c",
+      "width": 1600,
+      "height": 1000
+    },
+    {
+      "file": "06-operation-detail.png",
+      "title": "Operation workspace",
+      "route": "/function/tasks/detail?id=t-uroboros.lab-web",
+      "mode": "mock",
+      "sha256": "0b0e6ab2561d6d0daffff3671de2312ba3aaca128221e61a0fd2bda4d58aba62",
+      "width": 1600,
+      "height": 1000
+    },
+    {
+      "file": "07-evidence-graph.png",
+      "title": "Evidence graph",
+      "route": "/astra",
+      "mode": "mock",
+      "sha256": "d1accda8cc3c5fca097f131a4824cecd3e37e0c1a19e2d3b5cdb11bd1504898d",
+      "width": 1600,
+      "height": 1000
+    },
+    {
+      "file": "08-graph-records.png",
+      "title": "Graph record browser",
+      "route": "/astra",
+      "mode": "mock",
+      "sha256": "fb640e6441ec5b95a2e53da2c8d9955a9e68a0403aba836b1d467d314fd971f2",
+      "width": 1600,
+      "height": 1000
+    },
+    {
+      "file": "09-evidence-inspector.png",
+      "title": "Evidence details and lineage",
+      "route": "/astra",
+      "mode": "mock",
+      "sha256": "351b1490b0f0eaf1fd2298ae8543ace829b675a62cdedb834fa44de9a15913d5",
+      "width": 1600,
+      "height": 1000
+    },
+    {
+      "file": "10-asset-graph.png",
+      "title": "Asset Graph",
+      "route": "/function/assets",
+      "mode": "mock",
+      "sha256": "322f6eb6640fe1492acecad35214bf1142fb987d32439139fd5c06a613139c2e",
+      "width": 1600,
+      "height": 1000
+    },
+    {
+      "file": "11-asset-guard.png",
+      "title": "Asset Guard",
+      "route": "/system/intercept/assets",
+      "mode": "mock",
+      "sha256": "795d544acd9c7af7dc5fe9ce3f5a52698a29b2b2a371cbd15a5cd2b4a7d8b519",
+      "width": 1600,
+      "height": 1000
+    },
+    {
+      "file": "12-findings.png",
+      "title": "Findings",
+      "route": "/function/findings",
+      "mode": "mock",
+      "sha256": "9403bdea93b2cc16c6bf99ab9bae6b4355a2a9200dbf65d28360ee506288a3f9",
+      "width": 1600,
+      "height": 1000
+    },
+    {
+      "file": "14-traffic.png",
+      "title": "Captured traffic",
+      "route": "/function/traffic",
+      "mode": "mock",
+      "sha256": "a5f4a6fa9291a6cecf7f6c8394618e8784f2688283f9df9cf8a697289571544d",
+      "width": 1600,
+      "height": 1000
+    },
+    {
+      "file": "15-tool-runs.png",
+      "title": "Tool Runs",
+      "route": "/function/commands",
+      "mode": "mock",
+      "sha256": "f50fe4875c44dfd33e2c90bb809a32997cb5e545c86f32e0dda24efd1fbdc4f2",
+      "width": 1600,
+      "height": 1000
+    },
+    {
+      "file": "16-model-ledger.png",
+      "title": "Model Ledger",
+      "route": "/function/llm-records",
+      "mode": "mock",
+      "sha256": "71da7ca39473e6ba2e03c38cd781111c2ce1061cf516920e886b3579b4da7025",
+      "width": 1600,
+      "height": 1000
+    },
+    {
+      "file": "17-command-chat.png",
+      "title": "Command Chat",
+      "route": "/chat",
+      "mode": "mock",
+      "sha256": "4601b05b3da8543233259c9139dfb01e8bf02e12675e74f03556c0ef0f8bcd8f",
+      "width": 1600,
+      "height": 1000
+    },
+    {
+      "file": "18-workspace.png",
+      "title": "Workspace",
+      "route": "/function/workspace",
+      "mode": "mock",
+      "sha256": "be9fdaaf5d0313772fa0f668f1f9e70721d78d2771709681f3b896a091932431",
+      "width": 1600,
+      "height": 1000
+    },
+    {
+      "file": "19-model-fabric.png",
+      "title": "Model Fabric",
+      "route": "/system/llm",
+      "mode": "mock",
+      "sha256": "234cff3a847826cba4049754b1f57355beff674c4557113ea03e17971144c136",
+      "width": 1600,
+      "height": 1000
+    },
+    {
+      "file": "20-new-model-profile.png",
+      "title": "Create a model profile",
+      "route": "/system/llm",
+      "mode": "mock",
+      "sha256": "e1d645be5c9960ee6eab1de7bd72f98270d057c4004339d6b604bad8e34312ef",
+      "width": 1600,
+      "height": 1000
+    },
+    {
+      "file": "21-agents.png",
+      "title": "Agents",
+      "route": "/system/agents",
+      "mode": "mock",
+      "sha256": "fd6a61f18d2175d0b1477ea991de38effc8b12841e6c25634ab8474fbcf7bcb1",
+      "width": 1600,
+      "height": 1000
+    },
+    {
+      "file": "23-toolchain.png",
+      "title": "Toolchain",
+      "route": "/system/tools",
+      "mode": "mock",
+      "sha256": "7e2a59a28ae4de543abaed224023877aa768a6ddf1b5b3bc8e16a9bd9b952a2f",
+      "width": 1600,
+      "height": 1000
+    },
+    {
+      "file": "24-mcp-mesh.png",
+      "title": "MCP Mesh",
+      "route": "/system/mcp",
+      "mode": "mock",
+      "sha256": "3e7692a2646c364593ad0762e24b32cadd185368af284becde7f5ec41f990944",
+      "width": 1600,
+      "height": 1000
+    },
+    {
+      "file": "25-skills.png",
+      "title": "Skills",
+      "route": "/system/skills",
+      "mode": "mock",
+      "sha256": "d878c76f316de4ede7349dd1d8d9647327f0b4637e1300d016f814fe34f51ff8",
+      "width": 1600,
+      "height": 1000
+    },
+    {
+      "file": "26-intercept-rules.png",
+      "title": "Intercept Rules",
+      "route": "/system/intercept",
+      "mode": "mock",
+      "sha256": "b93752ccc69f2fc64146b882d8c09cfca587bcffb9241e5b05f00e25c36baeb9",
+      "width": 1600,
+      "height": 1000
+    },
+    {
+      "file": "27-approvals.png",
+      "title": "Approvals",
+      "route": "/system/intercept/approvals",
+      "mode": "mock",
+      "sha256": "3b3b6bec83961428b27d04e8d010dc1feb1ea13f0048442e9dfc198f83b92925",
+      "width": 1600,
+      "height": 1000
+    },
+    {
+      "file": "28-signals.png",
+      "title": "Signals",
+      "route": "/system/notify",
+      "mode": "mock",
+      "sha256": "7210a4a70a4dcc62bc7c6749d24d01caf0b86c2ca6717065f0a9e724f1e98e78",
+      "width": 1600,
+      "height": 1000
+    },
+    {
+      "file": "29-system-log.png",
+      "title": "System Log",
+      "route": "/system/logs",
+      "mode": "mock",
+      "sha256": "a13aaa52e83b3076f7faf3333f887428e0722a4ad371923ed02696099ce2c18d",
+      "width": 1600,
+      "height": 1000
+    },
+    {
+      "file": "30-configuration.png",
+      "title": "Configuration",
+      "route": "/system/settings",
+      "mode": "mock",
+      "sha256": "3572e794f0cb83a455e8cab16c54dde898cccf714bf0a9b1e2b4e9d239bb86f6",
+      "width": 1600,
+      "height": 1000
+    },
+    {
+      "file": "31-search-intelligence.png",
+      "title": "Research providers and task budgets",
+      "route": "/system/settings",
+      "mode": "mock",
+      "sha256": "3cf966c6df6d3ffc71c5bcf92ee4ca53f39edc0cef58b4da70f32bdf16751a15",
+      "width": 1600,
+      "height": 1000
+    }
+  ]
+}

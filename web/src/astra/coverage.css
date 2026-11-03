@@ -1,0 +1,73 @@
+.astra-coverage-score {
+  color: var(--g-accent);
+  font-size: 22px;
+  font-weight: 600;
+  letter-spacing: -0.05em;
+  margin-left: 8px;
+}
+.astra-coverage-error {
+  color: var(--a-danger);
+  background: var(--a-danger-bg);
+  padding: 8px 16px;
+  font-size: 11px;
+  border-bottom: 1px solid var(--g-line);
+}
+.astra-coverage-card[data-status="gap"] {
+  border-style: dashed;
+}
+.astra-coverage-card[data-status="fold"] {
+  border-style: dashed;
+  background-image: none;
+}
+.astra-evidence-workspace .astra-graph-state[data-state="tested"] {
+  color: #147963;
+  background: #1d987b18;
+}
+.astra-evidence-workspace .astra-graph-state[data-state="gap"] {
+  color: #956017;
+  background: #da9e391a;
+}
+.dark .astra-evidence-workspace .astra-graph-state[data-state="tested"] {
+  color: #63d7b6;
+}
+.dark .astra-evidence-workspace .astra-graph-state[data-state="gap"] {
+  color: #efba79;
+}
+.astra-coverage-surface .astra-evidence-legend > div:nth-child(2) span {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  color: var(--g-muted);
+  font-size: 9px;
+}
+.astra-coverage-inspector .astra-evidence-inspector-body > p {
+  color: var(--g-muted);
+  font-size: 10px;
+  line-height: 1.7;
+}
+.astra-coverage-references {
+  margin-bottom: 20px;
+}
+.astra-coverage-references article {
+  display: grid;
+  gap: 6px;
+  margin: 8px 0;
+  padding: 10px;
+  border: 1px solid var(--g-line);
+  border-radius: 7px;
+  background: var(--g-raised);
+}
+.astra-coverage-references strong {
+  font-size: 11px;
+  font-weight: 550;
+  line-height: 1.6;
+}
+.astra-coverage-references small,
+.astra-coverage-references a {
+  font-size: 9px;
+}
+@media (max-width: 760px) {
+  .astra-coverage-score {
+    font-size: 20px;
+  }
+}

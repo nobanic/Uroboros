@@ -1,0 +1,12 @@
+{
+  "identities": {
+    "alice": {
+      "origins": ["http://api-lab-vulnerable:9000", "http://api-lab-fixed:9000"],
+      "headers": {"Authorization": "Bearer fixture-alice"}
+    },
+    "bob": {
+      "origins": ["http://api-lab-vulnerable:9000", "http://api-lab-fixed:9000"],
+      "headers": {"Authorization": "Bearer fixture-bob"}
+    }
+  }
+}

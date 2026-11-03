@@ -1,0 +1,569 @@
+.astra-task-workspace {
+  --background: var(--a-bg);
+  --foreground: var(--a-ink);
+  --card: var(--a-paper);
+  --card-foreground: var(--a-ink);
+  --muted: var(--a-soft);
+  --muted-foreground: var(--a-muted);
+  --border: var(--a-line);
+  --input: var(--a-line);
+  --primary: var(--a-action);
+  --primary-foreground: #fff;
+  --accent: var(--a-selected);
+  --accent-foreground: var(--a-ink);
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 0;
+  min-width: 0;
+  color: var(--a-ink);
+  background: var(--a-bg);
+  color-scheme: var(--a-scheme);
+  font-size: 13px;
+  line-height: 1.5;
+}
+.astra-task-workspace svg {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+}
+.astra-task-workspace button {
+  cursor: pointer;
+}
+.astra-task-workspace button:disabled {
+  cursor: default;
+  opacity: 0.5;
+}
+.astra-task-workspace :is(button, a, input, select):focus-visible {
+  outline: 2px solid var(--a-focus);
+  outline-offset: 3px;
+}
+.astra-task-command {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 18px;
+  padding: 22px 24px 0;
+  background: linear-gradient(115deg, var(--a-selected), var(--a-paper) 60%);
+  border-bottom: 1px solid var(--a-line);
+}
+.astra-task-identity {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 1 1 320px;
+  min-width: 0;
+}
+.astra-task-identity > div {
+  min-width: 0;
+}
+.astra-task-identity small {
+  display: block;
+  color: var(--a-muted);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.astra-task-identity h1 {
+  font-size: clamp(18px, 1.7vw, 26px);
+  font-weight: 700;
+  letter-spacing: -0.035em;
+  margin: 4px 0;
+  overflow-wrap: anywhere;
+}
+.astra-task-identity p {
+  color: var(--a-muted);
+  font-size: 12px;
+  max-width: 75ch;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.astra-task-back {
+  transform: rotate(180deg);
+}
+.astra-task-emblem {
+  display: grid;
+  place-items: center;
+  height: 48px;
+  width: 48px;
+  flex: 0 0 48px;
+  color: var(--a-accent);
+  border: 1px solid var(--a-focus);
+  border-radius: 14px;
+  background: var(--a-paper);
+  box-shadow: 0 0 24px color-mix(in srgb, var(--a-action) 10%, transparent);
+}
+.astra-task-emblem svg {
+  width: 23px;
+  height: 23px;
+}
+.astra-task-actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.astra-task-workspace :is(.astra-task-actions, .astra-task-stage > header, .astra-task-dialog-actions) button,
+.astra-task-chain button,
+.astra-task-empty :is(button, a),
+.astra-task-read-error button {
+  display: inline-flex;
+  gap: 7px;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--a-line);
+  border-radius: 7px;
+  min-height: 32px;
+  padding: 6px 10px;
+  background: var(--a-paper);
+  color: var(--a-ink);
+  font: inherit;
+  font-size: 11px;
+}
+.astra-task-workspace .astra-task-actions .astra-task-profile {
+  max-width: 260px;
+}
+.astra-task-profile span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.astra-task-profile small {
+  color: var(--a-muted);
+}
+.astra-task-profile[data-exhausted="true"] {
+  border-color: var(--a-danger) !important;
+  color: var(--a-danger) !important;
+}
+.astra-task-workspace button.is-primary {
+  background: var(--a-action);
+  color: #fff;
+  border-color: var(--a-action);
+}
+.astra-task-metrics {
+  display: flex;
+  position: relative;
+  flex: 1 0 100%;
+  align-items: stretch;
+  gap: 0;
+  padding: 5px 0 14px;
+}
+.astra-task-metrics > div:not(.astra-task-progress) {
+  display: flex;
+  gap: 12px;
+  align-items: baseline;
+  padding: 0 24px;
+  border-right: 1px solid var(--a-line);
+}
+.astra-task-metrics > div:first-child {
+  padding-left: 0;
+}
+.astra-task-metrics > div:nth-last-child(2) {
+  border: 0;
+}
+.astra-task-metrics dt {
+  color: var(--a-muted);
+  font-size: 10px;
+}
+.astra-task-metrics dd {
+  font-size: 16px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+.astra-task-progress {
+  margin-left: auto;
+  align-self: center;
+  height: 4px;
+  width: 100px;
+  border-radius: 8px;
+  background: var(--a-line);
+  overflow: hidden;
+}
+.astra-task-progress span {
+  display: block;
+  height: 100%;
+  background: var(--a-action);
+  transition: width 350ms;
+}
+.astra-task-body {
+  display: grid;
+  grid-template-columns: 190px minmax(0, 1fr);
+  flex: 1;
+  min-width: 0;
+}
+.astra-task-navigation {
+  background: var(--a-paper);
+  border-right: 1px solid var(--a-line);
+  display: flex;
+  flex-direction: column;
+  padding: 16px 10px;
+  gap: 14px;
+  min-width: 0;
+}
+.astra-task-navigation > header {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+  padding: 0 3px 0 8px;
+  font-size: 9px;
+  text-transform: uppercase;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--a-muted);
+}
+.astra-task-navigation > header button {
+  display: grid;
+  place-items: center;
+  margin-left: auto;
+  width: 25px;
+  height: 25px;
+  border-radius: 5px;
+  border: 1px solid var(--a-line);
+}
+.astra-task-navigation > [data-slot="tabs-list"] {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: auto;
+  padding: 0;
+  background: none;
+  border: none;
+  gap: 4px;
+  border-radius: 0;
+  align-items: stretch;
+}
+.astra-task-navigation [data-slot="tabs-trigger"] {
+  display: flex;
+  flex: none;
+  width: 100%;
+  height: auto;
+  min-height: 43px;
+  justify-content: flex-start;
+  border: 1px solid transparent;
+  padding: 10px 9px;
+  border-radius: 8px;
+  font-size: 11px;
+  font-weight: 500;
+  background: none;
+  color: var(--a-muted);
+  box-shadow: none;
+  gap: 9px;
+  white-space: normal;
+  text-align: left;
+}
+.astra-task-navigation [data-slot="tabs-trigger"]::after {
+  display: none;
+}
+.astra-task-navigation [data-slot="tabs-trigger"]:hover {
+  background: var(--a-soft);
+}
+.astra-task-navigation [data-slot="tabs-trigger"][data-state="active"] {
+  background: var(--a-selected) !important;
+  color: var(--a-accent) !important;
+  border-color: var(--a-line);
+  box-shadow: inset 3px 0 var(--a-action) !important;
+}
+.astra-task-navigation [data-slot="tabs-trigger"] small {
+  font-size: 9px;
+  margin-left: auto;
+  opacity: 0.6;
+}
+.astra-task-navigation em {
+  border-radius: 4px;
+  padding: 1px 5px;
+  background: var(--a-danger-bg);
+  color: var(--a-danger);
+  font-size: 10px;
+  font-weight: 600;
+  font-style: normal;
+  margin-left: auto;
+}
+.astra-task-navigation footer {
+  display: flex;
+  gap: 8px;
+  padding: 16px 8px 0;
+  margin-top: auto;
+  color: var(--a-muted);
+  font-size: 9px;
+  border-top: 1px solid var(--a-line);
+}
+.astra-task-stage {
+  min-width: 0;
+}
+.astra-task-stage > header {
+  display: flex;
+  gap: 12px;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  border-bottom: 1px solid var(--a-line);
+  background: var(--a-paper);
+}
+.astra-task-stage > header > div {
+  display: flex;
+  gap: 9px;
+  align-items: center;
+  font-weight: 600;
+}
+.astra-task-workspace .astra-task-stage > [data-slot="tabs-content"] {
+  margin: 0;
+  min-width: 0;
+  padding: 12px;
+}
+.astra-task-workspace[data-nav-compact="true"] .astra-task-body {
+  grid-template-columns: 62px minmax(0, 1fr);
+}
+.astra-task-workspace[data-nav-compact="true"]
+  .astra-task-navigation
+  :is(header > span, [data-slot="tabs-trigger"] > span, [data-slot="tabs-trigger"] small, footer) {
+  display: none;
+}
+.astra-task-workspace[data-nav-compact="true"] .astra-task-navigation [data-slot="tabs-trigger"] {
+  justify-content: center;
+  padding-inline: 6px;
+  position: relative;
+}
+.astra-task-workspace[data-nav-compact="true"] .astra-task-navigation em {
+  position: absolute;
+  top: -2px;
+  right: -4px;
+}
+.astra-task-workspace[data-nav-compact="true"] .astra-task-navigation > header {
+  padding: 0;
+}
+.astra-task-workspace[data-nav-compact="true"] .astra-task-navigation > header button {
+  margin: auto;
+  transform: rotate(180deg);
+}
+.astra-task-read-error,
+.astra-task-warning {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  justify-content: space-between;
+  margin: 12px;
+  padding: 12px 16px;
+  background: var(--a-danger-bg);
+  color: var(--a-danger);
+  border: 1px solid color-mix(in srgb, var(--a-danger) 25%, transparent);
+  border-radius: 8px;
+  font-size: 12px;
+  overflow-wrap: anywhere;
+}
+.astra-task-warning {
+  display: block;
+  margin: 16px 0;
+}
+.astra-task-dialog-actions {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+  margin-top: 24px;
+}
+.astra-task-workspace .astra-editor-body > p {
+  line-height: 1.7;
+  color: var(--a-muted);
+}
+.astra-task-chain {
+  margin-top: 24px;
+  min-width: 0;
+}
+.astra-task-chain legend {
+  text-transform: uppercase;
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  font-weight: 700;
+  color: var(--a-muted);
+  margin-bottom: 12px;
+}
+.astra-task-chain ol {
+  display: grid;
+  gap: 8px;
+  list-style: none;
+  padding: 0;
+}
+.astra-task-chain li {
+  display: flex;
+  gap: 9px;
+  align-items: center;
+  padding: 12px;
+  border: 1px solid var(--a-line);
+  border-radius: 9px;
+  background: var(--a-paper);
+}
+.astra-task-chain li > div {
+  min-width: 0;
+  flex: 1;
+}
+.astra-task-chain li strong {
+  display: block;
+  overflow-wrap: anywhere;
+  font-size: 13px;
+}
+.astra-task-chain small {
+  display: block;
+  color: var(--a-muted);
+  font-size: 11px;
+  overflow-wrap: anywhere;
+}
+.astra-task-chain em {
+  display: inline-block;
+  font-size: 9px;
+  font-style: normal;
+  font-weight: 700;
+  border-radius: 4px;
+  background: var(--a-selected);
+  color: var(--a-accent);
+  padding: 2px 5px;
+  margin-top: 5px;
+}
+.astra-task-chain-number {
+  color: var(--a-muted);
+  font-size: 11px;
+}
+.astra-task-chain label {
+  display: grid;
+  gap: 8px;
+  margin-top: 20px;
+  font-size: 12px;
+  color: var(--a-muted);
+}
+.astra-task-chain :is(input, select) {
+  width: 100%;
+  border: 1px solid var(--a-line);
+  background: var(--a-input);
+  color: var(--a-ink);
+  padding: 9px 12px;
+  border-radius: 7px;
+  font: inherit;
+}
+.astra-task-chain-available {
+  display: grid;
+  gap: 7px;
+  max-height: 250px;
+  overflow: auto;
+  margin-top: 10px;
+}
+.astra-task-chain-available button {
+  text-align: left;
+  justify-content: space-between;
+  padding: 10px 12px;
+}
+.astra-task-empty {
+  display: grid;
+  place-items: center;
+  gap: 16px;
+  padding: 60px 24px;
+  background: var(--a-bg);
+  color: var(--a-ink);
+}
+.astra-task-empty > div {
+  display: flex;
+  gap: 10px;
+}
+.astra-task-empty p {
+  max-width: 60ch;
+  overflow-wrap: anywhere;
+}
+@media (max-width: 1100px) {
+  .astra-task-command {
+    padding: 16px 16px 0;
+    gap: 14px;
+  }
+  .astra-task-actions {
+    width: 100%;
+  }
+  .astra-task-workspace .astra-task-actions .astra-task-profile {
+    margin-right: auto;
+    max-width: 240px;
+  }
+  .astra-task-body,
+  .astra-task-workspace[data-nav-compact="true"] .astra-task-body {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .astra-task-navigation {
+    padding: 8px;
+    border-right: 0;
+    border-bottom: 1px solid var(--a-line);
+  }
+  .astra-task-navigation > header,
+  .astra-task-navigation footer {
+    display: none;
+  }
+  .astra-task-navigation > [data-slot="tabs-list"] {
+    flex-direction: row;
+    overflow: auto;
+    gap: 5px;
+    scrollbar-width: thin;
+  }
+  .astra-task-navigation [data-slot="tabs-trigger"] {
+    width: auto;
+    white-space: nowrap;
+    min-height: 36px;
+  }
+  .astra-task-navigation [data-slot="tabs-trigger"] small {
+    display: none;
+  }
+  .astra-task-workspace[data-nav-compact="true"] .astra-task-navigation [data-slot="tabs-trigger"] > span {
+    display: block;
+  }
+  .astra-task-workspace[data-nav-compact="true"] .astra-task-navigation em {
+    position: static;
+  }
+  .astra-task-stage > header {
+    padding: 9px 12px;
+  }
+  .astra-task-workspace .astra-task-stage > [data-slot="tabs-content"] {
+    padding: 6px;
+  }
+}
+@media (max-width: 600px) {
+  .astra-task-identity {
+    gap: 8px;
+    flex-basis: 100%;
+  }
+  .astra-task-identity h1 {
+    font-size: 18px;
+  }
+  .astra-task-identity p {
+    max-width: 60vw;
+  }
+  .astra-task-emblem {
+    display: none;
+  }
+  .astra-task-metrics {
+    gap: 10px;
+    justify-content: space-between;
+  }
+  .astra-task-metrics > div:not(.astra-task-progress) {
+    display: block;
+    padding: 0 7px;
+  }
+  .astra-task-metrics dd {
+    font-size: 15px;
+  }
+  .astra-task-progress {
+    display: none;
+  }
+  .astra-task-actions {
+    gap: 5px;
+  }
+  .astra-task-workspace .astra-task-actions .astra-task-profile {
+    max-width: 175px;
+  }
+  .astra-task-stage > header button {
+    font-size: 10px;
+    max-width: 47%;
+    text-align: left;
+  }
+  .astra-task-chain li {
+    flex-wrap: wrap;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .astra-task-progress span {
+    transition: none;
+  }
+}

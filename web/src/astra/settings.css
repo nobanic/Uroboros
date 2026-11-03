@@ -1,0 +1,646 @@
+.astra-settings {
+  padding: 20px;
+  border: 1px solid var(--a-line);
+  border-radius: 12px;
+  background: var(--a-bg);
+  color-scheme: var(--a-scheme);
+  display: grid;
+  gap: 20px;
+  min-width: 0;
+  color: var(--a-ink);
+  font-size: 12px;
+}
+.astra-settings :is(h2, h3, h4, p) {
+  margin: 0;
+}
+.astra-settings :is(button, input, select) {
+  font: inherit;
+}
+.astra-settings button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  min-height: 33px;
+  padding: 7px 11px;
+  border: 1px solid var(--a-line);
+  border-radius: 6px;
+  color: var(--a-ink);
+  background: var(--a-paper);
+  transition:
+    border-color 160ms,
+    background-color 160ms;
+}
+.astra-settings button:hover:not(:disabled) {
+  background: var(--a-selected);
+  border-color: var(--a-accent);
+}
+.astra-settings button:disabled {
+  opacity: 0.45;
+  cursor: default;
+}
+.astra-settings :is(button, input, select):focus-visible {
+  outline: 2px solid var(--a-focus);
+  outline-offset: 3px;
+}
+.astra-settings :is(input:not([type="checkbox"]), select) {
+  min-width: 0;
+  width: 100%;
+  padding: 9px 11px;
+  border: 1px solid var(--a-line) !important;
+  border-radius: 6px;
+  background: var(--a-input) !important;
+  color: var(--a-ink) !important;
+  color-scheme: var(--a-scheme);
+}
+.astra-settings input::placeholder {
+  color: var(--a-muted);
+  opacity: 0.8;
+}
+.astra-settings button.primary {
+  color: #fff;
+  background: var(--a-action);
+  border-color: var(--a-action);
+}
+.astra-settings button.primary:hover:not(:disabled) {
+  background: var(--a-action-hover);
+}
+.astra-settings-command {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 18px;
+}
+.astra-settings-command > div {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.astra-settings-command > div > span {
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  background: linear-gradient(145deg, var(--a-selected), var(--a-paper));
+  border: 1px solid var(--a-line);
+  border-radius: 12px;
+  color: var(--a-accent);
+  box-shadow: var(--a-shadow);
+}
+.astra-settings-command small {
+  color: var(--a-accent);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.astra-settings-command h2 {
+  font-size: 24px;
+  line-height: 1.35;
+  font-weight: 650;
+  letter-spacing: -0.025em;
+}
+.astra-settings-command p {
+  margin-top: 4px;
+  color: var(--a-muted);
+}
+.astra-settings-command > aside {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.astra-settings-command > aside > span {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 10px;
+  color: var(--a-muted);
+}
+.astra-settings-command > aside > span::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  background: var(--a-muted);
+  border-radius: 50%;
+}
+.astra-settings-command > aside > span[data-loaded="true"]::before {
+  background: var(--a-success);
+  box-shadow: 0 0 0 3px var(--a-success-bg);
+}
+.astra-settings-summary {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+}
+.astra-settings-summary > div {
+  display: grid;
+  grid-template-columns: 24px 1fr auto;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 16px;
+  border: 1px solid var(--a-line);
+  border-radius: 8px;
+  background: var(--a-paper);
+  box-shadow: var(--a-shadow);
+}
+.astra-settings-summary svg {
+  color: var(--a-accent);
+}
+.astra-settings-summary span {
+  color: var(--a-muted);
+  font-size: 11px;
+}
+.astra-settings-summary strong {
+  font-size: 16px;
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+.astra-settings-layout {
+  display: grid;
+  grid-template-columns: 245px minmax(0, 1fr);
+  gap: 24px;
+  align-items: start;
+}
+.astra-settings-rail {
+  position: sticky;
+  top: 16px;
+  display: grid;
+  gap: 18px;
+}
+.astra-settings-rail [role="tablist"] {
+  display: grid;
+  gap: 7px;
+  padding: 7px;
+  border: 1px solid var(--a-line);
+  border-radius: 10px;
+  background: var(--a-paper);
+  box-shadow: var(--a-shadow);
+}
+.astra-settings-rail [role="tab"] {
+  display: flex;
+  align-items: start;
+  gap: 10px;
+  text-align: left;
+  justify-content: start;
+  padding: 13px 10px;
+  border-color: transparent;
+  background: transparent;
+}
+.astra-settings-rail [role="tab"] > span {
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  flex: 0 0 28px;
+  border: 1px solid var(--a-line);
+  border-radius: 6px;
+  color: var(--a-muted);
+  background: var(--a-soft);
+}
+.astra-settings-rail [role="tab"] > div {
+  flex: 1;
+  min-width: 0;
+}
+.astra-settings-rail [role="tab"] strong {
+  display: block;
+  margin: 1px 0 5px;
+  font-size: 12px;
+  font-weight: 600;
+}
+.astra-settings-rail [role="tab"] small {
+  display: block;
+  font-size: 10px;
+  line-height: 1.7;
+  color: var(--a-muted);
+}
+.astra-settings-rail [role="tab"] > svg {
+  width: 12px;
+  margin-top: 8px;
+  color: var(--a-muted);
+}
+.astra-settings-rail [role="tab"][aria-selected="true"] {
+  background: var(--a-selected);
+  border-color: color-mix(in srgb, var(--a-action) 25%, var(--a-line));
+}
+.astra-settings-rail [role="tab"][aria-selected="true"] :is(strong, svg) {
+  color: var(--a-accent);
+}
+.astra-settings-rail > p {
+  display: flex;
+  gap: 9px;
+  padding: 0 9px;
+  font-size: 10px;
+  line-height: 1.8;
+  color: var(--a-muted);
+}
+.astra-settings-rail > p > svg {
+  flex: 0 0 14px;
+  margin-top: 2px;
+}
+.astra-settings-panels {
+  min-width: 0;
+}
+.astra-settings-panel {
+  display: grid;
+  gap: 16px;
+  min-width: 0;
+  animation: astra-settings-reveal 180ms ease-out;
+}
+.astra-settings-panel[hidden] {
+  display: none;
+}
+.astra-settings-panel > header {
+  padding: 2px 1px 4px;
+}
+.astra-settings-panel > header > small {
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--a-accent);
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+}
+.astra-settings-panel > header > h3 {
+  margin-top: 5px;
+  font-size: 16px;
+  line-height: 1.6;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+}
+.astra-settings-panel > header > p {
+  margin-top: 5px;
+  color: var(--a-muted);
+  font-size: 11px;
+}
+.astra-setting-card {
+  min-width: 0;
+  border: 1px solid var(--a-line);
+  border-radius: 10px;
+  background: var(--a-paper);
+  box-shadow: var(--a-shadow);
+}
+.astra-setting-card > header {
+  display: flex;
+  align-items: start;
+  gap: 11px;
+  padding: 18px 20px;
+  border-bottom: 1px solid var(--a-line);
+}
+.astra-setting-card > header > span {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  flex: 0 0 32px;
+  border: 1px solid var(--a-line);
+  border-radius: 8px;
+  color: var(--a-accent);
+  background: var(--a-soft);
+}
+.astra-setting-card > header > div {
+  flex: 1;
+  min-width: 0;
+}
+.astra-setting-card h3 {
+  margin: 1px 0 5px;
+  color: var(--a-ink);
+  font-size: 13px;
+  font-weight: 600;
+}
+.astra-setting-card header p {
+  color: var(--a-muted);
+  font-size: 11px;
+  line-height: 1.8;
+}
+.astra-setting-card > header > small {
+  margin-left: auto;
+  font-size: 9px;
+  color: var(--a-muted);
+  padding: 4px 6px;
+  border: 1px solid var(--a-line);
+  border-radius: 4px;
+  white-space: nowrap;
+}
+.astra-setting-content {
+  display: grid;
+  gap: 16px;
+  padding: 17px 20px;
+}
+.astra-setting-content form {
+  display: grid;
+  gap: 12px;
+}
+.astra-setting-field {
+  display: grid;
+  gap: 7px;
+  min-width: 0;
+  font-size: 11px;
+}
+.astra-setting-field > span {
+  font-weight: 500;
+  color: var(--a-ink);
+}
+.astra-setting-save {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  flex-wrap: wrap;
+  padding-top: 2px;
+}
+.astra-setting-save > small {
+  margin-left: auto;
+  color: var(--a-muted);
+  font-size: 10px;
+}
+.astra-setting-content form > button {
+  justify-self: start;
+}
+.astra-setting-toggle {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 38px;
+  align-items: center;
+  gap: 14px;
+  position: relative;
+  cursor: pointer;
+}
+.astra-setting-toggle > span {
+  min-width: 0;
+}
+.astra-setting-toggle strong {
+  font-size: 12px;
+  font-weight: 500;
+}
+.astra-setting-toggle small {
+  display: block;
+  margin-top: 5px;
+  font-size: 10px;
+  line-height: 1.7;
+  color: var(--a-muted);
+}
+.astra-setting-toggle input {
+  position: absolute;
+  z-index: 1;
+  right: 0;
+  top: calc(50% - 12px);
+  width: 38px !important;
+  height: 24px !important;
+  margin: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+.astra-setting-toggle > i {
+  grid-column: 2;
+  width: 38px;
+  height: 22px;
+  border: 1px solid var(--a-line);
+  background: var(--a-soft);
+  border-radius: 20px;
+  position: relative;
+  transition: background-color 160ms;
+  pointer-events: none;
+}
+.astra-setting-toggle > i::before {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 14px;
+  height: 14px;
+  content: "";
+  background: var(--a-muted);
+  border-radius: 50%;
+  transition:
+    transform 160ms,
+    background-color 160ms;
+}
+.astra-setting-toggle input:checked + i {
+  background: var(--a-action);
+  border-color: var(--a-action);
+}
+.astra-setting-toggle input:checked + i::before {
+  transform: translateX(16px);
+  background: #fff;
+}
+.astra-setting-toggle input:focus-visible + i {
+  outline: 2px solid var(--a-focus);
+  outline-offset: 3px;
+}
+.astra-setting-toggle input:disabled + i {
+  opacity: 0.45;
+}
+.astra-setting-numbers {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+.astra-setting-credential {
+  display: grid;
+  gap: 12px;
+  padding: 14px;
+  border: 1px solid var(--a-line);
+  border-radius: 7px;
+  background: var(--a-soft);
+}
+.astra-setting-credential h4 {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+  font-size: 12px;
+  font-weight: 500;
+}
+.astra-setting-credential h4 > small {
+  font-size: 9px;
+  color: var(--a-muted);
+  margin-left: auto;
+}
+.astra-setting-credential h4 > small[data-configured="true"] {
+  color: var(--a-success);
+}
+.astra-setting-credential > a {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  justify-self: start;
+  color: var(--a-accent);
+  font-size: 10px;
+}
+.astra-setting-credential > a svg {
+  width: 14px;
+  height: 14px;
+  flex: 0 0 14px;
+}
+.astra-setting-notice {
+  color: var(--a-muted);
+  font-size: 10px;
+  line-height: 1.75;
+}
+.astra-setting-error {
+  display: flex;
+  gap: 8px;
+  align-items: start;
+  padding: 10px 12px;
+  color: var(--a-danger);
+  background: var(--a-danger-bg);
+  border: 1px solid color-mix(in srgb, var(--a-danger) 25%, var(--a-line));
+  border-radius: 5px;
+  font-size: 11px;
+  overflow-wrap: anywhere;
+}
+.astra-setting-error > svg {
+  flex: 0 0 14px;
+  margin-top: 1px;
+}
+.astra-setting-result {
+  color: var(--a-success);
+  background: var(--a-success-bg);
+  border: 1px solid var(--a-line);
+  border-radius: 5px;
+  padding: 10px 12px;
+  font-size: 11px;
+}
+.astra-settings-read-error {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 16px;
+  border: 1px solid var(--a-line);
+  border-left: 3px solid var(--a-danger);
+  border-radius: 7px;
+  background: var(--a-danger-bg);
+  color: var(--a-danger);
+}
+.astra-settings-read-error > div {
+  min-width: 0;
+  flex: 1;
+}
+.astra-settings-read-error p {
+  margin: 4px 0;
+  overflow-wrap: anywhere;
+}
+.astra-settings-read-error small {
+  font-size: 10px;
+  color: var(--a-muted);
+}
+.astra-settings-lifecycle {
+  min-width: 0;
+}
+.astra-settings-lifecycle > [data-slot="card"] {
+  color: var(--a-ink);
+  background: var(--a-paper) !important;
+  border-color: var(--a-line) !important;
+  box-shadow: var(--a-shadow);
+}
+.astra-settings-lifecycle [data-slot="card-description"] {
+  color: var(--a-muted);
+  font-size: 11px;
+  line-height: 1.8;
+}
+@keyframes astra-settings-reveal {
+  from {
+    opacity: 0.5;
+    transform: translateY(3px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@media (max-width: 1100px) {
+  .astra-settings-layout {
+    grid-template-columns: 205px minmax(0, 1fr);
+    gap: 18px;
+  }
+  .astra-settings-summary > div {
+    grid-template-columns: 20px 1fr;
+  }
+  .astra-settings-summary strong {
+    grid-column: 2;
+  }
+  .astra-setting-card > header > small {
+    display: none;
+  }
+}
+@media (max-width: 760px) {
+  .astra-settings {
+    padding: 14px;
+    gap: 15px;
+  }
+  .astra-settings-layout {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+  .astra-settings-rail {
+    position: static;
+    gap: 10px;
+  }
+  .astra-settings-rail [role="tablist"] {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    padding: 5px;
+  }
+  .astra-settings-rail [role="tab"] {
+    padding: 9px;
+    align-items: center;
+    gap: 8px;
+  }
+  .astra-settings-rail [role="tab"] small,
+  .astra-settings-rail [role="tab"] > svg {
+    display: none;
+  }
+  .astra-settings-rail [role="tab"] strong {
+    margin: 0;
+    font-size: 11px;
+  }
+  .astra-settings-summary {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+  }
+  .astra-settings-summary > div {
+    grid-template-columns: 20px 1fr auto;
+    padding: 12px;
+  }
+  .astra-settings-summary strong {
+    grid-column: auto;
+  }
+  .astra-setting-card > header {
+    padding: 15px;
+  }
+  .astra-setting-content {
+    padding: 15px;
+  }
+}
+@media (max-width: 420px) {
+  .astra-settings-command h2 {
+    font-size: 22px;
+  }
+  .astra-settings-command > aside {
+    width: 100%;
+    justify-content: space-between;
+  }
+  .astra-settings-summary > div {
+    grid-template-columns: 1fr auto;
+  }
+  .astra-settings-summary svg {
+    display: none;
+  }
+  .astra-settings-summary span {
+    font-size: 10px;
+  }
+  .astra-settings-rail [role="tab"] > span {
+    width: 24px;
+    height: 24px;
+    flex-basis: 24px;
+  }
+  .astra-setting-save > small {
+    width: 100%;
+    margin-left: 0;
+  }
+  .astra-setting-numbers {
+    grid-template-columns: 1fr;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .astra-settings * {
+    animation: none !important;
+    transition: none !important;
+  }
+}

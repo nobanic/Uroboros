@@ -1,0 +1,104 @@
+.astra-agent-workspace {
+  min-width: 0;
+}
+.astra-agent-workspace input:not([type="checkbox"]),
+.astra-agent-workspace select,
+.astra-agent-workspace textarea {
+  border: 1px solid var(--a-line);
+  border-radius: 6px;
+  padding: 0.55rem 0.7rem;
+  color: var(--a-ink);
+  background: var(--a-paper);
+  font: inherit;
+  width: 100%;
+  min-width: 0;
+}
+.astra-agent-workspace label {
+  display: grid;
+  gap: 0.4rem;
+  margin-block: 0.8rem;
+}
+.astra-agent-workspace textarea[name="agent_prompt"] {
+  font-family: ui-monospace, monospace;
+  font-size: 0.8rem;
+  line-height: 1.7;
+}
+.astra-agent-workspace section > form + form {
+  border-top: 1px solid var(--a-line);
+  padding-top: 1rem;
+  margin-top: 1.5rem;
+}
+.astra-agent-workspace form > button {
+  margin-block: 1rem;
+}
+.astra-agent-workspace details {
+  margin-block: 1rem;
+}
+.astra-agent-workspace summary {
+  cursor: pointer;
+  font-weight: 600;
+}
+.astra-agent-section-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.7rem;
+  margin-block: 1.2rem;
+}
+.astra-agent-section-header h2 {
+  margin: 0;
+  margin-right: auto;
+}
+.astra-agent-prompt-body,
+.astra-agent-workspace pre {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  overflow: auto;
+  max-height: 60vh;
+  background: var(--a-soft);
+  padding: 1rem;
+  border-radius: 6px;
+  font-size: 0.8rem;
+}
+.astra-agent-diff {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  max-height: 60vh;
+  overflow: auto;
+  font-size: 0.8rem;
+}
+.astra-agent-diff span {
+  display: block;
+}
+.astra-agent-diff [data-change="removed"] {
+  background: var(--a-danger-bg);
+  color: var(--a-danger);
+}
+.astra-agent-diff [data-change="added"] {
+  background: var(--a-selected);
+  color: var(--a-accent);
+}
+.astra-agent-binding,
+.astra-agent-trigger {
+  padding: 1rem;
+  border: 1px solid var(--a-line);
+  border-radius: 8px;
+  margin-block: 0.8rem;
+}
+.astra-agent-binding p {
+  margin-block: 0.5rem;
+}
+.astra-agent-binding input[type="checkbox"] {
+  width: 17px;
+  height: 17px;
+  accent-color: var(--a-focus);
+}
+.astra-agent-workspace footer a {
+  align-self: center;
+  font-size: 0.8rem;
+}
+.astra-agent-back {
+  margin-bottom: 1rem;
+  color: var(--a-accent);
+  cursor: pointer;
+}

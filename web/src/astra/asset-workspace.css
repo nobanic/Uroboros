@@ -1,0 +1,365 @@
+.astra-asset-overview {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  border: 1px solid var(--a-line);
+  border-radius: 12px;
+  overflow: hidden;
+  background: var(--a-paper);
+  margin-block: 24px;
+}
+.astra-asset-overview > div {
+  padding: 18px 22px;
+  border-right: 1px solid var(--a-line);
+}
+.astra-asset-overview > div:last-child {
+  border: 0;
+}
+.astra-asset-overview span {
+  display: block;
+  color: var(--a-muted);
+  font-size: 11px;
+}
+.astra-asset-overview strong {
+  display: block;
+  font-size: 27px;
+  letter-spacing: -0.04em;
+  font-variant-numeric: tabular-nums;
+  margin-top: 5px;
+}
+.astra-asset-classes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin-bottom: 24px;
+}
+.astra-asset-classes button {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.astra-asset-classes button span:last-child {
+  font-size: 10px;
+  opacity: 0.7;
+}
+.astra-company-layout {
+  display: grid;
+  grid-template-columns: minmax(210px, 290px) minmax(0, 1fr);
+  gap: 22px;
+  align-items: start;
+}
+.astra-company-list {
+  display: grid;
+  gap: 8px;
+}
+.astra-company-list > button {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-align: left;
+  padding: 13px;
+}
+.astra-company-list > button > span:nth-child(2) {
+  flex: 1;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+.astra-company-list small {
+  display: block;
+  font-size: 10px;
+  margin-top: 4px;
+}
+.astra-model-workspace .astra-company-list > button[aria-pressed="true"] {
+  background: var(--a-selected);
+  border-color: var(--a-focus);
+  color: var(--a-ink);
+}
+.astra-company-list b {
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+}
+.astra-company-mark {
+  position: relative;
+  display: inline-grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  flex: 0 0 38px;
+  border-radius: 10px;
+  background: var(--a-selected);
+  color: var(--a-accent);
+  font-size: 17px;
+  font-weight: 650;
+  overflow: hidden;
+}
+.astra-company-mark img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.astra-company-detail {
+  min-width: 0;
+}
+.astra-company-detail > header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 22px;
+}
+.astra-company-detail > header h2 {
+  margin: 2px 0 5px;
+  overflow-wrap: anywhere;
+}
+.astra-company-detail > header small {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+.astra-company-detail > header > div > span {
+  color: var(--a-muted);
+  font-size: 11px;
+}
+.astra-company-scope {
+  margin-block: 20px;
+  display: grid;
+  gap: 10px;
+}
+.astra-company-scope > div,
+.astra-company-parsed > div {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+  min-width: 0;
+}
+.astra-company-scope code,
+.astra-company-parsed code {
+  overflow-wrap: anywhere;
+  font-size: 12px;
+}
+.astra-company-scope small {
+  width: 100%;
+}
+.astra-asset-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+}
+.astra-company-surfaces {
+  border-top: 1px solid var(--a-line);
+  margin-top: 26px;
+  padding-top: 22px;
+}
+.astra-company-surfaces h3 {
+  font-size: 14px;
+  font-weight: 600;
+}
+.astra-company-surfaces p {
+  color: var(--a-muted);
+  font-size: 11px;
+  margin-block: 6px 16px;
+}
+.astra-company-surfaces > div {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+.astra-company-surfaces button {
+  display: grid;
+  grid-template-columns: 20px 1fr;
+  text-align: left;
+  gap: 8px;
+}
+.astra-company-surfaces svg {
+  width: 17px;
+  height: 17px;
+  color: var(--a-accent);
+}
+.astra-company-surfaces strong {
+  grid-column: 2;
+  font-size: 20px;
+  font-weight: 550;
+}
+.astra-company-editor fieldset {
+  display: grid;
+  gap: 18px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  min-width: 0;
+}
+.astra-company-editor label {
+  display: grid;
+  gap: 7px;
+  font-size: 12px;
+  color: var(--a-muted);
+}
+.astra-company-editor textarea {
+  font-family: ui-monospace, monospace;
+  line-height: 1.7;
+}
+.astra-company-editor .astra-form-error {
+  display: block;
+  margin: 0;
+}
+.astra-company-parsed {
+  display: grid;
+  gap: 8px;
+  max-height: 280px;
+  overflow: auto;
+}
+.astra-asset-ledger {
+  padding: 0;
+  overflow: hidden;
+}
+.astra-asset-ledger-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+  padding: 18px 20px;
+  border-bottom: 1px solid var(--a-line);
+}
+.astra-asset-ledger-toolbar > span {
+  color: var(--a-muted);
+  font-size: 11px;
+}
+.astra-asset-search {
+  flex: 1 1 310px;
+  min-width: 0;
+}
+.astra-model-workspace.astra-asset-workspace .astra-asset-search input[aria-label] {
+  padding-left: 34px;
+}
+.astra-asset-search .relative > div button {
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+}
+.astra-asset-search .relative > div button:hover {
+  background: var(--a-selected);
+}
+.astra-asset-table-scroll {
+  overflow: auto;
+}
+.astra-asset-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 12px;
+}
+.astra-asset-table :is(th, td) {
+  padding: 15px 18px;
+  border-bottom: 1px solid var(--a-line);
+  vertical-align: top;
+  min-width: 110px;
+  max-width: 340px;
+  overflow-wrap: anywhere;
+}
+.astra-asset-table th {
+  background: var(--a-soft);
+  color: var(--a-muted);
+  font-size: 10px;
+  font-weight: 550;
+  white-space: nowrap;
+}
+.astra-asset-table :is(th, td):first-child {
+  min-width: 35px;
+  width: 35px;
+  padding-right: 0;
+}
+.astra-asset-table tr[data-selected="true"] {
+  background: var(--a-selected);
+}
+.astra-model-workspace .astra-asset-title {
+  background: transparent;
+  border: 0;
+  color: var(--a-ink);
+  padding: 0;
+  text-align: left;
+  font-weight: 600;
+}
+.astra-model-workspace .astra-asset-title:hover {
+  color: var(--a-accent);
+}
+.astra-asset-table .astra-asset-actions {
+  flex-wrap: nowrap;
+}
+.astra-asset-table .astra-asset-actions button {
+  padding: 5px 8px;
+  font-size: 10px;
+  white-space: nowrap;
+}
+.astra-asset-pagination {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 16px 20px;
+  color: var(--a-muted);
+  font-size: 11px;
+}
+.astra-asset-pagination > span {
+  margin-right: auto;
+}
+.astra-asset-pagination label {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+.astra-asset-empty {
+  text-align: center;
+  color: var(--a-muted);
+  padding: 38px 20px;
+}
+.astra-asset-inspection > p {
+  color: var(--a-muted);
+  font-size: 12px;
+}
+.astra-asset-inspection dl > div {
+  padding-block: 14px;
+  border-bottom: 1px solid var(--a-line);
+}
+.astra-asset-inspection dt {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--a-muted);
+  margin-bottom: 8px;
+}
+.astra-asset-inspection dd {
+  font-size: 13px;
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+.astra-asset-inspection pre {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  font-size: 12px;
+  padding: 12px;
+  background: var(--a-soft);
+  border-radius: 8px;
+}
+@media (max-width: 1000px) {
+  .astra-company-layout {
+    grid-template-columns: 1fr;
+  }
+  .astra-company-list {
+    grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  }
+}
+@media (max-width: 600px) {
+  .astra-asset-overview > div {
+    padding: 15px 13px;
+  }
+  .astra-company-surfaces > div {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .astra-asset-ledger-toolbar,
+  .astra-asset-pagination {
+    padding: 14px;
+  }
+}

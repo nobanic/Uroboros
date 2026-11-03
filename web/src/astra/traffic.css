@@ -1,0 +1,761 @@
+.astra-traffic-workspace {
+  min-width: 0;
+  color: var(--a-ink);
+}
+.astra-traffic-heading {
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+  align-items: center;
+  padding: 24px;
+  margin-bottom: 18px;
+  border: 1px solid var(--a-line);
+  border-radius: 13px;
+  background: radial-gradient(ellipse at 0 0, #367ae518, transparent 65%), var(--a-paper);
+  box-shadow: var(--a-shadow);
+}
+.astra-traffic-identity {
+  display: flex;
+  align-items: center;
+  gap: 17px;
+}
+.astra-traffic-identity > span {
+  display: grid;
+  place-items: center;
+  width: 49px;
+  height: 49px;
+  flex-shrink: 0;
+  border: 1px solid var(--a-line);
+  border-radius: 13px;
+  color: var(--a-accent);
+  background: var(--a-selected);
+}
+.astra-traffic-identity svg {
+  width: 25px;
+  height: 25px;
+}
+.astra-traffic-heading .astra-eyebrow {
+  font-size: 8px;
+  margin-bottom: 5px !important;
+}
+.astra-traffic-heading h1 {
+  font-size: 28px;
+  font-weight: 650;
+  letter-spacing: -0.04em;
+  line-height: 1.15;
+}
+.astra-traffic-heading p:last-child {
+  font-size: 11px;
+  color: var(--a-muted);
+  margin-top: 8px;
+}
+.astra-traffic-capture {
+  display: grid;
+  gap: 5px;
+  justify-items: end;
+}
+.astra-traffic-capture span {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  color: var(--a-muted);
+}
+.astra-traffic-capture span[data-recording="true"] {
+  color: var(--a-success);
+}
+.astra-traffic-capture i {
+  display: block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+}
+.astra-traffic-capture code,
+.astra-traffic-capture small {
+  font-size: 9px;
+  color: var(--a-muted);
+}
+.astra-traffic-command {
+  display: flex;
+  gap: 7px;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-bottom: 14px;
+}
+.astra-traffic-command > [role="group"] {
+  display: flex;
+  gap: 3px;
+  padding: 3px;
+  border: 1px solid var(--a-line);
+  border-radius: 8px;
+  background: var(--a-soft);
+}
+.astra-traffic-command [role="group"] button,
+.astra-traffic-reader-tabs button {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 10px;
+  border: 1px solid transparent;
+  border-radius: 5px;
+  background: transparent;
+  color: var(--a-muted);
+  font-size: 11px;
+}
+.astra-traffic-command [aria-pressed="true"],
+.astra-traffic-reader-tabs [aria-pressed="true"] {
+  color: var(--a-accent);
+  border-color: var(--a-line);
+  background: var(--a-selected);
+}
+.astra-traffic-command svg,
+.astra-traffic-filters svg,
+.astra-traffic-reader-tabs svg {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+}
+.astra-traffic-command > span {
+  margin-left: auto;
+  margin-right: 8px;
+  font-size: 9px;
+  color: var(--a-muted);
+}
+.astra-traffic-workspace .astra-button {
+  font-size: 10px;
+  padding: 7px 10px;
+  white-space: nowrap;
+}
+.astra-traffic-workspace .astra-button.is-danger {
+  color: var(--a-danger);
+  border-color: color-mix(in srgb, var(--a-danger) 25%, var(--a-line));
+  background: var(--a-danger-bg);
+}
+.astra-traffic-filters,
+.astra-traffic-advanced {
+  display: flex;
+  gap: 9px;
+  flex-wrap: wrap;
+  align-items: end;
+}
+.astra-traffic-filters > label {
+  flex: 1 1 170px;
+}
+.astra-traffic-filters > label:nth-child(2) {
+  flex-grow: 1.5;
+}
+.astra-traffic-filters > label:nth-child(3) {
+  flex: 0 1 120px;
+}
+.astra-traffic-workspace label {
+  font-size: 10px;
+  font-weight: 500;
+  color: var(--a-muted);
+}
+.astra-traffic-workspace :is(input:not([type="checkbox"]), select) {
+  padding: 7px 9px;
+  min-height: 32px;
+  font-size: 11px;
+}
+.astra-traffic-advanced {
+  padding: 13px;
+  margin-top: 12px;
+  border: 1px solid var(--a-line);
+  border-radius: 9px;
+  background: var(--a-soft);
+}
+.astra-traffic-advanced > label {
+  flex: 1 1 110px;
+}
+.astra-traffic-advanced small {
+  font-size: 8px;
+}
+.astra-traffic-advanced > p {
+  width: 100%;
+  font-size: 10px;
+  color: var(--a-muted);
+}
+.astra-traffic-notice {
+  padding: 10px 13px;
+  margin-block: 12px !important;
+  font-size: 11px;
+  color: var(--a-success);
+  border: 1px solid var(--a-line);
+  border-radius: 8px;
+  background: var(--a-success-bg);
+}
+.astra-traffic-selection {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  margin-block: 14px;
+}
+.astra-traffic-selection > label,
+.astra-traffic-host-all {
+  display: flex !important;
+  align-items: center;
+  gap: 7px;
+  font-size: 10px;
+}
+.astra-traffic-selection > span {
+  font-size: 10px;
+  color: var(--a-muted);
+}
+.astra-traffic-sort {
+  display: flex;
+  align-items: end;
+  gap: 7px;
+  margin-left: auto;
+}
+.astra-traffic-sort label {
+  display: flex !important;
+  align-items: center;
+  gap: 7px;
+}
+.astra-traffic-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 12px;
+  position: relative;
+  min-width: 0;
+}
+.astra-traffic-layout[data-targets="true"] {
+  grid-template-columns: 185px minmax(0, 1fr);
+}
+.astra-traffic-targets {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  background: var(--a-paper);
+  border: 1px solid var(--a-line);
+  border-radius: 11px;
+  overflow: hidden;
+}
+.astra-traffic-targets > header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 15px 12px;
+  border-bottom: 1px solid var(--a-line);
+}
+.astra-traffic-targets header > div {
+  display: grid;
+  gap: 4px;
+}
+.astra-traffic-targets header small {
+  font-size: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+.astra-traffic-targets header strong {
+  font-size: 12px;
+  font-weight: 550;
+}
+.astra-traffic-targets header button {
+  border: 1px solid var(--a-line);
+  border-radius: 5px;
+  color: var(--a-muted);
+  background: var(--a-soft);
+  padding: 2px 7px;
+}
+.astra-traffic-targets .astra-traffic-host-all {
+  padding: 12px;
+  border-bottom: 1px solid var(--a-line);
+  font-size: 9px;
+}
+.astra-traffic-hosts {
+  flex: 1;
+  max-height: 54vh;
+  overflow: auto;
+  padding: 5px;
+  scrollbar-width: thin;
+  scrollbar-color: var(--a-line) transparent;
+}
+.astra-traffic-hosts > div {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 8px 5px;
+  border-radius: 5px;
+}
+.astra-traffic-hosts > div:hover {
+  background: var(--a-selected);
+}
+.astra-traffic-hosts button {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 7px;
+  padding: 0;
+  min-width: 0;
+  width: 100%;
+  border: 0;
+  background: transparent;
+  color: var(--a-ink);
+  font-size: 10px;
+  text-align: left;
+}
+.astra-traffic-hosts button span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.astra-traffic-hosts small {
+  font-size: 9px;
+  color: var(--a-muted);
+}
+.astra-traffic-hosts > p {
+  font-size: 10px;
+  color: var(--a-muted);
+  padding: 15px;
+}
+.astra-traffic-targets > footer {
+  padding: 10px;
+  border-top: 1px solid var(--a-line);
+}
+.astra-traffic-targets footer button {
+  width: 100%;
+  font-size: 9px !important;
+  padding-inline: 5px !important;
+}
+.astra-traffic-main {
+  min-width: 0;
+  border: 1px solid var(--a-line);
+  border-radius: 11px;
+  overflow: hidden;
+  background: var(--a-paper);
+}
+.astra-traffic-pulse {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--a-line);
+  background: linear-gradient(110deg, var(--a-selected), var(--a-paper));
+}
+.astra-traffic-pulse > div {
+  display: grid;
+  gap: 4px;
+}
+.astra-traffic-pulse small {
+  font-size: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.09em;
+  color: var(--a-muted);
+}
+.astra-traffic-pulse strong {
+  font-size: 13px;
+  font-weight: 550;
+}
+.astra-traffic-pulse dl {
+  display: flex;
+  gap: 19px;
+  margin: 0;
+}
+.astra-traffic-pulse dl > div {
+  display: grid;
+  gap: 3px;
+  text-align: right;
+}
+.astra-traffic-pulse dt {
+  font-size: 8px;
+  color: var(--a-muted);
+}
+.astra-traffic-pulse dd {
+  margin: 0;
+  font-size: 14px;
+  font-variant-numeric: tabular-nums;
+}
+.astra-traffic-code {
+  color: var(--a-muted);
+  font-variant-numeric: tabular-nums;
+}
+:is(.astra-traffic-code, .astra-traffic-pulse dd)[data-family="2"] {
+  color: var(--a-success);
+}
+:is(.astra-traffic-code, .astra-traffic-pulse dd)[data-family="3"] {
+  color: var(--a-accent);
+}
+:is(.astra-traffic-code, .astra-traffic-pulse dd)[data-family="4"] {
+  color: #9d6a1b;
+}
+.dark :is(.astra-traffic-code, .astra-traffic-pulse dd)[data-family="4"] {
+  color: #e8bb72;
+}
+:is(.astra-traffic-code, .astra-traffic-pulse dd)[data-family="5"] {
+  color: var(--a-danger);
+}
+.astra-traffic-review {
+  display: grid;
+  grid-template-columns: minmax(250px, 0.9fr) minmax(0, 1.2fr);
+  height: clamp(440px, 58vh, 760px);
+}
+.astra-traffic-stream {
+  overflow: auto;
+  min-width: 0;
+  border-right: 1px solid var(--a-line);
+  scrollbar-width: thin;
+  scrollbar-color: var(--a-line) transparent;
+}
+.astra-traffic-stream article {
+  display: flex;
+  align-items: flex-start;
+  gap: 9px;
+  border-bottom: 1px solid var(--a-line);
+  padding: 12px;
+  border-left: 2px solid transparent;
+  transition:
+    background-color 130ms,
+    border-color 130ms;
+}
+.astra-traffic-stream article[data-selected="true"] {
+  background: var(--a-selected);
+  border-left-color: var(--a-accent);
+}
+.astra-traffic-stream article:hover {
+  background: var(--a-soft);
+}
+.astra-traffic-stream article > input {
+  margin-top: 4px;
+}
+.astra-traffic-stream article > button {
+  display: grid;
+  gap: 7px;
+  min-width: 0;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--a-ink);
+  text-align: left;
+}
+.astra-traffic-workspace .astra-traffic-stream article > button[aria-pressed] {
+  background: transparent;
+  color: var(--a-ink);
+  border: 0;
+  box-shadow: none;
+}
+.astra-traffic-event-head {
+  display: flex;
+  gap: 9px;
+  align-items: center;
+}
+.astra-traffic-method {
+  font:
+    9px var(--font-geist-mono),
+    monospace;
+  font-weight: 650;
+  padding: 2px 5px;
+  background: var(--a-soft);
+  color: var(--a-accent);
+  border: 1px solid var(--a-line);
+  border-radius: 4px;
+}
+.astra-traffic-event-head .astra-traffic-code {
+  font-size: 10px;
+}
+.astra-traffic-event-head time {
+  margin-left: auto;
+  font-size: 8px;
+  color: var(--a-muted);
+}
+.astra-traffic-stream article strong {
+  font-size: 11px;
+  font-weight: 550;
+  overflow-wrap: anywhere;
+}
+.astra-traffic-stream article code {
+  display: block;
+  font-size: 9px;
+  line-height: 1.6;
+  color: var(--a-muted);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.astra-traffic-event-meta {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  font-size: 8px;
+  color: var(--a-muted);
+}
+.astra-traffic-event-meta small {
+  color: var(--a-accent);
+  white-space: nowrap;
+  font-size: 8px;
+}
+.astra-traffic-reader {
+  min-width: 0;
+  overflow: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--a-line) transparent;
+}
+.astra-traffic-reader > header {
+  padding: 15px;
+  border-bottom: 1px solid var(--a-line);
+  background: var(--a-paper);
+}
+.astra-traffic-reader header > div {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+}
+.astra-traffic-reader time {
+  margin-left: auto;
+  color: var(--a-muted);
+  font-size: 8px;
+}
+.astra-traffic-reader h3 {
+  margin: 12px 0 6px !important;
+  font-size: 14px;
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+.astra-traffic-reader header > code {
+  display: block;
+  font-size: 9px;
+  color: var(--a-muted);
+  overflow-wrap: anywhere;
+  line-height: 1.7;
+}
+.astra-traffic-reader-facts {
+  display: grid;
+  grid-template-columns: 0.7fr 1fr 1fr;
+  margin: 0;
+  border-bottom: 1px solid var(--a-line);
+}
+.astra-traffic-reader-facts > div {
+  padding: 11px 12px;
+  border-right: 1px solid var(--a-line);
+  min-width: 0;
+}
+.astra-traffic-reader-facts > div:last-child {
+  border: 0;
+}
+.astra-traffic-reader-facts dt {
+  font-size: 8px;
+  color: var(--a-muted);
+  margin-bottom: 5px;
+}
+.astra-traffic-reader-facts dd {
+  margin: 0;
+  font-size: 9px;
+  overflow-wrap: anywhere;
+}
+.astra-traffic-reader-tabs {
+  display: flex;
+  gap: 5px;
+  padding: 10px 12px;
+}
+.astra-traffic-reader .astra-packet {
+  margin: 0 12px 13px;
+}
+.astra-traffic-reader .astra-form-error {
+  margin: 12px;
+}
+.astra-traffic-host-note {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 12px 10px;
+  font-size: 8px;
+  color: var(--a-muted);
+}
+.astra-traffic-host-note button {
+  flex-shrink: 0;
+  font-size: 8px;
+  padding: 3px 6px;
+  border: 1px solid var(--a-line);
+  border-radius: 4px;
+  background: var(--a-soft);
+  color: var(--a-accent);
+}
+.astra-traffic-reader-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 30px;
+  text-align: center;
+  color: var(--a-muted);
+}
+.astra-traffic-reader-empty svg {
+  width: 30px;
+  height: 30px;
+  color: var(--a-accent);
+}
+.astra-traffic-reader-empty strong {
+  font-size: 13px;
+  color: var(--a-ink);
+}
+.astra-traffic-reader-empty p {
+  font-size: 11px;
+  line-height: 1.8;
+}
+.astra-traffic-ledger {
+  max-height: 62vh;
+  overflow: auto;
+  min-height: 350px;
+}
+.astra-traffic-ledger table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 10px;
+}
+.astra-traffic-ledger :is(th, td) {
+  border-bottom: 1px solid var(--a-line);
+  padding: 11px 13px;
+  text-align: left;
+  max-width: 340px;
+  overflow-wrap: anywhere;
+}
+.astra-traffic-ledger th {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  color: var(--a-muted);
+  background: var(--a-soft);
+  font-size: 9px;
+  font-weight: 550;
+  white-space: nowrap;
+}
+.astra-traffic-ledger button {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--a-accent);
+  font: inherit;
+  text-align: left;
+}
+.astra-traffic-ledger tbody tr:hover {
+  background: var(--a-soft);
+}
+.astra-traffic-pagination {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 14px;
+  color: var(--a-muted);
+  font-size: 10px;
+}
+.astra-traffic-pagination > span:first-child {
+  margin-right: auto;
+}
+.astra-traffic-pagination label {
+  display: flex !important;
+  align-items: center;
+  gap: 8px;
+}
+.astra-traffic-finding-choices {
+  display: grid;
+  gap: 8px;
+  max-height: 42vh;
+  overflow: auto;
+  margin-block: 15px;
+}
+.astra-traffic-finding-choices button {
+  display: grid;
+  gap: 6px;
+  padding: 12px;
+  border: 1px solid var(--a-line);
+  border-radius: 8px;
+  background: var(--a-paper);
+  color: var(--a-ink);
+  text-align: left;
+}
+.astra-traffic-finding-choices button[aria-pressed="true"] {
+  color: var(--a-accent);
+  background: var(--a-selected);
+  border-color: var(--a-focus);
+}
+.astra-traffic-finding-choices strong {
+  font-size: 12px;
+  font-weight: 550;
+}
+.astra-traffic-finding-choices span {
+  font-size: 11px;
+  line-height: 1.7;
+  color: var(--a-muted);
+}
+.astra-traffic-binding-pages {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 10px;
+}
+@media (max-width: 1250px) {
+  .astra-traffic-layout[data-targets="true"] {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .astra-traffic-targets {
+    position: absolute;
+    z-index: 5;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 230px;
+    box-shadow: 15px 0 45px #03081130;
+  }
+}
+@media (max-width: 900px) {
+  .astra-traffic-heading {
+    padding: 18px;
+    gap: 15px;
+    flex-wrap: wrap;
+  }
+  .astra-traffic-capture {
+    justify-items: start;
+  }
+  .astra-traffic-command > span {
+    order: 3;
+    width: 100%;
+    margin: 4px 0;
+  }
+  .astra-traffic-review {
+    display: block;
+    height: auto;
+  }
+  .astra-traffic-stream {
+    max-height: 340px;
+    min-height: 150px;
+    border-right: 0;
+    border-bottom: 1px solid var(--a-line);
+  }
+  .astra-traffic-reader {
+    max-height: none;
+  }
+  .astra-traffic-sort {
+    margin-left: 0;
+  }
+  .astra-traffic-selection {
+    gap: 9px;
+  }
+  .astra-traffic-pagination {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .astra-traffic-pagination > span:first-child {
+    width: 100%;
+    text-align: center;
+    margin-right: 0;
+  }
+  .astra-traffic-reader-facts {
+    grid-template-columns: 1fr 1fr;
+  }
+  .astra-traffic-reader-facts > div:last-child {
+    grid-column: 1 / -1;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .astra-traffic-workspace * {
+    transition-duration: 0s !important;
+    animation: none !important;
+  }
+}

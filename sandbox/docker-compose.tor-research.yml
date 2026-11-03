@@ -1,0 +1,63 @@
+# Tor research overlay for the hardened internet sandbox.
+#
+# The application shares the firewall network namespace, so the firewall joins
+# the private app<->Tor control network on its behalf. Only the Tor container
+# joins the separate internet-capable Tor egress network. Port 9050 is exposed
+# container-to-container and is never published to the host.
+
+networks:
+  tor-research-control:
+    name: uroboros_net_tor_research_control
+    internal: true
+    ipam:
+      config:
+        - subnet: 10.89.9.0/24
+  tor-research-egress:
+    name: uroboros_net_tor_research_egress
+
+services:
+  firewall:
+    networks:
+      - dbnet
+      - egress
+      - tor-research-control
+    environment:
+      # Permit only the sealed database and the private Tor SOCKS segment before
+      # the firewall drops all remaining RFC1918/link-local destinations.
+      ALLOW_SUBNETS: "10.89.7.0/24 10.89.9.0/24"
+
+  tor-research:
+    platform: linux/amd64
+    image: ${UROBOROS_TOR_IMAGE:-uroboros-prod/tor-research:0.4.9.14-20261027}
+    build:
+      context: ../tor-research
+      args:
+        TOR_VERSION: ${UROBOROS_TOR_VERSION:-0.4.9.14-0+deb13u1}
+        TORRC_FILE: torrc.internet-sandbox
+    user: "debian-tor:debian-tor"
+    read_only: true
+    cap_drop: [ALL]
+    security_opt:
+      - no-new-privileges:true
+    pids_limit: 128
+    mem_limit: 256m
+    cpus: "1.0"
+    expose: ["9050"]
+    tmpfs:
+      - /var/lib/tor:rw,noexec,nosuid,nodev,size=64m,mode=0700,uid=100,gid=101
+      - /run/tor:rw,noexec,nosuid,nodev,size=1m,mode=0700,uid=100,gid=101
+      - /tmp:rw,noexec,nosuid,nodev,size=16m,mode=1777
+    networks:
+      tor-research-control:
+        ipv4_address: 10.89.9.2
+      tor-research-egress: {}
+    restart: unless-stopped
+
+  uroboros:
+    depends_on:
+      tor-research:
+        condition: service_healthy
+    environment:
+      # Deployment-owned fixed profile. Credentials are generated inside the
+      # broker per task/session and are never persisted or returned by the API.
+      UROBOROS_TOR_SOCKS_URL: socks5://10.89.9.2:9050

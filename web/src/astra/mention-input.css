@@ -1,0 +1,253 @@
+.astra-reference-field {
+  min-width: 0;
+  flex: 1;
+  align-self: stretch;
+}
+.astra-reference-menu {
+  width: min(28rem, calc(100vw - 2rem));
+  max-width: calc(100vw - 2rem);
+  padding: 0;
+  border-radius: 12px;
+  border: 1px solid color-mix(in srgb, var(--primary) 26%, var(--border));
+  background: var(--popover);
+  color: var(--popover-foreground);
+  box-shadow: 0 16px 45px #00000035;
+  overflow: hidden;
+}
+.astra-reference-menu > header {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 12px;
+  border-bottom: 1px solid var(--border);
+  background: linear-gradient(120deg, color-mix(in srgb, var(--primary) 10%, transparent), transparent);
+}
+.astra-reference-emblem {
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  flex-shrink: 0;
+  border: 1px solid color-mix(in srgb, var(--primary) 25%, var(--border));
+  border-radius: 8px;
+  color: var(--primary);
+  background: color-mix(in srgb, var(--primary) 9%, transparent);
+}
+.astra-reference-menu > header > div {
+  min-width: 0;
+  flex: 1;
+}
+.astra-reference-menu > header strong {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+}
+.astra-reference-menu > header small {
+  display: block;
+  margin-top: 2px;
+  font-size: 10px;
+  color: var(--muted-foreground);
+}
+.astra-reference-menu kbd {
+  padding: 2px 4px;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  font: 9px monospace;
+  color: var(--muted-foreground);
+}
+.astra-reference-options {
+  max-height: min(320px, 45vh);
+  overflow: auto;
+  overscroll-behavior: contain;
+  padding: 5px;
+  scrollbar-width: thin;
+}
+.astra-reference-options > button {
+  display: flex;
+  width: 100%;
+  min-width: 0;
+  gap: 8px;
+  padding: 9px;
+  margin-bottom: 2px;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  text-align: left;
+  cursor: pointer;
+}
+.astra-reference-options > button:hover {
+  background: color-mix(in srgb, var(--muted) 75%, transparent);
+}
+.astra-reference-options > button[data-selected="true"] {
+  border-color: color-mix(in srgb, var(--primary) 28%, var(--border));
+  background: color-mix(in srgb, var(--primary) 10%, transparent);
+}
+.astra-reference-category {
+  align-items: center;
+  font-size: 12px;
+}
+.astra-reference-category > span:nth-child(2) {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+  flex: 1;
+}
+.astra-reference-category small {
+  color: var(--muted-foreground);
+  font: 10px monospace;
+}
+.astra-reference-category > svg {
+  color: var(--muted-foreground);
+}
+.astra-reference-kind {
+  display: grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 6px;
+  color: var(--primary);
+  background: color-mix(in srgb, var(--primary) 7%, transparent);
+}
+.astra-reference-record {
+  flex-direction: column;
+}
+.astra-reference-record-heading {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  width: 100%;
+  min-width: 0;
+}
+.astra-reference-record-heading > strong {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 12px;
+  font-weight: 500;
+}
+.astra-reference-record code {
+  flex-shrink: 0;
+  color: var(--muted-foreground);
+  font: 10px monospace;
+}
+.astra-reference-badge {
+  flex-shrink: 0;
+  padding: 2px 5px;
+  border: 1px solid color-mix(in srgb, var(--primary) 22%, var(--border));
+  border-radius: 5px;
+  color: var(--primary);
+  font-size: 9px;
+}
+.astra-reference-record > small {
+  display: block;
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--muted-foreground);
+  font-size: 10px;
+}
+.astra-reference-message {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 18px 10px;
+  color: var(--muted-foreground);
+  font-size: 12px;
+  line-height: 1.6;
+}
+.astra-reference-message > svg {
+  flex-shrink: 0;
+  color: var(--primary);
+}
+.astra-reference-failure {
+  color: var(--destructive);
+}
+.astra-reference-page {
+  padding: 5px 13px 10px;
+  font-size: 10px;
+  color: var(--muted-foreground);
+}
+.astra-reference-page button {
+  text-align: left;
+  cursor: pointer;
+  color: var(--primary);
+}
+.astra-reference-page button:hover {
+  text-decoration: underline;
+}
+.astra-reference-menu > footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 8px 12px;
+  border-top: 1px solid var(--border);
+  color: var(--muted-foreground);
+  font-size: 9px;
+}
+.astra-reference-selection {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 5px;
+  padding: 6px 2px 0;
+}
+.astra-reference-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  max-width: 100%;
+  padding: 3px 6px;
+  border: 1px solid color-mix(in srgb, var(--primary) 25%, var(--border));
+  border-radius: 6px;
+  background: color-mix(in srgb, var(--primary) 7%, transparent);
+  color: var(--foreground);
+  font-size: 10px;
+}
+.astra-reference-chip > span {
+  max-width: 16rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.astra-reference-chip button {
+  display: grid;
+  place-items: center;
+  border-radius: 3px;
+  color: var(--muted-foreground);
+  cursor: pointer;
+}
+.astra-reference-chip button:hover {
+  color: var(--foreground);
+}
+.astra-reference-chip button:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+.astra-reference-authority {
+  font-size: 9px;
+  color: var(--muted-foreground);
+}
+.astra-reference-field button:focus-visible,
+.astra-reference-menu button:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+.astra-reference-spin {
+  animation: astra-reference-searching 1s linear infinite;
+}
+@keyframes astra-reference-searching {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .astra-reference-menu,
+  .astra-reference-spin {
+    animation: none;
+    transition: none;
+  }
+}

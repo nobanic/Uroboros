@@ -1,0 +1,42 @@
+rules:
+  - id: uroboros.go.query-to-shell
+    languages: [go]
+    mode: taint
+    pattern-sources:
+      - pattern: $REQ.URL.Query().Get(...)
+      - pattern: $REQ.FormValue(...)
+    pattern-sinks:
+      - pattern: exec.Command("sh", "-c", $INPUT, ...)
+      - pattern: exec.Command("bash", "-c", $INPUT, ...)
+    message: Request input reaches a shell command. Review reachability, validation and deployment before proposing a controlled runtime test.
+    severity: WARNING
+    metadata:
+      category: security
+      cwe: CWE-78
+  - id: uroboros.javascript.request-to-exec
+    languages: [javascript, typescript]
+    mode: taint
+    pattern-sources:
+      - pattern: $REQ.query
+      - pattern: $REQ.body
+      - pattern: $REQ.params
+    pattern-sinks:
+      - pattern: child_process.exec($INPUT, ...)
+      - pattern: exec($INPUT, ...)
+    message: Request data reaches exec. Static candidate only; inspect the route and validate with a controlled runtime experiment.
+    severity: WARNING
+    metadata:
+      category: security
+      cwe: CWE-78
+  - id: uroboros.python.object-response-review
+    languages: [python]
+    patterns:
+      - pattern: $REPLY(200, $OBJECT)
+      - metavariable-regex:
+          metavariable: $OBJECT
+          regex: ^(note|record|object|document|item)$
+    message: Object response review anchor. Inspect surrounding ownership/tenant checks and actual access policy; this pattern does not establish a missing authorization check.
+    severity: INFO
+    metadata:
+      category: review
+      hypothesis: Review object access and deployment-dependent authorization.

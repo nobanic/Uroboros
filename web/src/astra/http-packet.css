@@ -1,0 +1,127 @@
+.astra-packet {
+  --p-ink: var(--a-ink);
+  --p-muted: var(--a-muted);
+  --p-accent: var(--a-accent);
+  --p-green: #1a7269;
+  --p-number: #956022;
+  --p-literal: #704dc0;
+  color: var(--p-ink);
+  background: var(--a-input);
+  border: 1px solid var(--a-line);
+  border-radius: 9px;
+  min-width: 0;
+  overflow: hidden;
+}
+.dark .astra-packet {
+  --p-green: #8ad9c6;
+  --p-number: #ecc491;
+  --p-literal: #c2abf1;
+}
+.astra-packet-tools {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  min-height: 36px;
+  padding: 5px 9px;
+  border-bottom: 1px solid var(--a-line);
+  background: var(--a-soft);
+  font:
+    10px var(--font-geist),
+    sans-serif;
+  color: var(--p-muted);
+}
+.astra-packet-tools > span {
+  margin-right: auto;
+}
+.astra-packet-tools button {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 7px;
+  background: transparent;
+  color: var(--p-muted);
+  border: 1px solid transparent;
+  border-radius: 5px;
+  font: inherit;
+  cursor: pointer;
+}
+.astra-packet-tools button[aria-pressed="true"],
+.astra-packet-tools button:hover {
+  color: var(--p-accent);
+  background: var(--a-selected);
+  border-color: var(--a-line);
+}
+.astra-packet-tools svg {
+  width: 12px;
+  height: 12px;
+}
+.astra-packet-code {
+  max-height: 64vh;
+  overflow: auto;
+  padding-block: 12px;
+  font:
+    11px / 1.8 var(--font-geist-mono),
+    Consolas,
+    monospace;
+  tab-size: 4;
+  scrollbar-width: thin;
+  scrollbar-color: var(--a-line) transparent;
+}
+.astra-packet :focus-visible {
+  outline: 2px solid var(--a-focus);
+  outline-offset: -2px;
+}
+.astra-packet-line {
+  display: grid;
+  grid-template-columns: 40px minmax(0, 1fr);
+  min-height: 1.8em;
+}
+.astra-packet-line::before {
+  content: attr(data-line);
+  position: sticky;
+  left: 0;
+  align-self: stretch;
+  border-right: 1px solid var(--a-line);
+  padding-right: 9px;
+  background: var(--a-input);
+  color: var(--p-muted);
+  font-size: 9px;
+  text-align: right;
+  user-select: none;
+}
+.astra-packet-line code {
+  display: block;
+  min-width: 0;
+  min-height: 1.8em;
+  padding-inline: 10px;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+.astra-packet[data-wrap="false"] .astra-packet-line code {
+  white-space: pre;
+  overflow-wrap: normal;
+  width: max-content;
+}
+.astra-packet [data-tone="protocol"] {
+  color: var(--p-muted);
+}
+.astra-packet [data-tone="method"],
+.astra-packet [data-tone="header"],
+.astra-packet [data-tone="markup"] {
+  color: var(--p-accent);
+}
+.astra-packet [data-tone="path"],
+.astra-packet [data-tone="string"] {
+  color: var(--p-green);
+}
+.astra-packet [data-tone="number"] {
+  color: var(--p-number);
+}
+.astra-packet [data-tone="literal"] {
+  color: var(--p-literal);
+}
+.astra-packet > p {
+  color: var(--a-danger);
+  padding: 8px 12px;
+  font-size: 11px;
+}

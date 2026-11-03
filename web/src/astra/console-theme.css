@@ -1,0 +1,389 @@
+/* Shared only by the replacement console. The existing preference store owns
+   light/dark resolution; these tokens also reach native dialog top layers. */
+:root {
+  --a-ink: #18283e;
+  --a-muted: #61738d;
+  --a-line: #dce5f0;
+  --a-paper: #ffffff;
+  --a-soft: #f3f7fc;
+  --a-bg: #eef3fa;
+  --a-input: #ffffff;
+  --a-accent: #285fcd;
+  --a-action: #336ee8;
+  --a-action-hover: #235bd0;
+  --a-selected: #e7efff;
+  --a-focus: #638ff0;
+  --a-success: #247558;
+  --a-success-bg: #e7f4ed;
+  --a-danger: #b13f50;
+  --a-danger-bg: #fff0f1;
+  --a-shadow: 0 6px 24px #19345208;
+  --a-dialog-shadow: -12px 0 64px #06132626;
+  --a-scheme: light;
+}
+.dark {
+  --a-ink: #e0e9f8;
+  --a-muted: #96a8c3;
+  --a-line: #263650;
+  --a-paper: #111d30;
+  --a-soft: #142239;
+  --a-bg: #0a1220;
+  --a-input: #0c1728;
+  --a-accent: #8ab3ff;
+  --a-action: #396fe0;
+  --a-action-hover: #4c80ed;
+  --a-selected: #1b3458;
+  --a-focus: #7ba8ff;
+  --a-success: #78d6b3;
+  --a-success-bg: #14352e;
+  --a-danger: #ffabb5;
+  --a-danger-bg: #3b2231;
+  --a-shadow: 0 6px 24px #0308111f;
+  --a-dialog-shadow: -12px 0 64px #03081166;
+  --a-scheme: dark;
+}
+:is(.astra-workspace, .astra-model-workspace, .astra-editor-panel, .astra-evidence-surface) {
+  color: var(--a-ink);
+  color-scheme: var(--a-scheme);
+  -webkit-font-smoothing: antialiased;
+}
+.astra-model-workspace {
+  font-size: 13px;
+  line-height: 1.55;
+  min-width: 0;
+}
+.astra-model-workspace :is(input:not([type="checkbox"]):not([type="radio"]), select, textarea) {
+  width: 100%;
+  min-width: 0;
+  border: 1px solid var(--a-line);
+  border-radius: 8px;
+  background: var(--a-input);
+  color: var(--a-ink);
+  font: inherit;
+  padding: 9px 12px;
+}
+.astra-model-workspace :is(input[type="file"])::file-selector-button {
+  border: 0;
+  border-radius: 4px;
+  background: var(--a-selected);
+  color: var(--a-accent);
+  padding: 3px 8px;
+  margin-right: 10px;
+  cursor: pointer;
+}
+:is(.astra-workspace, .astra-model-workspace) input:is([type="checkbox"], [type="radio"]) {
+  width: 16px;
+  height: 16px;
+  flex: 0 0 16px;
+  padding: 0;
+  accent-color: var(--a-action);
+}
+:is(.astra-workspace, .astra-model-workspace, .astra-evidence-surface) :focus-visible {
+  outline: 2px solid var(--a-focus);
+  outline-offset: 3px;
+}
+.astra-model-workspace :is(input, textarea)::placeholder {
+  color: var(--a-muted);
+  opacity: 0.8;
+}
+.astra-model-workspace a {
+  color: var(--a-accent);
+  text-underline-offset: 3px;
+}
+.astra-model-workspace a:hover {
+  text-decoration: underline;
+}
+.astra-model-workspace button {
+  transition:
+    background-color 140ms,
+    border-color 140ms,
+    color 140ms,
+    box-shadow 140ms;
+}
+.astra-model-workspace > .astra-model-header h1 {
+  font-size: clamp(25px, 2.2vw, 32px);
+  letter-spacing: -0.035em;
+  line-height: 1.2;
+  margin-block: 7px 10px;
+}
+.astra-model-header > div:last-child {
+  flex-wrap: wrap;
+}
+.astra-model-workspace > .astra-model-header {
+  align-items: flex-start;
+  margin-bottom: 28px;
+}
+.astra-model-workspace > .astra-model-header > div:first-child {
+  min-width: 0;
+}
+.astra-model-workspace > .astra-model-header > div:last-child {
+  flex-shrink: 0;
+  max-width: 52%;
+  justify-content: flex-end;
+}
+.astra-model-workspace > .astra-model-header p {
+  max-width: 66ch;
+  font-size: 13px;
+}
+.astra-model-workspace > .astra-model-header small {
+  font-size: 10px;
+  font-weight: 650;
+  letter-spacing: 0.14em;
+}
+.astra-model-workspace button.is-primary {
+  background: var(--a-action);
+  border-color: var(--a-action);
+  color: white;
+  box-shadow: 0 2px 6px #183f9526;
+}
+.astra-model-workspace button.is-primary:hover {
+  background: var(--a-action-hover);
+  border-color: var(--a-action-hover);
+}
+.astra-model-section,
+.astra-model-cards > article {
+  box-shadow: var(--a-shadow);
+}
+.astra-model-cards > article {
+  background: var(--a-paper);
+}
+.astra-model-cards dl > div {
+  padding-block: 6px;
+  border-bottom: 1px solid var(--a-line);
+}
+.astra-model-cards header > button {
+  color: var(--a-ink);
+}
+.astra-editor-panel {
+  color: var(--a-ink);
+  box-shadow: var(--a-dialog-shadow);
+}
+.astra-editor-panel > header small {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--a-muted);
+}
+.astra-editor-panel > header > button {
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  font-size: 22px;
+}
+.astra-operations .astra-operation-pulse button {
+  border-radius: 10px;
+  background: var(--a-paper);
+}
+.astra-operation-pulse strong {
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.03em;
+  margin-bottom: 5px;
+}
+.astra-operations .astra-operation-pulse [aria-pressed="true"] {
+  outline: none;
+  box-shadow: inset 0 2px var(--a-action);
+  border-color: var(--a-focus);
+}
+.astra-operation-board > section {
+  background: var(--a-soft);
+  border: 1px solid var(--a-line);
+}
+.astra-model-workspace .astra-operation-title {
+  font-size: 15px;
+  color: var(--a-ink);
+  margin-block: 5px;
+}
+.astra-operation-table th {
+  color: var(--a-muted);
+  font-weight: 550;
+  font-size: 11px;
+}
+.astra-finding-workspace .astra-finding-stats {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 1px;
+  background: var(--a-line);
+  border: 1px solid var(--a-line);
+  border-radius: 12px;
+  overflow: hidden;
+  margin-block: 24px;
+  box-shadow: var(--a-shadow);
+}
+.astra-finding-workspace .astra-finding-stats > div {
+  padding: 17px 20px;
+  background: var(--a-paper);
+}
+.astra-finding-workspace .astra-finding-stats dt {
+  font-size: 11px;
+  color: var(--a-muted);
+  opacity: 1;
+}
+.astra-finding-workspace .astra-finding-stats dd {
+  font-variant-numeric: tabular-nums;
+  font-size: 27px;
+  letter-spacing: -0.04em;
+}
+.astra-finding-workspace .astra-finding-filters {
+  padding: 18px;
+  border: 1px solid var(--a-line);
+  border-radius: 12px;
+  background: var(--a-paper);
+}
+.astra-finding-workspace .astra-finding-filters label {
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--a-muted);
+  flex: 1 1 145px;
+}
+.astra-finding-workspace .astra-finding-filters label:first-child {
+  flex: 2 1 270px;
+}
+.astra-finding-workspace .astra-finding-records > article,
+.astra-finding-workspace .astra-finding-lanes article {
+  background: var(--a-paper);
+  box-shadow: var(--a-shadow);
+}
+.astra-finding-workspace .astra-finding-records article header > .astra-row-link,
+.astra-finding-workspace .astra-finding-lanes article header > .astra-row-link {
+  font-size: 16px;
+  background: transparent;
+  color: var(--a-ink);
+  border: 0;
+  padding: 0;
+  max-width: 100%;
+  white-space: normal;
+}
+.astra-finding-workspace .astra-finding-records article header > .astra-row-link:hover,
+.astra-finding-workspace .astra-finding-lanes article header > .astra-row-link:hover {
+  color: var(--a-accent);
+}
+.astra-finding-workspace .astra-finding-records article > p,
+.astra-finding-workspace .astra-finding-lanes article > p {
+  color: var(--a-muted);
+  margin-top: 10px;
+}
+.astra-finding-workspace .astra-finding-context {
+  color: var(--a-muted);
+  font-size: 11px;
+}
+.astra-finding-workspace .astra-finding-context code,
+.astra-finding-workspace .astra-finding-records article header code {
+  color: var(--a-muted);
+  font-size: 11px;
+}
+.astra-finding-workspace .astra-finding-actions {
+  border-top: 1px solid var(--a-line);
+  padding-top: 12px;
+  gap: 7px;
+}
+.astra-finding-workspace .astra-finding-actions a {
+  margin-right: auto;
+  font-size: 12px;
+}
+.astra-model-workspace .astra-finding-actions button {
+  padding: 5px 9px;
+  font-size: 11px;
+  background: var(--a-soft);
+}
+.astra-model-workspace .astra-finding-disposition {
+  color: var(--a-muted);
+  font-size: 11px;
+}
+.astra-finding-workspace .astra-finding-disposition select {
+  width: auto;
+  min-width: 160px;
+}
+.astra-finding-workspace .astra-finding-details {
+  color: var(--a-ink);
+}
+.astra-finding-workspace .astra-finding-details h3 {
+  margin-bottom: 10px;
+}
+.astra-finding-workspace .astra-finding-details pre {
+  background: var(--a-soft);
+  border-radius: 8px;
+  padding: 14px;
+}
+@keyframes astra-enter {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes astra-drawer {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+@keyframes astra-backdrop {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+.astra-content > *,
+.uro-module-stage > .astra-model-workspace {
+  animation: astra-enter 180ms ease-out;
+}
+.astra-editor-panel[open] {
+  animation: astra-drawer 200ms ease-out;
+}
+.astra-editor-panel::backdrop {
+  animation: astra-backdrop 180ms ease-out;
+}
+@media (max-width: 1050px) {
+  .astra-model-workspace > .astra-model-header {
+    flex-direction: column;
+  }
+  .astra-model-workspace > .astra-model-header > div:last-child {
+    max-width: 100%;
+    justify-content: flex-start;
+  }
+}
+@media (max-width: 600px) {
+  .astra-finding-workspace .astra-finding-stats {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  .astra-finding-workspace .astra-finding-stats > div {
+    padding: 13px 16px;
+  }
+  .astra-finding-workspace .astra-finding-filters {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    padding: 14px;
+  }
+  .astra-finding-workspace .astra-finding-filters label,
+  .astra-finding-workspace .astra-finding-filters label:first-child {
+    min-width: 0;
+  }
+  .astra-finding-workspace .astra-finding-filters label:first-child,
+  .astra-finding-workspace .astra-finding-filters label:last-child {
+    grid-column: 1 / -1;
+  }
+  .astra-finding-workspace .astra-finding-actions a {
+    flex-basis: 100%;
+    margin-bottom: 5px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .astra-content > *,
+  .uro-module-stage > .astra-model-workspace,
+  .astra-editor-panel[open],
+  .astra-editor-panel::backdrop {
+    animation: none;
+  }
+  :is(.astra-workspace, .astra-model-workspace, .astra-evidence-surface) * {
+    transition-duration: 0s !important;
+  }
+}

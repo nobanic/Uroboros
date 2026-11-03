@@ -1,0 +1,3 @@
+# Exact CPython 3.12 / linux-amd64 wheel selected for the B0 standard-v1
+# projection. The build is offline and must not resolve any other artifact.
+lief==1.0.0 --hash=sha256:41ff868f5328fc8e5237a9e1f4718590e0ee9180c1422b3e4948b7116ba4517c
