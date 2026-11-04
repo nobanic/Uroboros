@@ -134,36 +134,15 @@ GitHub-generated source ZIP includes them, so a fresh Docker host does not
 need the two binary-triage images preloaded or downloaded separately. The
 normal first source build still needs internet access for its pinned dependencies.
 
-## Fresh state and persistence
+## Data persistence
 
-This package contains no operator database, default account, password, JWT
-signing key, LLM key or imported task history.
+Uroboros stores operations, settings and credentials outside the source tree.
+The repository contains no personal data or API keys.
 
-The launchers generate internal Docker credentials outside the source tree:
+Docker volumes preserve installation data across restarts and updates. Removing
+images or downloading the source again does not reset existing data.
 
-- Windows: `%LOCALAPPDATA%\Astra\runtime.env`;
-- Linux: `${XDG_STATE_HOME:-$HOME/.local/state}/astra/runtime.env`.
-
-Those established storage names are retained for compatibility. They do not
-change the console name. An explicit `ASTRA_RUNTIME_DIR` can select a different
-private state directory before installation.
-
-The default Compose project is `uroboros`; the default UI port is `8805`. All
-persistent application, PostgreSQL, sidecar, binary artifact and signing-key
-data are kept in named volumes. The console is published only on loopback.
-
-Stopping the stack preserves its named volumes. A source update or Git rollback
-does not roll back persistent data. Back up affected data before a migration,
-reset or configuration experiment. Do not delete volumes as a startup fix.
-
-This package does not import data from an existing installation. When operating
-an existing customized project, retain its exact project name, volume names,
-private runtime file, port and overrides.
-
-Changing the project name creates a separate set of containers, networks and
-volumes. An existing installation using the older `astra` project needs a
-data-preserving migration before starting under the new name. Keep its original
-volumes and credentials until the migrated installation has been verified.
+See the [installation guide](clean/README.md) for storage locations and setup details.
 
 ## First operation
 
